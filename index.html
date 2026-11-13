@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peach Galaxy | Nguyễn Anh Tuấn</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --pink:#ffb6c9;
+  --peach:#ffc6b5;
+  --deep:#7c315e;
+  --cream:#fff4ee;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  font-family:'Be Vietnam Pro',sans-serif;
+  color:#713654;
+  background:#f9b9d0;
+}
+
+button{font-family:inherit;cursor:pointer}
+
+/* NỀN VŨ TRỤ */
+#universe{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  background:
+    radial-gradient(ellipse at 20% 20%,#ffe1e9 0%,transparent 35%),
+    radial-gradient(ellipse at 80% 30%,#e8b8ff 0%,transparent 40%),
+    radial-gradient(ellipse at 50% 90%,#ffb6a9 0%,transparent 45%),
+    linear-gradient(135deg,#f8a9ca,#d9a7ec,#ffc4c0);
+}
+
+#stars{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.star{
+  position:absolute;
+  color:white;
+  animation:twinkle 2s infinite alternate;
+  text-shadow:0 0 12px white;
+}
+
+@keyframes twinkle{
+  from{opacity:.2;transform:scale(.7)}
+  to{opacity:1;transform:scale(1.3)}
+}
+
+.bubble{
+  position:fixed;
+  bottom:-100px;
+  border:1px solid rgba(255,255,255,.65);
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.8),rgba(255,255,255,.08) 55%,rgba(255,180,220,.2));
+  box-shadow:inset -5px -5px 15px rgba(255,255,255,.2),0 0 18px rgba(255,255,255,.25);
+  animation:floatBubble linear infinite;
+  z-index:-1;
+}
+
+@keyframes floatBubble{
+  0%{transform:translateY(0) translateX(0);opacity:0}
+  10%{opacity:.8}
+  90%{opacity:.7}
+  100%{transform:translateY(-120vh) translateX(45px);opacity:0}
+}
+
+/* MÀN HÌNH MỞ THIỆP */
+#intro{
+  position:fixed;
+  inset:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 50% 20%,#ffe7ed,transparent 40%),
+    linear-gradient(145deg,#f8a8c5,#e9a9d8,#ffbcae);
+  transition:opacity 1.2s,visibility 1.2s;
+}
+
+#intro.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.intro-content{
+  text-align:center;
+  max-width:500px;
+  width:100%;
+}
+
+.intro-small{
+  letter-spacing:5px;
+  font-size:11px;
+  color:#9a4c75;
+  margin-bottom:18px;
+}
+
+.intro-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(30px,8vw,55px);
+  color:#873e68;
+  line-height:1.2;
+  margin-bottom:10px;
+}
+
+.intro-sub{
+  font-size:12px;
+  letter-spacing:2px;
+  margin-bottom:35px;
+  color:#9c5378;
+}
+
+.envelope{
+  width:min(330px,85vw);
+  height:215px;
+  margin:0 auto 30px;
+  position:relative;
+  perspective:1000px;
+  filter:drop-shadow(0 18px 22px rgba(132,54,96,.2));
+}
+
+.envelope-back{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#fff0e9,#ffc5d8);
+  border-radius:10px;
+}
+
+.envelope-letter{
+  position:absolute;
+  width:85%;
+  height:85%;
+  left:7.5%;
+  bottom:5%;
+  background:#fffaf7;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  transition:transform 1s;
+  z-index:1;
+}
+
+.envelope-letter span{
+  font-family:'Playfair Display',serif;
+  font-size:24px;
+  color:#b45d83;
+}
+
+.envelope-front{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(145deg,#ffb5c9,#f48eaf);
+  clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
+  border-radius:10px;
+  z-index:3;
+}
+
+.envelope-flap{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#ffe1dc,#ffb4cb);
+  clip-path:polygon(0 0,100% 0,50% 57%);
+  transform-origin:top;
+  transition:transform .9s;
+  z-index:4;
+}
+
+.envelope.open .envelope-flap{
+  transform:rotateX(180deg);
+  z-index:0;
+}
+
+.envelope.open .envelope-letter{
+  transform:translateY(-105px);
+}
+
+.seal{
+  position:absolute;
+  z-index:5;
+  top:95px;
+  left:50%;
+  transform:translateX(-50%);
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:radial-gradient(circle,#ffdf8d,#f18b62);
+  display:grid;
+  place-items:center;
+  font-size:26px;
+  box-shadow:0 0 20px rgba(255,255,255,.7);
+  transition:opacity .4s;
+}
+
+.envelope.open .seal{opacity:0}
+
+.open-btn{
+  border:1px solid rgba(255,255,255,.8);
+  color:white;
+  background:linear-gradient(120deg,#bd638e,#ed8ba8);
+  padding:15px 30px;
+  border-radius:50px;
+  letter-spacing:2px;
+  font-size:11px;
+  box-shadow:0 8px 25px rgba(151,65,108,.25);
+  transition:.3s;
+}
+
+.open-btn:hover{transform:translateY(-4px);box-shadow:0 12px 30px #c978a6}
+
+/* STICKER */
+.sticker{
+  position:fixed;
+  z-index:10;
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  border:5px solid white;
+  box-shadow:0 8px 25px rgba(133,56,99,.25);
+  animation:stickerFloat 3s ease-in-out infinite;
+}
+
+.sticker.one{top:12%;left:5%;transform:rotate(-12deg)}
+.sticker.two{right:5%;bottom:15%;width:75px;height:75px;animation-delay:.8s}
+.sticker.three{top:48%;right:8%;width:65px;height:65px;animation-delay:1.4s}
+
+@keyframes stickerFloat{
+  0%,100%{translate:0 0;rotate:-8deg}
+  50%{translate:0 -17px;rotate:9deg}
+}
+
+/* NỘI DUNG CHÍNH */
+#main{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity 1.5s,transform 1.5s;
+  pointer-events:none;
+  padding:45px 18px 70px;
+}
+
+#main.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+.music{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:15;
+  border:1px solid rgba(255,255,255,.8);
+  background:rgba(255,255,255,.35);
+  backdrop-filter:blur(12px);
+  padding:10px 16px;
+  border-radius:30px;
+  color:#873e68;
+  font-size:12px;
+}
+
+.container{
+  width:100%;
+  max-width:850px;
+  margin:auto;
+}
+
+.hero{
+  text-align:center;
+  padding:55px 15px 35px;
+}
+
+.eyebrow{
+  font-size:11px;
+  letter-spacing:5px;
+  color:#945174;
+  margin-bottom:20px;
+}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,8vw,76px);
+  line-height:1.1;
+  color:#873e68;
+  text-shadow:0 4px 20px rgba(255,255,255,.65);
+}
+
+.hero h1 em{
+  color:#fff8f2;
+  font-weight:500;
+}
+
+.hero-desc{
+  margin-top:20px;
+  font-size:13px;
+  letter-spacing:2px;
+  color:#8e4d70;
+}
+
+.peach-line{
+  width:90px;
+  height:2px;
+  margin:28px auto;
+  background:linear-gradient(90deg,transparent,#fff,#e77fa9,transparent);
+}
+
+.card{
+  position:relative;
+  padding:clamp(25px,6vw,55px);
+  margin:25px auto;
+  border:1px solid rgba(255,255,255,.75);
+  border-radius:30px;
+  background:rgba(255,245,248,.48);
+  backdrop-filter:blur(18px);
+  box-shadow:0 20px 60px rgba(124,49,94,.13);
+  overflow:hidden;
+}
+
+.card:before{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border:1px solid rgba(255,255,255,.4);
+  border-radius:23px;
+  pointer-events:none;
+}
+
+.section-label{
+  text-align:center;
+  font-size:10px;
+  letter-spacing:4px;
+  color:#a65b80;
+  margin-bottom:17px;
+}
+
+.invitation-title{
+  font-family:'Playfair Display',serif;
+  text-align:center;
+  font-size:clamp(28px,6vw,43px);
+  color:#873e68;
+  margin-bottom:25px;
+}
+
+.message{
+  max-width:600px;
+  margin:auto;
+  text-align:center;
+  line-height:2.1;
+  font-size:14px;
+  color:#75435f;
+}
+
+.message strong{color:#a34776}
+
+.details{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+  margin-top:32px;
+}
+
+.detail{
+  background:rgba(255,255,255,.48);
+  border:1px solid rgba(255,255,255,.7);
+  padding:20px 10px;
+  border-radius:18px;
+  text-align:center;
+}
+
+.detail .icon{font-size:25px;margin-bottom:8px}
+.detail small{display:block;font-size:10px;letter-spacing:2px;color:#a45d7f;margin-bottom:7px}
+.detail strong{font-size:13px;color:#783c60}
+
+.cake-area{
+  text-align:center;
+  padding:20px 0 5px;
+}
+
+.cake{
+  font-size:75px;
+  display:inline-block;
+  animation:cakeFloat 3s ease-in-out infinite;
+  filter:drop-shadow(0 10px 10px rgba(166,73,114,.2));
+}
+
+@keyframes cakeFloat{
+  0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%{transform:translateY(-12px) rotate(3deg)}
+}
+
+.pepper{
+  display:inline-block;
+  font-size:37px;
+  animation:pepperSpin 4s ease-in-out infinite;
+}
+
+@keyframes pepperSpin{
+  0%,100%{transform:rotate(-15deg)}
+  50%{transform:rotate(15deg) scale(1.12)}
+}
+
+.closing{
+  text-align:center;
+  padding:40px 10px 15px;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(23px,5vw,34px);
+  color:#fff8f4;
+  text-shadow:0 2px 15px rgba(135,62,104,.4);
+}
+
+.footer{
+  text-align:center;
+  padding:25px 10px;
+  font-size:10px;
+  letter-spacing:3px;
+  color:#8e4c70;
+}
+
+@media(max-width:560px){
+  .details{grid-template-columns:1fr 1fr}
+  .sticker{width:65px;height:65px}
+  .sticker.two{width:58px;height:58px}
+  .sticker.three{width:52px;height:52px}
+  #main{padding-top:55px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+
+<body>
+
+<div id="universe"></div>
+<div id="stars"></div>
+
+<!-- NHẠC NỀN: ĐẶT FILE MP3 CÙNG THƯ MỤC VỚI index.html -->
+<audio id="bgMusic" loop>
+  <source src="giac-mo-tinh-co.mp3" type="audio/mpeg">
+</audio>
+
+<!-- MÀN HÌNH PHONG BÌ -->
+<section id="intro">
+  <div class="intro-content">
+    <div class="intro-small">A SPECIAL INVITATION</div>
+    <h1 class="intro-title">A little dream<br>in pink universe</h1>
+    <p class="intro-sub">YOU ARE INVITED TO MY YEARBOOK</p>
+
+    <div class="envelope" id="envelope">
+      <div class="envelope-back"></div>
+      <div class="envelope-letter">
+        <span>For You ♡</span>
+        <small style="margin-top:8px;letter-spacing:2px">20 · 12 · 2026</small>
+      </div>
+      <div class="envelope-front"></div>
+      <div class="envelope-flap"></div>
+      <div class="seal">🌶️</div>
+    </div>
+
+    <button class="open-btn" id="openBtn">✦ CHẠM ĐỂ MỞ THIỆP ✦</button>
+    <p style="font-size:11px;margin-top:20px;color:#965477">
+      A tiny universe made with love ♡
+    </p>
+  </div>
+</section>
+
+<!-- STICKER KHUÔN MẶT: THAY ANH-TUAN.PNG BẰNG ẢNH CỦA MÀY -->
+<img class="sticker one" src="anh-tuan.png" alt="Sticker Anh Tuấn">
+<img class="sticker two" src="anh-tuan.png" alt="Sticker Anh Tuấn">
+<img class="sticker three" src="anh-tuan.png" alt="Sticker Anh Tuấn">
+
+<button class="music" id="musicBtn">♫ Bật nhạc</button>
+
+<!-- TRANG KỶ YẾU -->
+<main id="main">
+  <div class="container">
+
+    <header class="hero">
+      <div class="eyebrow">THPT CHƯƠNG MỸ A · CLASS 12A4</div>
+      <h1>MEMORABLE<br><em>YEARBOOK</em></h1>
+      <div class="peach-line"></div>
+      <p class="hero-desc">ONE DAY · A THOUSAND MEMORIES</p>
+      <div style="margin-top:25px;font-size:13px;color:#fff">
+        ✧ A chapter of our youth ✧
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="section-label">A SPECIAL DAY</div>
+      <h2 class="invitation-title">Thư mời kỷ yếu</h2>
+
+      <div class="message">
+        Có những khoảnh khắc dù thời gian trôi qua,
+        chúng ta vẫn muốn giữ lại thật lâu.
+
+        <br><br>
+
+        Thanh xuân dưới mái trường <strong>THPT Chương Mỹ A</strong>
+        đã tạo nên biết bao kỷ niệm đáng nhớ.
+
+        <br><br>
+
+        Và tao muốn mày cùng tao lưu giữ một trong những
+        khoảnh khắc đặc biệt ấy.
+
+        <br><br>
+
+        Trân trọng mời mày đến tham dự ngày kỷ yếu
+        của <strong>Nguyễn Anh Tuấn</strong>!
+      </div>
+
+      <div class="cake-area">
+        <span class="pepper">🌶️</span>
+        <span class="cake">🎂</span>
+        <span class="pepper">🌶️</span>
+      </div>
+
+      <div class="details">
+        <div class="detail">
+          <div class="icon">👑</div>
+          <small>CHỦ NHÂN</small>
+          <strong>Nguyễn Anh Tuấn</strong>
+        </div>
+
+        <div class="detail">
+          <div class="icon">🎂</div>
+          <small>NGÀY SINH</small>
+          <strong>31 · 12 · 2009</strong>
+        </div>
+
+        <div class="detail">
+          <div class="icon">🗓️</div>
+          <small>NGÀY KỶ YẾU</small>
+          <strong>20 · 12 · 2026</strong>
+        </div>
+
+        <div class="detail">
+          <div class="icon">🏫</div>
+          <small>ĐỊA ĐIỂM</small>
+          <strong>THPT Chương Mỹ A</strong>
+        </div>
+
+        <div class="detail">
+          <div class="icon">🎓</div>
+          <small>TẬP THỂ</small>
+          <strong>Lớp 12A4</strong>
+        </div>
+
+        <div class="detail">
+          <div class="icon">⏰</div>
+          <small>THỜI GIAN</small>
+          <strong>Sẽ được thông báo</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-label">A LITTLE MESSAGE</div>
+      <h2 class="invitation-title">Gửi đến thanh xuân ♡</h2>
+
+      <div class="message">
+        Mong rằng khi nhìn lại những bức ảnh,
+        chúng ta sẽ nhớ về những ngày tháng vô tư,
+        những tiếng cười trong lớp học và cả những
+        điều bình dị đã làm nên tuổi học trò.
+
+        <br><br>
+
+        Cảm ơn vì đã xuất hiện trong một phần thanh xuân
+        của nhau. Hẹn gặp mày trong ngày đặc biệt này!
+      </div>
+
+      <div style="text-align:center;margin-top:28px;font-size:30px">
+        🍑 🫧 ✨ 🌷
+      </div>
+    </section>
+
+    <div class="closing">
+      See you in my little universe ♡
+    </div>
+
+    <div class="footer">
+      MADE WITH LOVE · NGUYỄN ANH TUẤN · 2026
+    </div>
+
+  </div>
+</main>
+
+<script>
+// TẠO SAO LẤP LÁNH
+const stars = document.getElementById("stars");
+
+for(let i=0;i<75;i++){
+  const star=document.createElement("span");
+  star.className="star";
+  star.textContent=Math.random()>.5?"✦":"·";
+  star.style.left=Math.random()*100+"%";
+  star.style.top=Math.random()*100+"%";
+  star.style.fontSize=(8+Math.random()*15)+"px";
+  star.style.animationDelay=Math.random()*3+"s";
+  stars.appendChild(star);
+}
+
+// TẠO BONG BÓNG
+for(let i=0;i<17;i++){
+  const bubble=document.createElement("div");
+  bubble.className="bubble";
+  const size=15+Math.random()*55;
+  bubble.style.width=size+"px";
+  bubble.style.height=size+"px";
+  bubble.style.left=Math.random()*100+"%";
+  bubble.style.animationDuration=(9+Math.random()*13)+"s";
+  bubble.style.animationDelay=(-Math.random()*18)+"s";
+  document.body.appendChild(bubble);
+}
+
+// MỞ THIỆP
+const envelope=document.getElementById("envelope");
+const openBtn=document.getElementById("openBtn");
+const intro=document.getElementById("intro");
+const main=document.getElementById("main");
+const music=document.getElementById("bgMusic");
+const musicBtn=document.getElementById("musicBtn");
+
+let opened=false;
+let playing=false;
+
+openBtn.addEventListener("click",()=>{
+  if(opened)return;
+  opened=true;
+
+  envelope.classList.add("open");
+  openBtn.textContent="✦ ĐANG MỞ THIỆP ✦";
+
+  music.play().then(()=>{
+    playing=true;
+    musicBtn.textContent="♫ Tắt nhạc";
+  }).catch(()=>{
+    playing=false;
+    musicBtn.textContent="♫ Bật nhạc";
+  });
+
+  setTimeout(()=>{
+    intro.classList.add("hide");
+    main.classList.add("show");
+  },1500);
+});
+
+// BẬT TẮT NHẠC
+musicBtn.addEventListener("click",()=>{
+  if(playing){
+    music.pause();
+    playing=false;
+    musicBtn.textContent="♫ Bật nhạc";
+  }else{
+    music.play().then(()=>{
+      playing=true;
+      musicBtn.textContent="♫ Tắt nhạc";
+    }).catch(()=>{
+      musicBtn.textContent="♫ Không phát được nhạc";
+    });
+  }
+});
+</script>
+
+</body>
+</html>
