@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ocean Sky | Yearbook 2026</title>
+<title>Ocean Sky - Yearbook 2026</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
@@ -19,41 +19,41 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     font-family: 'Montserrat', sans-serif;
-    color: #173e68;
+    color: #174c7d;
     background:
-        radial-gradient(circle at 20% 20%, #ffffff 0%, transparent 30%),
-        radial-gradient(circle at 80% 70%, #b9ddf8 0%, transparent 35%),
-        linear-gradient(135deg, #eaf7ff, #a9d4f2, #eaf7ff);
+        radial-gradient(circle at 15% 15%, #ffffff, transparent 30%),
+        radial-gradient(circle at 85% 75%, #b9def8, transparent 35%),
+        linear-gradient(135deg, #eaf7ff, #b5dcf5, #f5fbff);
 }
 
 /* =========================
-   NỀN TRANG
+   BẦU TRỜI
 ========================= */
 
 .sky {
     position: fixed;
     inset: 0;
-    pointer-events: none;
-    overflow: hidden;
     z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
 }
 
 .star {
     position: absolute;
     color: white;
-    animation: twinkle 3s infinite ease-in-out;
-    text-shadow: 0 0 12px white;
+    text-shadow: 0 0 12px white, 0 0 20px #9bd9ff;
+    animation: twinkle 3s ease-in-out infinite;
 }
 
 @keyframes twinkle {
-    0%, 100% { opacity: .25; transform: scale(.8); }
+    0%,100% { opacity: .25; transform: scale(.7); }
     50% { opacity: 1; transform: scale(1.3); }
 }
 
 .cloud {
     position: fixed;
-    width: 230px;
-    height: 65px;
+    width: 180px;
+    height: 55px;
     border-radius: 100px;
     background: #ffffff80;
     filter: blur(2px);
@@ -61,9 +61,9 @@ body {
         35px -25px 0 5px #ffffff80,
         85px -10px 0 12px #ffffff80,
         125px 0 0 3px #ffffff80;
-    opacity: .55;
-    animation: cloudMove 35s linear infinite;
+    opacity: .5;
     pointer-events: none;
+    animation: cloudMove 40s linear infinite;
 }
 
 .cloud.one {
@@ -74,7 +74,7 @@ body {
 .cloud.two {
     top: 75%;
     left: -350px;
-    animation-delay: -18s;
+    animation-delay: -20s;
     transform: scale(.7);
 }
 
@@ -95,8 +95,9 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    overflow: hidden;
     background:
-        radial-gradient(circle at 50% 40%, #5d9dcc55, transparent 45%),
+        radial-gradient(circle at 50% 40%, #5d9dcc66, transparent 45%),
         linear-gradient(145deg, #061d3b, #164b7e 55%, #8fc4e9);
     transition: opacity 1.2s ease, visibility 1.2s ease;
 }
@@ -161,7 +162,7 @@ body {
 }
 
 @keyframes envelopeFloat {
-    0%, 100% { transform: translateY(0); }
+    0%,100% { transform: translateY(0); }
     50% { transform: translateY(-12px); }
 }
 
@@ -177,7 +178,7 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(145deg, transparent 49%, #d3eafa 50%);
+    background: #d3eafa;
     clip-path: polygon(0 0, 100% 0, 50% 65%);
     z-index: 3;
 }
@@ -202,6 +203,10 @@ body {
     z-index: 5;
 }
 
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
 .seal {
     position: absolute;
     z-index: 6;
@@ -217,12 +222,7 @@ body {
     font-size: 23px;
     background: linear-gradient(135deg, #5c9bc9, #174c7c);
     box-shadow: 0 4px 15px #174c7c55;
-    transition: opacity .5s ease;
-}
-
-.envelope.open .envelope-flap {
-    transform: rotateX(180deg);
-    z-index: 1;
+    transition: opacity .5s;
 }
 
 .envelope.open .seal {
@@ -230,7 +230,7 @@ body {
 }
 
 #openBtn {
-    border: 1px solid #ffffff;
+    border: 1px solid white;
     border-radius: 50px;
     padding: 15px 35px;
     color: #164a79;
@@ -249,6 +249,11 @@ body {
     box-shadow: 0 12px 35px #9edaff88;
 }
 
+#openBtn:disabled {
+    opacity: .7;
+    cursor: default;
+}
+
 .opening-note {
     margin-top: 20px;
     color: #d8edff;
@@ -256,8 +261,24 @@ body {
     letter-spacing: 2px;
 }
 
+/* ÁNH CHỚP KHI MỞ */
+
+#openingScreen.flash::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: white;
+    pointer-events: none;
+    animation: openingFlash .8s ease-out forwards;
+}
+
+@keyframes openingFlash {
+    0% { opacity: .9; }
+    100% { opacity: 0; }
+}
+
 /* =========================
-   TRANG THIỆP SAU KHI MỞ
+   THIỆP MỜI
 ========================= */
 
 #invitation {
@@ -292,7 +313,7 @@ body.opened #invitation {
     font-size: clamp(55px, 10vw, 95px);
     color: #174c7d;
     font-weight: 400;
-    text-shadow: 0 5px 25px #ffffff;
+    text-shadow: 0 5px 25px white;
 }
 
 .invite-subtitle {
@@ -309,16 +330,14 @@ body.opened #invitation {
     background: linear-gradient(90deg, transparent, #6b9fc8, transparent);
 }
 
-/* THẺ THÔNG TIN */
-
 .invitation-card {
     position: relative;
     width: min(650px, 100%);
     margin: 35px auto;
     padding: 42px 28px;
-    border: 1px solid #ffffff;
+    border: 1px solid white;
     border-radius: 25px;
-    background: #ffffffb8;
+    background: #ffffffd9;
     backdrop-filter: blur(12px);
     box-shadow: 0 20px 60px #346b9540;
 }
@@ -418,8 +437,8 @@ body.opened #invitation {
     width: 100px;
     padding: 17px 8px;
     border-radius: 15px;
-    background: linear-gradient(145deg, #ffffff, #d8edff);
-    border: 1px solid #ffffff;
+    background: linear-gradient(145deg, white, #d8edff);
+    border: 1px solid white;
     box-shadow: 0 8px 25px #5285ac25;
 }
 
@@ -452,7 +471,7 @@ body.opened #invitation {
 
 .flower {
     position: fixed;
-    z-index: 5;
+    z-index: 8;
     width: 75px;
     height: 75px;
     pointer-events: none;
@@ -466,7 +485,7 @@ body.opened #invitation {
     left: 26px;
     top: 3px;
     border-radius: 50% 50% 45% 45%;
-    background: linear-gradient(160deg, #ffffff, #9ccdf0);
+    background: linear-gradient(160deg, white, #9ccdf0);
     transform-origin: 50% 34px;
     box-shadow: 0 2px 8px #ffffff99;
 }
@@ -505,9 +524,11 @@ body.opened #invitation {
     }
 }
 
+/* CÁNH HOA BAY */
+
 .falling-petal {
     position: fixed;
-    z-index: 6;
+    z-index: 9;
     top: -30px;
     width: 13px;
     height: 18px;
@@ -524,13 +545,159 @@ body.opened #invitation {
     }
 }
 
-/* =========================
-   ẢNH STICKER
-========================= */
+/* TUYẾT */
+
+.snowflake {
+    position: fixed;
+    z-index: 10;
+    top: -30px;
+    color: white;
+    text-shadow: 0 0 12px #8fd5ff, 0 0 20px white;
+    pointer-events: none;
+    animation: snowFall linear forwards;
+}
+
+@keyframes snowFall {
+    0% {
+        transform: translate3d(0, -5vh, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    100% {
+        transform: translate3d(var(--snow-drift), 110vh, 0) rotate(500deg);
+        opacity: 0;
+    }
+}
+
+/* PHÁO HOA */
+
+.spark {
+    position: fixed;
+    z-index: 12;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 12px 4px #a8dcff;
+    pointer-events: none;
+    animation: sparkFly 1.5s ease-out forwards;
+}
+
+@keyframes sparkFly {
+    from {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) scale(.2);
+    }
+}
+
+.firework-ring {
+    position: fixed;
+    z-index: 11;
+    width: 12px;
+    height: 12px;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #9edcff;
+    pointer-events: none;
+    animation: ringBurst 1s ease-out forwards;
+}
+
+@keyframes ringBurst {
+    to {
+        width: 150px;
+        height: 150px;
+        margin-left: -69px;
+        margin-top: -69px;
+        opacity: 0;
+    }
+}
+
+/* SAO BĂNG */
+
+.shooting-star {
+    position: fixed;
+    z-index: 10;
+    width: 130px;
+    height: 2px;
+    background: linear-gradient(90deg, white, #a5dcff, transparent);
+    box-shadow: 0 0 12px #bceaff;
+    pointer-events: none;
+    transform: rotate(-35deg);
+    animation: shooting 1.3s ease-out forwards;
+}
+
+@keyframes shooting {
+    from {
+        opacity: 1;
+        transform: translate(0, 0) rotate(-35deg);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-300px, 250px) rotate(-35deg);
+    }
+}
+
+/* BƯỚM */
+
+.butterfly {
+    position: fixed;
+    z-index: 10;
+    font-size: 30px;
+    pointer-events: none;
+    filter: drop-shadow(0 0 8px white);
+    animation: butterflyFly 9s ease-in-out forwards;
+}
+
+@keyframes butterflyFly {
+    0% {
+        transform: translate(0, 0) rotate(-15deg) scale(.6);
+        opacity: 0;
+    }
+    15% { opacity: 1; }
+    50% {
+        transform: translate(100px, -130px) rotate(20deg) scale(1.1);
+    }
+    100% {
+        transform: translate(-80px, -300px) rotate(-20deg) scale(.8);
+        opacity: 0;
+    }
+}
+
+/* ÁNH SÁNG BAY */
+
+.light-orb {
+    position: fixed;
+    z-index: 7;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle, white, #9edaff88);
+    box-shadow: 0 0 20px 8px #b9e5ff77;
+    pointer-events: none;
+    animation: orbFloat 5s ease-out forwards;
+}
+
+@keyframes orbFloat {
+    0% {
+        transform: translateY(0) scale(.3);
+        opacity: 0;
+    }
+    20% { opacity: 1; }
+    100% {
+        transform: translateY(-250px) scale(1.8);
+        opacity: 0;
+    }
+}
+
+/* STICKER ẢNH */
 
 .sticker {
     position: fixed;
-    z-index: 8;
+    z-index: 13;
     width: 85px;
     height: 85px;
     object-fit: cover;
@@ -602,30 +769,7 @@ body.opened #musicBtn {
     display: block;
 }
 
-/* PHÁO HOA NHẸ */
-
-.spark {
-    position: fixed;
-    z-index: 7;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: white;
-    box-shadow: 0 0 12px 4px #a8dcff;
-    pointer-events: none;
-    animation: sparkFly 1.3s ease-out forwards;
-}
-
-@keyframes sparkFly {
-    from {
-        opacity: 1;
-        transform: translate(0, 0) scale(1);
-    }
-    to {
-        opacity: 0;
-        transform: translate(var(--x), var(--y)) scale(.2);
-    }
-}
+/* ĐIỆN THOẠI */
 
 @media (max-width: 600px) {
     #invitation {
@@ -653,8 +797,8 @@ body.opened #musicBtn {
     }
 
     .sticker {
-        width: 60px;
-        height: 60px;
+        width: 58px;
+        height: 58px;
     }
 
     .time-box {
@@ -670,13 +814,13 @@ body.opened #musicBtn {
 
 <body>
 
-<!-- NỀN TRANG -->
+<!-- BẦU TRỜI -->
 <div class="sky" id="sky">
     <div class="cloud one"></div>
     <div class="cloud two"></div>
 </div>
 
-<!-- MÀN HÌNH ĐẦU: CHỈ CÓ PHONG BÌ -->
+<!-- MÀN HÌNH MỞ ĐẦU -->
 <section id="openingScreen">
     <div class="opening-stars" id="openingStars"></div>
 
@@ -703,7 +847,7 @@ body.opened #musicBtn {
     </div>
 </section>
 
-<!-- TRANG THIỆP: CHỈ HIỆN SAU KHI MỞ -->
+<!-- NỘI DUNG THIỆP -->
 <main id="invitation">
 
     <p class="invite-label">A BEAUTIFUL DAY · A BEAUTIFUL MEMORY</p>
@@ -717,6 +861,7 @@ body.opened #musicBtn {
     <div class="decorative-line"></div>
 
     <section class="invitation-card">
+
         <p class="card-heading">YOU ARE INVITED TO</p>
 
         <h2 class="card-main-title">The Yearbook Day</h2>
@@ -760,6 +905,7 @@ body.opened #musicBtn {
         <p class="countdown-title">Đếm ngược đến ngày gặp nhau</p>
 
         <div class="countdown">
+
             <div class="time-box">
                 <span class="time-number" id="days">000</span>
                 <span class="time-label">NGÀY</span>
@@ -779,6 +925,7 @@ body.opened #musicBtn {
                 <span class="time-number" id="seconds">00</span>
                 <span class="time-label">GIÂY</span>
             </div>
+
         </div>
 
         <div class="decorative-line"></div>
@@ -788,18 +935,19 @@ body.opened #musicBtn {
         </p>
 
         <p class="signature">With love & memories</p>
+
     </section>
 
     <p class="invite-label">CLASS 12A4 · THPT CHƯƠNG MỸ A</p>
 
 </main>
 
-<!-- ẢNH CỦA MÀY: ĐỂ CÙNG THƯ MỤC VỚI INDEX.HTML -->
-<img class="sticker one" src="anh-tuan.png" alt="Ảnh sticker">
-<img class="sticker two" src="anh-tuan.png" alt="Ảnh sticker">
-<img class="sticker three" src="anh-tuan.png" alt="Ảnh sticker">
+<!-- ẢNH STICKER -->
+<img class="sticker one" src="anh-tuan.png" alt="Ảnh Anh Tuấn">
+<img class="sticker two" src="anh-tuan.png" alt="Ảnh Anh Tuấn">
+<img class="sticker three" src="anh-tuan.png" alt="Ảnh Anh Tuấn">
 
-<!-- NHẠC NỀN -->
+<!-- NHẠC -->
 <audio id="bgMusic" loop>
     <source src="giac-mo-tinh-co.mp3" type="audio/mpeg">
 </audio>
@@ -809,13 +957,14 @@ body.opened #musicBtn {
 <script>
 
 /* =========================
-   TẠO SAO LUNG LINH
+   TẠO SAO
 ========================= */
 
 const sky = document.getElementById("sky");
 const openingStars = document.getElementById("openingStars");
 
 for (let i = 0; i < 65; i++) {
+
     const star = document.createElement("span");
     star.className = "star";
     star.textContent = "✦";
@@ -823,10 +972,12 @@ for (let i = 0; i < 65; i++) {
     star.style.top = Math.random() * 100 + "%";
     star.style.fontSize = (7 + Math.random() * 12) + "px";
     star.style.animationDelay = Math.random() * 4 + "s";
+
     sky.appendChild(star);
 }
 
 for (let i = 0; i < 35; i++) {
+
     const star = document.createElement("span");
     star.className = "star";
     star.textContent = "✧";
@@ -835,71 +986,20 @@ for (let i = 0; i < 35; i++) {
     star.style.top = Math.random() * 100 + "%";
     star.style.fontSize = (8 + Math.random() * 13) + "px";
     star.style.animationDelay = Math.random() * 4 + "s";
+
     openingStars.appendChild(star);
 }
 
 /* =========================
-   MỞ PHONG BÌ
-========================= */
-
-const openBtn = document.getElementById("openBtn");
-const envelope = document.getElementById("envelope");
-const openingScreen = document.getElementById("openingScreen");
-const music = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
-
-let opened = false;
-let musicPlaying = false;
-
-openBtn.addEventListener("click", function() {
-
-    if (opened) return;
-    opened = true;
-
-    // Mở nắp phong bì
-    envelope.classList.add("open");
-    openBtn.textContent = "✧ ĐANG MỞ THIỆP ✧";
-    openBtn.disabled = true;
-
-    // Nhạc bắt đầu sau thao tác bấm
-    music.play().then(() => {
-        musicPlaying = true;
-        musicBtn.textContent = "♫";
-    }).catch(() => {
-        musicPlaying = false;
-        musicBtn.textContent = "♪";
-    });
-
-    // Hoa nở và hiệu ứng trang trí
-    bloomFlowers();
-    createPetals();
-    createFireworks();
-
-    // Chờ hiệu ứng phong bì rồi hiện thiệp
-    setTimeout(() => {
-        openingScreen.classList.add("hide");
-        document.body.classList.add("opened");
-    }, 1100);
-
-    // Tiếp tục tạo hoa và pháo hoa sau khi mở
-    setTimeout(() => {
-        bloomFlowers();
-        createFireworks();
-    }, 1600);
-
-});
-
-/* =========================
-   HOA NỞ XUNG QUANH MÀN HÌNH
+   HOA NỞ
 ========================= */
 
 function bloomFlowers() {
 
     const positions = [
-        [8, 18], [85, 15], [15, 72],
-        [80, 75], [48, 10], [52, 88],
-        [92, 45], [5, 48], [72, 35],
-        [30, 88], [65, 65], [38, 25]
+        [8,18], [85,15], [15,72], [80,75],
+        [48,10], [52,88], [92,45], [5,48],
+        [72,35], [30,88], [65,65], [38,25]
     ];
 
     positions.forEach((pos, index) => {
@@ -924,12 +1024,11 @@ function bloomFlowers() {
 
             document.body.appendChild(flower);
 
-            // Hoa tự mờ đi sau một lúc
             setTimeout(() => {
                 flower.style.transition = "opacity 3s";
                 flower.style.opacity = "0";
                 setTimeout(() => flower.remove(), 3000);
-            }, 9000);
+            }, 10000);
 
         }, index * 170);
 
@@ -951,35 +1050,81 @@ function createPetals() {
 
             petal.style.left = Math.random() * 100 + "vw";
             petal.style.animationDuration = (5 + Math.random() * 7) + "s";
+
             petal.style.setProperty(
                 "--drift",
                 (Math.random() * 250 - 125) + "px"
             );
 
             document.body.appendChild(petal);
-
             setTimeout(() => petal.remove(), 13000);
 
         }, i * 100);
 
     }
-
 }
 
 /* =========================
-   PHÁO HOA NHẸ
+   TUYẾT RƠI
+========================= */
+
+function createSnow() {
+
+    for (let i = 0; i < 65; i++) {
+
+        setTimeout(() => {
+
+            const snow = document.createElement("div");
+            snow.className = "snowflake";
+
+            snow.textContent = ["❄", "❅", "✧", "❆"][
+                Math.floor(Math.random() * 4)
+            ];
+
+            snow.style.left = Math.random() * 100 + "vw";
+            snow.style.fontSize = (10 + Math.random() * 18) + "px";
+            snow.style.animationDuration = (5 + Math.random() * 7) + "s";
+
+            snow.style.setProperty(
+                "--snow-drift",
+                (Math.random() * 180 - 90) + "px"
+            );
+
+            document.body.appendChild(snow);
+            setTimeout(() => snow.remove(), 13000);
+
+        }, i * 100);
+
+    }
+}
+
+/* =========================
+   PHÁO HOA
 ========================= */
 
 function createFireworks() {
 
-    for (let burst = 0; burst < 5; burst++) {
+    const colors = [
+        "#ffffff", "#bde8ff", "#83c7f2",
+        "#e4f6ff", "#f5e8ff"
+    ];
+
+    for (let burst = 0; burst < 7; burst++) {
 
         setTimeout(() => {
 
-            const centerX = 15 + Math.random() * 70;
-            const centerY = 15 + Math.random() * 55;
+            const centerX = 10 + Math.random() * 80;
+            const centerY = 12 + Math.random() * 55;
 
-            for (let i = 0; i < 14; i++) {
+            const ring = document.createElement("div");
+            ring.className = "firework-ring";
+            ring.style.left = centerX + "vw";
+            ring.style.top = centerY + "vh";
+
+            document.body.appendChild(ring);
+            setTimeout(() => ring.remove(), 1100);
+
+            for (let i = 0; i < 38; i++) {
 
                 const spark = document.createElement("span");
                 spark.className = "spark";
@@ -987,8 +1132,11 @@ function createFireworks() {
                 spark.style.left = centerX + "vw";
                 spark.style.top = centerY + "vh";
 
-                const angle = (Math.PI * 2 * i) / 14;
-                const distance = 40 + Math.random() * 60;
+                spark.style.background =
+                    colors[Math.floor(Math.random() * colors.length)];
+
+                const angle = Math.PI * 2 * i / 38;
+                const distance = 55 + Math.random() * 115;
 
                 spark.style.setProperty(
                     "--x",
@@ -1001,16 +1149,149 @@ function createFireworks() {
                 );
 
                 document.body.appendChild(spark);
-
-                setTimeout(() => spark.remove(), 1500);
+                setTimeout(() => spark.remove(), 1600);
 
             }
 
-        }, burst * 300);
+        }, burst * 450);
 
     }
-
 }
+
+/* =========================
+   BƯỚM BAY
+========================= */
+
+function createButterflies() {
+
+    for (let i = 0; i < 9; i++) {
+
+        setTimeout(() => {
+
+            const butterfly = document.createElement("div");
+            butterfly.className = "butterfly";
+            butterfly.textContent = "🦋";
+
+            butterfly.style.left = Math.random() * 90 + "vw";
+            butterfly.style.top = (35 + Math.random() * 50) + "vh";
+
+            document.body.appendChild(butterfly);
+            setTimeout(() => butterfly.remove(), 9500);
+
+        }, i * 650);
+
+    }
+}
+
+/* =========================
+   SAO BĂNG
+========================= */
+
+function createShootingStars() {
+
+    for (let i = 0; i < 8; i++) {
+
+        setTimeout(() => {
+
+            const star = document.createElement("div");
+            star.className = "shooting-star";
+
+            star.style.left = (55 + Math.random() * 45) + "vw";
+            star.style.top = (Math.random() * 45) + "vh";
+
+            document.body.appendChild(star);
+            setTimeout(() => star.remove(), 1500);
+
+        }, i * 800);
+
+    }
+}
+
+/* =========================
+   ÁNH SÁNG BAY
+========================= */
+
+function createOrbs() {
+
+    for (let i = 0; i < 24; i++) {
+
+        setTimeout(() => {
+
+            const orb = document.createElement("div");
+            orb.className = "light-orb";
+
+            orb.style.left = Math.random() * 100 + "vw";
+            orb.style.top = (55 + Math.random() * 40) + "vh";
+
+            document.body.appendChild(orb);
+            setTimeout(() => orb.remove(), 5500);
+
+        }, i * 180);
+
+    }
+}
+
+/* =========================
+   ĐẠI TIỆC HIỆU ỨNG
+========================= */
+
+function grandCelebration() {
+
+    document.getElementById("openingScreen").classList.add("flash");
+
+    bloomFlowers();
+    createPetals();
+    createFireworks();
+    createSnow();
+    createButterflies();
+    createShootingStars();
+    createOrbs();
+
+    setTimeout(createFireworks, 4500);
+    setTimeout(createFireworks, 9500);
+    setTimeout(createButterflies, 5000);
+    setTimeout(createSnow, 6000);
+}
+
+/* =========================
+   MỞ PHONG BÌ
+========================= */
+
+const openBtn = document.getElementById("openBtn");
+const envelope = document.getElementById("envelope");
+const openingScreen = document.getElementById("openingScreen");
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+let opened = false;
+
+openBtn.addEventListener("click", function() {
+
+    if (opened) return;
+
+    opened = true;
+    envelope.classList.add("open");
+
+    openBtn.textContent = "✧ ĐANG MỞ THIỆP ✧";
+    openBtn.disabled = true;
+
+    // Phát nhạc khi người xem bấm mở
+    music.play().then(() => {
+        musicBtn.textContent = "♫";
+    }).catch(() => {
+        musicBtn.textContent = "♪";
+    });
+
+    // Khởi động toàn bộ hiệu ứng
+    grandCelebration();
+
+    // Chuyển sang thiệp sau hiệu ứng mở phong bì
+    setTimeout(() => {
+        openingScreen.classList.add("hide");
+        document.body.classList.add("opened");
+    }, 1100);
+
+});
 
 /* =========================
    ĐẾM NGƯỢC
@@ -1034,13 +1315,18 @@ function updateCountdown() {
         return;
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const days = Math.floor(
+        distance / (1000 * 60 * 60 * 24)
+    );
+
     const hours = Math.floor(
         (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
+
     const minutes = Math.floor(
         (distance % (1000 * 60 * 60)) / (1000 * 60)
     );
+
     const seconds = Math.floor(
         (distance % (1000 * 60)) / 1000
     );
@@ -1062,22 +1348,24 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 
 /* =========================
-   NÚT BẬT TẮT NHẠC
+   BẬT TẮT NHẠC
 ========================= */
 
 musicBtn.addEventListener("click", function() {
 
     if (music.paused) {
+
         music.play().then(() => {
-            musicPlaying = true;
             musicBtn.textContent = "♫";
         }).catch(() => {
             musicBtn.textContent = "♪";
         });
+
     } else {
+
         music.pause();
-        musicPlaying = false;
         musicBtn.textContent = "♪";
+
     }
 
 });
