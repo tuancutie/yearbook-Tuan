@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -10,739 +11,669 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 
 :root {
-    --bg: #10091e;
-    --purple: #a77aff;
-    --pink: #ed9cff;
-    --lavender: #dfceff;
-    --white: #fffaff;
-    --muted: #c4b5d8;
-    --glass: rgba(255,255,255,.055);
-    --border: rgba(219,190,255,.2);
+    --purple:#a77aff;
+    --pink:#ed9cff;
+    --lavender:#dfceff;
+    --white:#fffaff;
+    --muted:#c4b5d8;
+    --border:rgba(219,190,255,.2);
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior:smooth; }
 
 body {
-    min-height: 100vh;
-    overflow-x: hidden;
-    color: var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+    color:var(--white);
     background:
-        radial-gradient(ellipse at 50% 0%, #392052 0%, transparent 42%),
-        radial-gradient(ellipse at 90% 55%, #25133c 0%, transparent 38%),
-        linear-gradient(145deg, #0b0713, #160d25 55%, #0c0816);
-    font-family: 'Be Vietnam Pro', sans-serif;
+        radial-gradient(ellipse at 50% 0%,#392052 0%,transparent 42%),
+        radial-gradient(ellipse at 90% 55%,#25133c 0%,transparent 38%),
+        linear-gradient(145deg,#0b0713,#160d25 55%,#0c0816);
+    font-family:'Be Vietnam Pro',sans-serif;
 }
 
-body.locked {
-    overflow: hidden;
-}
+body.locked { overflow:hidden; }
 
-button, input, textarea {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-/* ÁNH SÁNG NỀN */
+button,input,textarea { font:inherit; }
+button { cursor:pointer; }
 
 .ambient {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
     background:
-        radial-gradient(circle at 15% 20%, rgba(171,113,255,.09), transparent 25%),
-        radial-gradient(circle at 85% 80%, rgba(233,139,255,.07), transparent 25%);
+        radial-gradient(circle at 15% 20%,rgba(171,113,255,.1),transparent 25%),
+        radial-gradient(circle at 85% 80%,rgba(233,139,255,.08),transparent 25%);
 }
 
 .stars {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: .55;
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:.55;
     background-image:
-        radial-gradient(1px 1px at 10% 20%, white 80%, transparent),
-        radial-gradient(1px 1px at 35% 75%, white 80%, transparent),
-        radial-gradient(2px 2px at 70% 15%, #e5caff 80%, transparent),
-        radial-gradient(1px 1px at 88% 65%, white 80%, transparent),
-        radial-gradient(1px 1px at 55% 42%, #e5caff 80%, transparent),
-        radial-gradient(1px 1px at 22% 90%, white 80%, transparent);
-    background-size: 350px 350px;
+        radial-gradient(1px 1px at 10% 20%,white 80%,transparent),
+        radial-gradient(1px 1px at 35% 75%,white 80%,transparent),
+        radial-gradient(2px 2px at 70% 15%,#e5caff 80%,transparent),
+        radial-gradient(1px 1px at 88% 65%,white 80%,transparent),
+        radial-gradient(1px 1px at 55% 42%,#e5caff 80%,transparent);
+    background-size:350px 350px;
 }
 
-/* MÀN HÌNH MỞ THIỆP */
+/* MỞ THIỆP */
 
 #opening {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 22px;
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:22px;
     background:
-        radial-gradient(ellipse at center, rgba(89,47,132,.45), transparent 60%),
+        radial-gradient(ellipse at center,rgba(89,47,132,.45),transparent 60%),
         #0b0712;
-    transition: opacity .9s ease, visibility .9s ease;
+    transition:opacity .9s ease,visibility .9s ease;
 }
 
 #opening.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
 }
 
 .opening-card {
-    width: min(470px, 100%);
-    padding: 48px 28px;
-    text-align: center;
-    border: 1px solid rgba(220,190,255,.35);
-    border-radius: 24px;
-    background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.025));
-    box-shadow: 0 0 65px rgba(160,95,255,.18), inset 0 0 35px rgba(255,255,255,.025);
-    backdrop-filter: blur(16px);
+    width:min(470px,100%);
+    padding:48px 28px;
+    text-align:center;
+    border:1px solid rgba(220,190,255,.35);
+    border-radius:24px;
+    background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
+    box-shadow:0 0 65px rgba(160,95,255,.18),inset 0 0 35px rgba(255,255,255,.025);
+    backdrop-filter:blur(16px);
 }
 
 .opening-kicker {
-    color: var(--pink);
-    font-size: 10px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    color:var(--pink);
+    font-size:10px;
+    letter-spacing:5px;
+    text-transform:uppercase;
 }
 
 .envelope {
-    width: 125px;
-    height: 88px;
-    margin: 35px auto 30px;
-    position: relative;
-    border-radius: 8px;
-    background: linear-gradient(145deg, #bd8cff, #7041a6);
-    box-shadow: 0 12px 35px rgba(176,112,255,.3);
+    width:125px;
+    height:88px;
+    margin:35px auto 30px;
+    position:relative;
+    border-radius:8px;
+    background:linear-gradient(145deg,#bd8cff,#7041a6);
+    box-shadow:0 12px 35px rgba(176,112,255,.3);
 }
 
 .envelope::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent 49%, rgba(255,255,255,.35) 50%, transparent 51%);
-    border-radius: inherit;
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,transparent 49%,rgba(255,255,255,.35) 50%,transparent 51%);
+    border-radius:inherit;
 }
 
 .envelope::after {
-    content: "✦";
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    font-size: 31px;
-    color: white;
-    text-shadow: 0 0 15px white;
+    content:"✦";
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    font-size:31px;
+    color:white;
+    text-shadow:0 0 15px white;
 }
 
 .envelope-flap {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0;
-    height: 0;
-    border-left: 62px solid transparent;
-    border-right: 62px solid transparent;
-    border-top: 49px solid #d7b8ff;
-    transform-origin: top;
+    position:absolute;
+    left:0;
+    top:0;
+    width:0;
+    height:0;
+    border-left:62px solid transparent;
+    border-right:62px solid transparent;
+    border-top:49px solid #d7b8ff;
+    transform-origin:top;
 }
 
 .opening-card h1 {
-    margin: 15px 0 8px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 8vw, 48px);
-    font-weight: 500;
+    margin:15px 0 8px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(36px,8vw,48px);
+    font-weight:500;
 }
 
 .opening-card p {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.8;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.8;
 }
 
 .open-button {
-    margin-top: 28px;
-    padding: 14px 32px;
-    color: #21112e;
-    border: 0;
-    border-radius: 50px;
-    background: linear-gradient(100deg, #e6ceff, #bd8cff, #f1c5ff);
-    font-weight: 700;
-    letter-spacing: 1px;
-    box-shadow: 0 0 28px rgba(185,131,255,.28);
-    transition: transform .25s ease, box-shadow .25s ease;
+    margin-top:28px;
+    padding:14px 32px;
+    color:#21112e;
+    border:0;
+    border-radius:50px;
+    background:linear-gradient(100deg,#e6ceff,#bd8cff,#f1c5ff);
+    font-weight:700;
+    letter-spacing:1px;
+    box-shadow:0 0 28px rgba(185,131,255,.28);
+    transition:.25s;
 }
 
 .open-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 38px rgba(185,131,255,.5);
+    transform:translateY(-3px);
+    box-shadow:0 0 38px rgba(185,131,255,.5);
 }
 
-/* NỘI DUNG CHÍNH */
+/* CANVAS HIỆU ỨNG */
+
+#effects {
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:12;
+    pointer-events:none;
+}
+
+/* NỘI DUNG */
 
 #mainContent {
-    position: relative;
-    z-index: 1;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1.2s ease;
+    position:relative;
+    z-index:1;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity 1.2s ease;
 }
 
 #mainContent.visible {
-    opacity: 1;
-    visibility: visible;
+    opacity:1;
+    visibility:visible;
 }
 
 header {
-    min-height: 88vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 100px 22px 80px;
-    position: relative;
+    min-height:88vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:100px 22px 80px;
+    position:relative;
 }
 
 .top-label {
-    color: var(--pink);
-    letter-spacing: 5px;
-    font-size: 10px;
-    text-transform: uppercase;
-    margin-bottom: 25px;
+    color:var(--pink);
+    letter-spacing:5px;
+    font-size:10px;
+    text-transform:uppercase;
+    margin-bottom:25px;
 }
 
 .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(54px, 10vw, 105px);
-    line-height: .98;
-    font-weight: 500;
-    letter-spacing: -2px;
-    background: linear-gradient(110deg, #fff, #d7b7ff 45%, #f4c8ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 0 22px rgba(198,151,255,.2));
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(54px,10vw,105px);
+    line-height:.98;
+    font-weight:500;
+    letter-spacing:-2px;
+    background:linear-gradient(110deg,#fff,#d7b7ff 45%,#f4c8ff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    filter:drop-shadow(0 0 22px rgba(198,151,255,.2));
 }
 
 .hero-subtitle {
-    margin-top: 24px;
-    font-size: clamp(13px, 2vw, 16px);
-    color: var(--muted);
-    letter-spacing: 2px;
+    margin-top:24px;
+    font-size:clamp(13px,2vw,16px);
+    color:var(--muted);
+    letter-spacing:2px;
 }
 
 .hero-line {
-    width: 75px;
-    height: 1px;
-    margin: 32px auto;
-    background: linear-gradient(90deg, transparent, #d5adff, transparent);
+    width:75px;
+    height:1px;
+    margin:32px auto;
+    background:linear-gradient(90deg,transparent,#d5adff,transparent);
 }
 
 .hero-description {
-    max-width: 570px;
-    color: #d8cbe6;
-    line-height: 2;
-    font-size: 14px;
-    font-weight: 300;
+    max-width:570px;
+    color:#d8cbe6;
+    line-height:2;
+    font-size:14px;
+    font-weight:300;
 }
 
 .scroll-note {
-    position: absolute;
-    bottom: 30px;
-    color: #a996bc;
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+    position:absolute;
+    bottom:30px;
+    color:#a996bc;
+    font-size:10px;
+    letter-spacing:3px;
 }
 
-/* ẢNH CHÂN DUNG BAY QUANH */
+/* ẢNH CHÂN DUNG */
 
 .floating-portrait {
-    position: fixed;
-    z-index: 20;
-    width: clamp(72px, 9vw, 112px);
-    height: clamp(72px, 9vw, 112px);
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid rgba(231,204,255,.9);
-    box-shadow: 0 0 14px rgba(191,133,255,.55), 0 0 38px rgba(191,133,255,.22);
-    top: 20%;
-    left: 3%;
-    pointer-events: none;
-    animation: portraitOrbit 24s ease-in-out infinite alternate;
+    position:fixed;
+    z-index:20;
+    width:clamp(72px,9vw,108px);
+    height:clamp(72px,9vw,108px);
+    object-fit:cover;
+    border-radius:50%;
+    border:2px solid rgba(231,204,255,.9);
+    box-shadow:0 0 14px rgba(191,133,255,.55),0 0 38px rgba(191,133,255,.22);
+    top:15%;
+    left:3%;
+    pointer-events:none;
+    animation:portraitOrbit 30s ease-in-out infinite alternate;
 }
 
 @keyframes portraitOrbit {
-    0%   { transform: translate(0, 0) rotate(-8deg); }
-    25%  { transform: translate(72vw, 12vh) rotate(8deg); }
-    50%  { transform: translate(65vw, 65vh) rotate(-5deg); }
-    75%  { transform: translate(8vw, 65vh) rotate(7deg); }
-    100% { transform: translate(36vw, 25vh) rotate(0deg); }
+    0% {transform:translate(0,0) rotate(-8deg);}
+    25% {transform:translate(72vw,12vh) rotate(8deg);}
+    50% {transform:translate(65vw,65vh) rotate(-5deg);}
+    75% {transform:translate(8vw,65vh) rotate(7deg);}
+    100% {transform:translate(36vw,25vh) rotate(0);}
 }
 
-/* CÁC KHUNG THÔNG TIN */
+/* CÁC SECTION */
 
 .section {
-    width: min(1000px, calc(100% - 36px));
-    margin: 0 auto;
-    padding: 75px 0;
+    width:min(1000px,calc(100% - 36px));
+    margin:0 auto;
+    padding:75px 0;
 }
 
 .section-heading {
-    text-align: center;
-    margin-bottom: 42px;
+    text-align:center;
+    margin-bottom:42px;
 }
 
 .section-eyebrow {
-    display: block;
-    color: var(--pink);
-    letter-spacing: 4px;
-    font-size: 10px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
+    display:block;
+    color:var(--pink);
+    letter-spacing:4px;
+    font-size:10px;
+    text-transform:uppercase;
+    margin-bottom:12px;
 }
 
 .section-heading h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(38px, 6vw, 58px);
-    font-weight: 500;
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(38px,6vw,58px);
+    font-weight:500;
 }
 
 .section-heading p {
-    margin-top: 12px;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.8;
+    margin-top:12px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.8;
 }
 
 .glass-card {
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
-    box-shadow: 0 18px 60px rgba(0,0,0,.16);
-    backdrop-filter: blur(12px);
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+    box-shadow:0 18px 60px rgba(0,0,0,.16);
+    backdrop-filter:blur(12px);
 }
 
 .event-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 17px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:17px;
 }
 
 .event-item {
-    padding: 30px 20px;
-    text-align: center;
-    transition: transform .25s ease, border-color .25s ease;
+    padding:30px 20px;
+    text-align:center;
+    transition:transform .25s,border-color .25s;
 }
 
 .event-item:hover {
-    transform: translateY(-5px);
-    border-color: rgba(226,190,255,.55);
+    transform:translateY(-5px);
+    border-color:rgba(226,190,255,.55);
 }
 
 .event-icon {
-    font-size: 23px;
-    margin-bottom: 17px;
-    color: var(--pink);
+    font-size:23px;
+    margin-bottom:17px;
+    color:var(--pink);
 }
 
 .event-item h3 {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #c7a7ec;
-    margin-bottom: 12px;
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:#c7a7ec;
+    margin-bottom:12px;
 }
 
 .event-item p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 25px;
-    color: white;
+    font-family:'Cormorant Garamond',serif;
+    font-size:25px;
+    color:white;
 }
 
 /* ĐỒNG HỒ */
 
 .clock-wrap {
-    display: flex;
-    justify-content: center;
-    margin: 20px auto 35px;
+    display:flex;
+    justify-content:center;
+    margin:20px auto 35px;
 }
 
 .clock {
-    width: 190px;
-    height: 190px;
-    border: 1px solid rgba(222,190,255,.55);
-    border-radius: 50%;
-    position: relative;
-    background: radial-gradient(circle, rgba(157,104,211,.13), rgba(255,255,255,.015) 70%);
-    box-shadow: 0 0 35px rgba(174,116,255,.12), inset 0 0 22px rgba(174,116,255,.08);
+    width:190px;
+    height:190px;
+    border:1px solid rgba(222,190,255,.55);
+    border-radius:50%;
+    position:relative;
+    background:radial-gradient(circle,rgba(157,104,211,.13),rgba(255,255,255,.015) 70%);
+    box-shadow:0 0 35px rgba(174,116,255,.12),inset 0 0 22px rgba(174,116,255,.08);
 }
 
 .clock-number {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    color: #eadbff;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    transform: translate(-50%, -50%);
+    position:absolute;
+    color:#eadbff;
+    font-family:'Cormorant Garamond',serif;
+    font-size:14px;
+    transform:translate(-50%,-50%);
 }
 
 .clock-center {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 8px;
-    height: 8px;
-    background: #f2d7ff;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:8px;
+    height:8px;
+    background:#f2d7ff;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    z-index:5;
 }
 
 .hand {
-    position: absolute;
-    left: 50%;
-    bottom: 50%;
-    transform-origin: bottom;
-    border-radius: 5px;
+    position:absolute;
+    left:50%;
+    bottom:50%;
+    transform-origin:bottom;
+    border-radius:5px;
 }
 
-.hour-hand {
-    height: 48px;
-    width: 3px;
-    background: #f4e9ff;
-}
-
-.minute-hand {
-    height: 65px;
-    width: 2px;
-    background: #c99cff;
-}
-
-.second-hand {
-    height: 70px;
-    width: 1px;
-    background: #ffb9ed;
-}
+.hour-hand {height:48px;width:3px;background:#f4e9ff;}
+.minute-hand {height:65px;width:2px;background:#c99cff;}
+.second-hand {height:70px;width:1px;background:#ffb9ed;}
 
 .countdown {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 24px;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:24px;
 }
 
 .time-box {
-    width: 105px;
-    padding: 17px 8px;
-    text-align: center;
+    width:105px;
+    padding:17px 8px;
+    text-align:center;
 }
 
 .time-box strong {
-    display: block;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 35px;
-    font-weight: 500;
-    color: #f1d8ff;
+    display:block;
+    font-family:'Cormorant Garamond',serif;
+    font-size:35px;
+    font-weight:500;
+    color:#f1d8ff;
 }
 
 .time-box span {
-    color: var(--muted);
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    color:var(--muted);
+    font-size:9px;
+    letter-spacing:2px;
+    text-transform:uppercase;
 }
 
 /* LỜI MỜI */
 
 .invitation {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 48px 35px;
-    text-align: center;
+    max-width:760px;
+    margin:0 auto;
+    padding:48px 35px;
+    text-align:center;
 }
 
-.invitation .quote-mark {
-    font-family: 'Cormorant Garamond', serif;
-    color: #d6b0ff;
-    font-size: 60px;
-    line-height: .7;
+.quote-mark {
+    font-family:'Cormorant Garamond',serif;
+    color:#d6b0ff;
+    font-size:60px;
+    line-height:.7;
 }
 
 .invitation p {
-    color: #e0d4eb;
-    font-size: 14px;
-    line-height: 2.1;
-    font-weight: 300;
+    color:#e0d4eb;
+    font-size:14px;
+    line-height:2.1;
+    font-weight:300;
 }
 
 .signature {
-    margin-top: 30px;
-    color: #e4c5ff;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 31px;
+    margin-top:30px;
+    color:#e4c5ff;
+    font-family:'Cormorant Garamond',serif;
+    font-size:31px;
 }
 
 /* TƯỜNG LỜI CHÚC */
 
 .wish-layout {
-    display: grid;
-    grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
-    gap: 22px;
-    align-items: start;
+    display:grid;
+    grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    gap:22px;
+    align-items:start;
 }
 
-.wish-form {
-    padding: 27px;
-}
+.wish-form {padding:27px;}
 
 .wish-form h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 29px;
-    font-weight: 500;
-    margin-bottom: 9px;
+    font-family:'Cormorant Garamond',serif;
+    font-size:29px;
+    font-weight:500;
+    margin-bottom:9px;
 }
 
 .wish-form > p {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.8;
-    margin-bottom: 22px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.8;
+    margin-bottom:22px;
 }
 
 .wish-form label {
-    display: block;
-    font-size: 11px;
-    color: #d8c2ef;
-    margin: 16px 0 8px;
+    display:block;
+    font-size:11px;
+    color:#d8c2ef;
+    margin:16px 0 8px;
 }
 
 .wish-form input,
 .wish-form textarea {
-    display: block;
-    width: 100%;
-    color: white;
-    background: rgba(8,5,16,.45);
-    border: 1px solid rgba(220,190,255,.2);
-    border-radius: 10px;
-    padding: 13px 14px;
-    outline: none;
-    font-size: 13px;
-    transition: border-color .2s ease;
+    display:block;
+    width:100%;
+    color:white;
+    background:rgba(8,5,16,.45);
+    border:1px solid rgba(220,190,255,.2);
+    border-radius:10px;
+    padding:13px 14px;
+    outline:none;
+    font-size:13px;
+    transition:border-color .2s;
 }
 
 .wish-form input:focus,
 .wish-form textarea:focus {
-    border-color: #c69aff;
+    border-color:#c69aff;
 }
 
 .wish-form textarea {
-    min-height: 120px;
-    resize: vertical;
+    min-height:120px;
+    resize:vertical;
 }
 
 .send-button {
-    width: 100%;
-    margin-top: 18px;
-    padding: 14px;
-    border: 0;
-    border-radius: 10px;
-    color: #21112e;
-    background: linear-gradient(100deg, #e6ceff, #bd8cff);
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: 1px;
+    width:100%;
+    margin-top:18px;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    color:#21112e;
+    background:linear-gradient(100deg,#e6ceff,#bd8cff);
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:1px;
 }
 
-.send-button:disabled {
-    opacity: .55;
-    cursor: wait;
-}
+.send-button:disabled {opacity:.55;cursor:wait;}
 
 .form-status {
-    min-height: 22px;
-    margin-top: 12px;
-    font-size: 11px;
-    line-height: 1.7;
-    color: #e7caff;
+    min-height:22px;
+    margin-top:12px;
+    font-size:11px;
+    line-height:1.7;
+    color:#e7caff;
 }
 
-.wish-list {
-    display: grid;
-    gap: 12px;
-}
+.wish-list {display:grid;gap:12px;}
 
 .wish-card {
-    padding: 19px 20px;
-    border: 1px solid rgba(219,190,255,.16);
-    border-radius: 14px;
-    background: rgba(255,255,255,.045);
-    animation: appear .5s ease both;
+    padding:19px 20px;
+    border:1px solid rgba(219,190,255,.16);
+    border-radius:14px;
+    background:rgba(255,255,255,.045);
+    animation:appear .5s ease both;
 }
 
 @keyframes appear {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {opacity:0;transform:translateY(8px);}
+    to {opacity:1;transform:translateY(0);}
 }
 
-.wish-card .wish-name {
-    color: #e5c6ff;
-    font-size: 13px;
-    font-weight: 700;
+.wish-name {color:#e5c6ff;font-size:13px;font-weight:700;}
+
+.wish-message {
+    color:#e1d6eb;
+    font-size:12px;
+    line-height:1.9;
+    margin-top:8px;
+    overflow-wrap:anywhere;
 }
 
-.wish-card .wish-message {
-    color: #e1d6eb;
-    font-size: 12px;
-    line-height: 1.9;
-    margin-top: 8px;
-    overflow-wrap: anywhere;
-}
-
-.wish-card .wish-date {
-    color: #a995bb;
-    font-size: 10px;
-    margin-top: 10px;
-}
+.wish-date {color:#a995bb;font-size:10px;margin-top:10px;}
 
 .empty-wishes {
-    color: var(--muted);
-    text-align: center;
-    padding: 35px 15px;
-    border: 1px dashed rgba(219,190,255,.2);
-    border-radius: 14px;
-    font-size: 12px;
+    color:var(--muted);
+    text-align:center;
+    padding:35px 15px;
+    border:1px dashed rgba(219,190,255,.2);
+    border-radius:14px;
+    font-size:12px;
 }
 
 /* CHÂN TRANG */
 
 footer {
-    padding: 60px 20px 35px;
-    text-align: center;
-    border-top: 1px solid rgba(220,190,255,.12);
-    margin-top: 65px;
+    padding:60px 20px 35px;
+    text-align:center;
+    border-top:1px solid rgba(220,190,255,.12);
+    margin-top:65px;
 }
 
-footer .footer-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 35px;
-    color: #e6caff;
+.footer-name {
+    font-family:'Cormorant Garamond',serif;
+    font-size:35px;
+    color:#e6caff;
 }
 
 footer p {
-    margin-top: 12px;
-    color: #a997ba;
-    font-size: 10px;
-    letter-spacing: 2px;
+    margin-top:12px;
+    color:#a997ba;
+    font-size:10px;
+    letter-spacing:2px;
 }
 
-/* NÚT NHẠC */
-
 .music-button {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 50;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    border: 1px solid rgba(224,193,255,.5);
-    background: rgba(38,21,57,.85);
-    color: #f1d8ff;
-    font-size: 18px;
-    box-shadow: 0 0 20px rgba(172,113,255,.2);
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:50;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    border:1px solid rgba(224,193,255,.5);
+    background:rgba(38,21,57,.85);
+    color:#f1d8ff;
+    font-size:18px;
+    box-shadow:0 0 20px rgba(172,113,255,.2);
 }
 
 /* CÁNH HOA */
 
 .petal {
-    position: fixed;
-    top: -25px;
-    z-index: 15;
-    pointer-events: none;
-    color: #e7c7ff;
-    opacity: .65;
-    font-size: 14px;
-    animation: fall linear infinite;
+    position:fixed;
+    top:-25px;
+    z-index:15;
+    pointer-events:none;
+    color:#e7c7ff;
+    opacity:.65;
+    font-size:14px;
+    animation:fall linear infinite;
 }
 
 @keyframes fall {
-    to {
-        transform: translate3d(60px, 110vh, 0) rotate(360deg);
-    }
-}
-
-/* PHÁO HOA CANVAS */
-
-#fireworks {
-    position: fixed;
-    inset: 0;
-    z-index: 12;
-    pointer-events: none;
+    to {transform:translate3d(60px,110vh,0) rotate(360deg);}
 }
 
 /* RESPONSIVE */
 
-@media (max-width: 700px) {
-    header {
-        min-height: 78vh;
-    }
-
-    .event-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .event-item {
-        padding: 24px 15px;
-    }
-
-    .wish-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .section {
-        padding: 55px 0;
-    }
-
-    .invitation {
-        padding: 35px 22px;
-    }
-
+@media(max-width:700px) {
+    header {min-height:78vh;}
+    .event-grid {grid-template-columns:1fr;}
+    .event-item {padding:24px 15px;}
+    .wish-layout {grid-template-columns:1fr;}
+    .section {padding:55px 0;}
+    .invitation {padding:35px 22px;}
     .floating-portrait {
-        width: 68px;
-        height: 68px;
-        animation-duration: 30s;
+        width:65px;
+        height:65px;
+        animation-duration:34s;
     }
-
-    .time-box {
-        width: 75px;
-    }
+    .time-box {width:75px;}
 }
 
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
+@media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+        scroll-behavior:auto!important;
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:.01ms!important;
     }
 }
 </style>
@@ -753,219 +684,178 @@ footer p {
 <div class="ambient"></div>
 <div class="stars"></div>
 
-<!-- MÀN HÌNH MỞ THIỆP -->
 <div id="opening">
     <div class="opening-card">
         <div class="opening-kicker">A special invitation</div>
-        <div class="envelope">
-            <div class="envelope-flap"></div>
-        </div>
+        <div class="envelope"><div class="envelope-flap"></div></div>
         <h1>Thanh Xuân Có Bạn</h1>
         <p>Một lời mời nhỏ, dành cho những người đã góp mặt trong thanh xuân của tôi.</p>
         <button class="open-button" id="openButton">MỞ THIỆP MỜI ✦</button>
     </div>
 </div>
 
-<canvas id="fireworks"></canvas>
+<canvas id="effects"></canvas>
 
-<!-- ẢNH DUY NHẤT CỦA NGƯỜI MỜI -->
 <img class="floating-portrait" src="anh-tuan.png" alt="Nguyễn Anh Tuấn">
 
-<!-- NHẠC NỀN -->
 <audio id="backgroundMusic" loop preload="none">
     <source src="giac-mo-tinh-co.mp3" type="audio/mpeg">
 </audio>
 
 <main id="mainContent">
 
-    <header>
-        <div class="top-label">An invitation to remember</div>
-        <h1 class="hero-title">Thanh Xuân<br>Có Bạn</h1>
-        <div class="hero-subtitle">A MOMENT • A MEMORY • A LIFETIME</div>
-        <div class="hero-line"></div>
-        <p class="hero-description">
-            Có những khoảnh khắc sẽ trôi qua, nhưng những người từng xuất hiện
-            trong thanh xuân của chúng ta sẽ luôn là một phần đáng nhớ.
-            Tôi mong được gặp bạn trong ngày đặc biệt này.
+<header>
+    <div class="top-label">An invitation to remember</div>
+    <h1 class="hero-title">Thanh Xuân<br>Có Bạn</h1>
+    <div class="hero-subtitle">A MOMENT • A MEMORY • A LIFETIME</div>
+    <div class="hero-line"></div>
+    <p class="hero-description">
+        Có những khoảnh khắc sẽ trôi qua, nhưng những người từng xuất hiện
+        trong thanh xuân của chúng ta sẽ luôn là một phần đáng nhớ.
+        Tôi mong được gặp bạn trong ngày đặc biệt này.
+    </p>
+    <div class="scroll-note">SCROLL TO DISCOVER ↓</div>
+</header>
+
+<section class="section">
+    <div class="section-heading">
+        <span class="section-eyebrow">The occasion</span>
+        <h2>Thông Tin Buổi Gặp Gỡ</h2>
+        <p>Một ngày để gặp lại, lưu giữ và cùng nhau tạo nên kỷ niệm.</p>
+    </div>
+
+    <div class="event-grid">
+        <div class="glass-card event-item">
+            <div class="event-icon">✧</div>
+            <h3>Thời gian</h3>
+            <p>09:30 AM</p>
+        </div>
+        <div class="glass-card event-item">
+            <div class="event-icon">◇</div>
+            <h3>Ngày tổ chức</h3>
+            <p>20.12.2026</p>
+        </div>
+        <div class="glass-card event-item">
+            <div class="event-icon">⌖</div>
+            <h3>Địa điểm</h3>
+            <p>THPT Chương Mỹ A</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <span class="section-eyebrow">Until we meet</span>
+        <h2>Thời Gian Đang Đếm Ngược</h2>
+        <p>Hẹn gặp bạn vào ngày 20 tháng 12 năm 2026.</p>
+    </div>
+
+    <div class="clock-wrap">
+        <div class="clock" id="clock">
+            <div class="clock-center"></div>
+            <div class="hand hour-hand" id="hourHand"></div>
+            <div class="hand minute-hand" id="minuteHand"></div>
+            <div class="hand second-hand" id="secondHand"></div>
+        </div>
+    </div>
+
+    <div class="countdown">
+        <div class="glass-card time-box"><strong id="days">00</strong><span>Ngày</span></div>
+        <div class="glass-card time-box"><strong id="hours">00</strong><span>Giờ</span></div>
+        <div class="glass-card time-box"><strong id="minutes">00</strong><span>Phút</span></div>
+        <div class="glass-card time-box"><strong id="seconds">00</strong><span>Giây</span></div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <span class="section-eyebrow">A few words</span>
+        <h2>Lời Mời Trân Trọng</h2>
+    </div>
+
+    <div class="glass-card invitation">
+        <div class="quote-mark">“</div>
+        <p>
+            Tôi trân trọng từng khoảnh khắc đã có, từng cuộc gặp gỡ
+            và những kỷ niệm mà chúng ta cùng tạo nên.
+            Sự hiện diện của bạn sẽ khiến ngày hôm ấy trở nên
+            ý nghĩa và trọn vẹn hơn rất nhiều.
+            <br><br>
+            Hy vọng chúng ta sẽ có một ngày thật đẹp,
+            cùng lưu lại những khoảnh khắc đáng nhớ của tuổi trẻ.
         </p>
-        <div class="scroll-note">SCROLL TO DISCOVER ↓</div>
-    </header>
+        <div class="signature">Nguyễn Anh Tuấn</div>
+    </div>
+</section>
 
-    <!-- THÔNG TIN SỰ KIỆN -->
-    <section class="section">
-        <div class="section-heading">
-            <span class="section-eyebrow">The occasion</span>
-            <h2>Thông Tin Buổi Gặp Gỡ</h2>
-            <p>Một ngày để gặp lại, lưu giữ và cùng nhau tạo nên kỷ niệm.</p>
+<section class="section" id="wishes">
+    <div class="section-heading">
+        <span class="section-eyebrow">Messages from you</span>
+        <h2>Bức Tường Lời Chúc</h2>
+        <p>Để lại một lời nhắn. Mỗi lời chúc sẽ trở thành một kỷ niệm nhỏ.</p>
+    </div>
+
+    <div class="wish-layout">
+        <form class="glass-card wish-form" id="wishForm">
+            <h3>Gửi lời nhắn</h3>
+            <p>Hãy để lại tên và lời chúc của bạn dành cho Nguyễn Anh Tuấn.</p>
+
+            <label for="guestName">Tên của bạn</label>
+            <input id="guestName" type="text" maxlength="40"
+                   placeholder="Nhập tên của bạn..." required>
+
+            <label for="guestMessage">Lời nhắn</label>
+            <textarea id="guestMessage" maxlength="300"
+                      placeholder="Viết lời chúc của bạn tại đây..." required></textarea>
+
+            <input type="text" id="website" tabindex="-1"
+                   autocomplete="off"
+                   style="position:absolute;left:-9999px"
+                   aria-hidden="true">
+
+            <button class="send-button" id="sendButton" type="submit">
+                GỬI LỜI CHÚC ✦
+            </button>
+            <div class="form-status" id="formStatus" aria-live="polite"></div>
+        </form>
+
+        <div class="wish-list" id="wishList">
+            <div class="empty-wishes">Đang tải những lời chúc...</div>
         </div>
+    </div>
+</section>
 
-        <div class="event-grid">
-            <div class="glass-card event-item">
-                <div class="event-icon">✧</div>
-                <h3>Thời gian</h3>
-                <p>09:30 AM</p>
-            </div>
-
-            <div class="glass-card event-item">
-                <div class="event-icon">◇</div>
-                <h3>Ngày tổ chức</h3>
-                <p>20.12.2026</p>
-            </div>
-
-            <div class="glass-card event-item">
-                <div class="event-icon">⌖</div>
-                <h3>Địa điểm</h3>
-                <p>THPT Chương Mỹ A</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ĐỒNG HỒ VÀ ĐẾM NGƯỢC -->
-    <section class="section">
-        <div class="section-heading">
-            <span class="section-eyebrow">Until we meet</span>
-            <h2>Thời Gian Đang Đếm Ngược</h2>
-            <p>Hẹn gặp bạn vào ngày 20 tháng 12 năm 2026.</p>
-        </div>
-
-        <div class="clock-wrap">
-            <div class="clock" id="clock">
-                <div class="clock-center"></div>
-                <div class="hand hour-hand" id="hourHand"></div>
-                <div class="hand minute-hand" id="minuteHand"></div>
-                <div class="hand second-hand" id="secondHand"></div>
-            </div>
-        </div>
-
-        <div class="countdown">
-            <div class="glass-card time-box">
-                <strong id="days">00</strong>
-                <span>Ngày</span>
-            </div>
-            <div class="glass-card time-box">
-                <strong id="hours">00</strong>
-                <span>Giờ</span>
-            </div>
-            <div class="glass-card time-box">
-                <strong id="minutes">00</strong>
-                <span>Phút</span>
-            </div>
-            <div class="glass-card time-box">
-                <strong id="seconds">00</strong>
-                <span>Giây</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- LỜI MỜI -->
-    <section class="section">
-        <div class="section-heading">
-            <span class="section-eyebrow">A few words</span>
-            <h2>Lời Mời Trân Trọng</h2>
-        </div>
-
-        <div class="glass-card invitation">
-            <div class="quote-mark">“</div>
-            <p>
-                Tôi trân trọng từng khoảnh khắc đã có, từng cuộc gặp gỡ
-                và những kỷ niệm mà chúng ta cùng tạo nên.
-                Sự hiện diện của bạn sẽ khiến ngày hôm ấy trở nên
-                ý nghĩa và trọn vẹn hơn rất nhiều.
-                <br><br>
-                Hy vọng chúng ta sẽ có một ngày thật đẹp,
-                cùng lưu lại những khoảnh khắc đáng nhớ của tuổi trẻ.
-            </p>
-            <div class="signature">Nguyễn Anh Tuấn</div>
-        </div>
-    </section>
-
-    <!-- BỨC TƯỜNG LỜI CHÚC -->
-    <section class="section" id="wishes">
-        <div class="section-heading">
-            <span class="section-eyebrow">Messages from you</span>
-            <h2>Bức Tường Lời Chúc</h2>
-            <p>Để lại một lời nhắn. Mỗi lời chúc sẽ trở thành một kỷ niệm nhỏ.</p>
-        </div>
-
-        <div class="wish-layout">
-            <form class="glass-card wish-form" id="wishForm">
-                <h3>Gửi lời nhắn</h3>
-                <p>Hãy để lại tên và lời chúc của bạn dành cho Nguyễn Anh Tuấn.</p>
-
-                <label for="guestName">Tên của bạn</label>
-                <input
-                    id="guestName"
-                    name="name"
-                    type="text"
-                    maxlength="40"
-                    placeholder="Nhập tên của bạn..."
-                    required
-                >
-
-                <label for="guestMessage">Lời nhắn</label>
-                <textarea
-                    id="guestMessage"
-                    name="message"
-                    maxlength="300"
-                    placeholder="Viết lời chúc của bạn tại đây..."
-                    required
-                ></textarea>
-
-                <!-- Trường chống spam đơn giản -->
-                <input
-                    type="text"
-                    id="website"
-                    name="website"
-                    tabindex="-1"
-                    autocomplete="off"
-                    style="position:absolute;left:-9999px"
-                    aria-hidden="true"
-                >
-
-                <button class="send-button" id="sendButton" type="submit">
-                    GỬI LỜI CHÚC ✦
-                </button>
-
-                <div class="form-status" id="formStatus" aria-live="polite"></div>
-            </form>
-
-            <div>
-                <div class="wish-list" id="wishList">
-                    <div class="empty-wishes">Đang tải những lời chúc...</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-name">Nguyễn Anh Tuấn</div>
-        <p>MADE WITH MEMORIES · 20 DECEMBER 2026</p>
-    </footer>
+<footer>
+    <div class="footer-name">Nguyễn Anh Tuấn</div>
+    <p>MADE WITH MEMORIES · 20 DECEMBER 2026</p>
+</footer>
 
 </main>
 
-<button class="music-button" id="musicButton" aria-label="Bật hoặc tắt nhạc">
-    ♫
-</button>
+<button class="music-button" id="musicButton" aria-label="Bật hoặc tắt nhạc">♫</button>
 
 <script>
-/* ==========================================
-   1. CẤU HÌNH
-   DÁN URL GOOGLE APPS SCRIPT VÀO DÒNG DƯỚI
-========================================== */
+/* =====================================
+   1. GOOGLE SHEETS
+===================================== */
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQE3sabM2GKiz5x84A10-8MdIFUtserq70PDwYzWolhbuwzlCvopfIJF28l8o1IagYJg/exec";
 
-/* ==========================================
+/* =====================================
    2. MỞ THIỆP VÀ NHẠC
-========================================== */
+===================================== */
 
 const opening = document.getElementById("opening");
 const mainContent = document.getElementById("mainContent");
 const music = document.getElementById("backgroundMusic");
 const musicButton = document.getElementById("musicButton");
 
-document.getElementById("openButton").addEventListener("click", async function () {
+let opened = false;
+
+document.getElementById("openButton").addEventListener("click", async function() {
+    if (opened) return;
+    opened = true;
+
     opening.classList.add("hidden");
     mainContent.classList.add("visible");
     document.body.classList.remove("locked");
@@ -975,20 +865,20 @@ document.getElementById("openButton").addEventListener("click", async function (
     try {
         await music.play();
         musicButton.textContent = "♫";
-    } catch (error) {
+    } catch(e) {
         musicButton.textContent = "♪";
     }
 
+    startEffects();
     startPetals();
-    startFireworks();
 });
 
-musicButton.addEventListener("click", async function () {
+musicButton.addEventListener("click", async function() {
     if (music.paused) {
         try {
             await music.play();
             musicButton.textContent = "♫";
-        } catch (error) {
+        } catch(e) {
             musicButton.textContent = "♪";
         }
     } else {
@@ -997,354 +887,494 @@ musicButton.addEventListener("click", async function () {
     }
 });
 
-/* ==========================================
+/* =====================================
    3. ĐỒNG HỒ LA MÃ
-========================================== */
+===================================== */
 
 const clock = document.getElementById("clock");
 
-for (let i = 1; i <= 12; i++) {
+const roman = ["XII","I","II","III","IV","V","VI","VII","VIII","IX","X","XI"];
+
+for (let i=0;i<12;i++) {
     const number = document.createElement("span");
     number.className = "clock-number";
 
-    const roman = [
-        "XII", "I", "II", "III", "IV", "V",
-        "VI", "VII", "VIII", "IX", "X", "XI"
-    ];
-
-    const angle = (i * 30) * Math.PI / 180;
+    const angle = i * 30 * Math.PI / 180;
     const radius = 76;
 
-    number.textContent = roman[i % 12];
-    number.style.left = (95 + Math.sin(angle) * radius) + "px";
-    number.style.top = (95 - Math.cos(angle) * radius) + "px";
+    number.textContent = roman[i];
+    number.style.left = (95 + Math.sin(angle)*radius) + "px";
+    number.style.top = (95 - Math.cos(angle)*radius) + "px";
 
     clock.appendChild(number);
 }
 
 function updateClock() {
     const now = new Date();
-
-    const seconds = now.getSeconds();
-    const minutes = now.getMinutes();
-    const hours = now.getHours();
+    const s = now.getSeconds();
+    const m = now.getMinutes();
+    const h = now.getHours();
 
     document.getElementById("secondHand").style.transform =
-        `translateX(-50%) rotate(${seconds * 6}deg)`;
+        `translateX(-50%) rotate(${s*6}deg)`;
 
     document.getElementById("minuteHand").style.transform =
-        `translateX(-50%) rotate(${minutes * 6 + seconds * .1}deg)`;
+        `translateX(-50%) rotate(${m*6+s*.1}deg)`;
 
     document.getElementById("hourHand").style.transform =
-        `translateX(-50%) rotate(${hours * 30 + minutes * .5}deg)`;
+        `translateX(-50%) rotate(${h*30+m*.5}deg)`;
 }
 
 updateClock();
-setInterval(updateClock, 1000);
+setInterval(updateClock,1000);
 
-/* ==========================================
+/* =====================================
    4. ĐẾM NGƯỢC
-========================================== */
+===================================== */
 
 const eventDate = new Date("2026-12-20T09:30:00+07:00").getTime();
 
 function updateCountdown() {
-    const now = Date.now();
-    const distance = eventDate - now;
+    const distance = eventDate - Date.now();
 
     if (distance <= 0) {
-        document.getElementById("days").textContent = "00";
-        document.getElementById("hours").textContent = "00";
-        document.getElementById("minutes").textContent = "00";
-        document.getElementById("seconds").textContent = "00";
+        ["days","hours","minutes","seconds"].forEach(id => {
+            document.getElementById(id).textContent = "00";
+        });
         return;
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((distance / (1000 * 60)) % 60);
-    const seconds = Math.floor((distance / 1000) % 60);
+    const d = Math.floor(distance / 86400000);
+    const h = Math.floor(distance / 3600000) % 24;
+    const m = Math.floor(distance / 60000) % 60;
+    const s = Math.floor(distance / 1000) % 60;
 
-    document.getElementById("days").textContent = String(days).padStart(2, "0");
-    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+    document.getElementById("days").textContent = String(d).padStart(2,"0");
+    document.getElementById("hours").textContent = String(h).padStart(2,"0");
+    document.getElementById("minutes").textContent = String(m).padStart(2,"0");
+    document.getElementById("seconds").textContent = String(s).padStart(2,"0");
 }
 
 updateCountdown();
-setInterval(updateCountdown, 1000);
+setInterval(updateCountdown,1000);
 
-/* ==========================================
+/* =====================================
    5. CÁNH HOA RƠI
-   Chỉ tạo một số lượng nhỏ để tránh lag
-========================================== */
+===================================== */
 
 function startPetals() {
     if (document.body.dataset.petalsStarted) return;
     document.body.dataset.petalsStarted = "yes";
 
-    const symbols = ["✿", "❀", "✧"];
+    const symbols = ["✿","❀","✧"];
 
-    for (let i = 0; i < 12; i++) {
+    for (let i=0;i<14;i++) {
         const petal = document.createElement("div");
         petal.className = "petal";
         petal.textContent = symbols[i % symbols.length];
-        petal.style.left = Math.random() * 100 + "vw";
-        petal.style.animationDuration = (12 + Math.random() * 12) + "s";
-        petal.style.animationDelay = (-Math.random() * 20) + "s";
-        petal.style.fontSize = (10 + Math.random() * 9) + "px";
-
+        petal.style.left = Math.random()*100 + "vw";
+        petal.style.animationDuration = (12+Math.random()*13) + "s";
+        petal.style.animationDelay = (-Math.random()*20) + "s";
+        petal.style.fontSize = (10+Math.random()*9) + "px";
         document.body.appendChild(petal);
     }
 }
 
-/* ==========================================
-   6. PHÁO HOA NHẸ
-   Giới hạn hạt và chỉ chạy sau khi mở thiệp
-========================================== */
+/* =====================================
+   6. CANVAS: PHÁO HOA + BONG BÓNG + CÁ
+   Dùng một vòng lặp hoạt ảnh chung
+===================================== */
 
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById("effects");
+const ctx = canvas.getContext("2d", {alpha:true});
 
-let particles = [];
-let fireworksStarted = false;
+let W = 0;
+let H = 0;
+let DPR = 1;
+let running = false;
+let lastTime = 0;
 let lastFirework = 0;
+let lastBubble = 0;
+
+const particles = [];
+const bubbles = [];
+const fish = [];
+
+const colors = ["#d8b4ff","#f6c8ff","#ffffff","#a77aff","#ffb8ec"];
 
 function resizeCanvas() {
-    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+    DPR = Math.min(window.devicePixelRatio || 1,1.25);
+    W = window.innerWidth;
+    H = window.innerHeight;
 
-    canvas.width = window.innerWidth * ratio;
-    canvas.height = window.innerHeight * ratio;
+    canvas.width = Math.floor(W*DPR);
+    canvas.height = Math.floor(H*DPR);
+    canvas.style.width = W+"px";
+    canvas.style.height = H+"px";
 
-    canvas.style.width = window.innerWidth + "px";
-    canvas.style.height = window.innerHeight + "px";
-
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
 }
 
 resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+window.addEventListener("resize",resizeCanvas);
 
-function createFirework() {
-    if (particles.length > 130) return;
+/* TẠO PHÁO HOA */
 
-    const x = Math.random() * window.innerWidth;
-    const y = Math.random() * window.innerHeight * .55 + 30;
-    const color = ["#d8b4ff", "#f6c8ff", "#ffffff", "#a77aff"][Math.floor(Math.random() * 4)];
+function createFirework(x,y,big=false) {
+    const count = big ? 48 : 30;
+    const color = colors[Math.floor(Math.random()*colors.length)];
 
-    for (let i = 0; i < 22; i++) {
-        const angle = (Math.PI * 2 * i) / 22;
-        const speed = 1 + Math.random() * 2.2;
+    if (particles.length > 360) return;
+
+    for (let i=0;i<count;i++) {
+        const angle = Math.PI*2*i/count;
+        const speed = (big?2.5:1.7)+Math.random()*2.1;
 
         particles.push({
-            x,
-            y,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed,
-            life: 45 + Math.random() * 20,
+            x,y,
+            vx:Math.cos(angle)*speed,
+            vy:Math.sin(angle)*speed,
+            life:50+Math.random()*30,
+            maxLife:80,
+            size:1+Math.random()*1.5,
             color
         });
     }
 }
 
-function animateFireworks(time) {
-    if (!fireworksStarted) return;
+/* BONG BÓNG */
 
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+function createBubble() {
+    if (bubbles.length >= 22) return;
 
-    if (time - lastFirework > 1450) {
-        createFirework();
+    bubbles.push({
+        x:Math.random()*W,
+        y:H+15,
+        r:3+Math.random()*9,
+        speed:.45+Math.random()*.9,
+        drift:Math.random()*Math.PI*2,
+        alpha:.2+Math.random()*.35
+    });
+}
+
+function drawBubble(b,time) {
+    const x = b.x + Math.sin(time*.001+b.drift)*12;
+
+    ctx.beginPath();
+    ctx.arc(x,b.y,b.r,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(224,190,255,${b.alpha})`;
+    ctx.lineWidth=1;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(x-b.r*.3,b.y-b.r*.3,Math.max(1,b.r*.15),0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${b.alpha+.2})`;
+    ctx.fill();
+}
+
+/* ĐÀN CÁ */
+
+function createFishSchool() {
+    const amount = 5 + Math.floor(Math.random()*4);
+    const direction = Math.random() > .5 ? 1 : -1;
+    const startX = direction === 1 ? -60 : W+60;
+    const startY = H*.25 + Math.random()*H*.5;
+    const schoolSpeed = .45 + Math.random()*.55;
+
+    for (let i=0;i<amount;i++) {
+        fish.push({
+            x:startX-i*24*direction,
+            y:startY+(Math.random()-.5)*24,
+            speed:schoolSpeed,
+            direction,
+            size:5+Math.random()*5,
+            offset:Math.random()*6,
+            color:colors[Math.floor(Math.random()*colors.length)]
+        });
+    }
+}
+
+function drawFish(f,time) {
+    const x = f.x;
+    const y = f.y + Math.sin(time*.002+f.offset)*5;
+    const direction = f.direction;
+
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.scale(direction,1);
+
+    ctx.globalAlpha=.72;
+
+    ctx.beginPath();
+    ctx.ellipse(0,0,f.size*1.4,f.size*.7,0,0,Math.PI*2);
+    ctx.fillStyle=f.color;
+    ctx.shadowBlur=9;
+    ctx.shadowColor=f.color;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(-f.size,0);
+    ctx.lineTo(-f.size*2,-f.size*.8);
+    ctx.lineTo(-f.size*2,f.size*.8);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(f.size*.6,-f.size*.12,1,0,Math.PI*2);
+    ctx.fillStyle="#ffffff";
+    ctx.fill();
+
+    ctx.restore();
+}
+
+/* VÒNG LẶP CHUNG */
+
+function animate(time) {
+    if (!running) return;
+
+    const elapsed = Math.min(time-lastTime,35);
+    lastTime = time;
+
+    ctx.clearRect(0,0,W,H);
+
+    /* Pháo hoa theo từng đợt */
+    if (time-lastFirework > 420) {
+        const x = W*.12 + Math.random()*W*.76;
+        const y = H*.08 + Math.random()*H*.42;
+
+        createFirework(x,y,Math.random()>.68);
         lastFirework = time;
     }
 
-    particles = particles.filter(p => p.life > 0);
+    /* Thêm bong bóng */
+    if (time-lastBubble > 430) {
+        createBubble();
+        lastBubble = time;
+    }
 
-    for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += .025;
-        p.life--;
+    /* Tạo đàn cá thỉnh thoảng */
+    if (fish.length < 18 && Math.random()<.004) {
+        createFishSchool();
+    }
 
-        ctx.globalAlpha = Math.max(0, p.life / 65);
-        ctx.fillStyle = p.color;
+    /* Vẽ cá */
+    for (let i=fish.length-1;i>=0;i--) {
+        const f=fish[i];
+        f.x += f.speed*f.direction*(elapsed/16.67);
+
+        drawFish(f,time);
+
+        if ((f.direction===1 && f.x>W+100) ||
+            (f.direction===-1 && f.x<-100)) {
+            fish.splice(i,1);
+        }
+    }
+
+    /* Vẽ bong bóng */
+    for (let i=bubbles.length-1;i>=0;i--) {
+        const b=bubbles[i];
+        b.y -= b.speed*(elapsed/16.67);
+
+        drawBubble(b,time);
+
+        if (b.y < -30) bubbles.splice(i,1);
+    }
+
+    /* Vẽ pháo hoa */
+    for (let i=particles.length-1;i>=0;i--) {
+        const p=particles[i];
+
+        p.x += p.vx*(elapsed/16.67);
+        p.y += p.vy*(elapsed/16.67);
+        p.vy += .025*(elapsed/16.67);
+        p.vx *= .992;
+        p.life -= elapsed/16.67;
+
+        if (p.life<=0) {
+            particles.splice(i,1);
+            continue;
+        }
+
+        ctx.globalAlpha=Math.min(1,p.life/p.maxLife);
+        ctx.fillStyle=p.color;
+        ctx.shadowBlur=8;
+        ctx.shadowColor=p.color;
+
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
         ctx.fill();
     }
 
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(animateFireworks);
+    ctx.globalAlpha=1;
+    ctx.shadowBlur=0;
+
+    requestAnimationFrame(animate);
 }
 
-function startFireworks() {
-    if (fireworksStarted) return;
-    fireworksStarted = true;
+function startEffects() {
+    if (running) return;
+    running = true;
+    lastTime = performance.now();
     lastFirework = 0;
-    requestAnimationFrame(animateFireworks);
+    lastBubble = 0;
+
+    createFishSchool();
+    createFishSchool();
+
+    requestAnimationFrame(animate);
 }
 
-/* ==========================================
+/* Tạm dừng hiệu ứng khi chuyển tab để tiết kiệm tài nguyên */
+document.addEventListener("visibilitychange",function() {
+    if (document.hidden) {
+        running = false;
+    } else if (opened && !running) {
+        running = true;
+        lastTime = performance.now();
+        requestAnimationFrame(animate);
+    }
+});
+
+/* =====================================
    7. TƯỜNG LỜI CHÚC GOOGLE SHEETS
-========================================== */
+===================================== */
 
 const wishForm = document.getElementById("wishForm");
 const wishList = document.getElementById("wishList");
 const formStatus = document.getElementById("formStatus");
 const sendButton = document.getElementById("sendButton");
 
-function showWish(name, message, date) {
-    const card = document.createElement("article");
-    card.className = "wish-card";
+function showWish(name,message,date) {
+    const card=document.createElement("article");
+    card.className="wish-card";
 
-    const sender = document.createElement("div");
-    sender.className = "wish-name";
-    sender.textContent = name;
+    const sender=document.createElement("div");
+    sender.className="wish-name";
+    sender.textContent=name;
 
-    const content = document.createElement("div");
-    content.className = "wish-message";
-    content.textContent = message;
+    const content=document.createElement("div");
+    content.className="wish-message";
+    content.textContent=message;
 
-    const time = document.createElement("div");
-    time.className = "wish-date";
-    time.textContent = date || "";
+    const time=document.createElement("div");
+    time.className="wish-date";
+    time.textContent=date||"";
 
-    card.appendChild(sender);
-    card.appendChild(content);
-    card.appendChild(time);
-
+    card.append(sender,content,time);
     return card;
 }
 
 function jsonpRequest(params) {
-    return new Promise((resolve, reject) => {
-        if (!SCRIPT_URL.startsWith("https://script.google.com/")) {
-            reject(new Error("Chưa cài URL Google Apps Script."));
-            return;
-        }
+    return new Promise((resolve,reject)=>{
+        const callbackName="wishCallback_"+Date.now()+"_"+Math.floor(Math.random()*100000);
+        const script=document.createElement("script");
 
-        const callbackName = "wishCallback_" + Date.now() + "_" +
-            Math.floor(Math.random() * 100000);
-
-        const script = document.createElement("script");
-        const query = new URLSearchParams({
+        const query=new URLSearchParams({
             ...params,
-            callback: callbackName
+            callback:callbackName
         });
 
-        let finished = false;
+        let finished=false;
 
-        const cleanup = () => {
+        const timer=setTimeout(()=>{
+            if(finished)return;
+            finished=true;
+            cleanup();
+            reject(new Error("Máy chủ phản hồi quá lâu. Thử lại sau nhé."));
+        },15000);
+
+        function cleanup() {
             delete window[callbackName];
             script.remove();
             clearTimeout(timer);
-        };
+        }
 
-        const timer = setTimeout(() => {
-            if (finished) return;
-            finished = true;
-            cleanup();
-            reject(new Error("Máy chủ phản hồi quá lâu. Thử lại sau nhé."));
-        }, 15000);
-
-        window[callbackName] = function (data) {
-            if (finished) return;
-            finished = true;
+        window[callbackName]=function(data) {
+            if(finished)return;
+            finished=true;
             cleanup();
             resolve(data);
         };
 
-        script.onerror = function () {
-            if (finished) return;
-            finished = true;
+        script.onerror=function() {
+            if(finished)return;
+            finished=true;
             cleanup();
             reject(new Error("Không kết nối được với máy chủ lời chúc."));
         };
 
-        script.src = SCRIPT_URL + "?" + query.toString();
+        script.src=SCRIPT_URL+"?"+query.toString();
         document.body.appendChild(script);
     });
 }
 
 async function loadWishes() {
-    if (SCRIPT_URL.includes("DAN_URL_")) {
-        wishList.innerHTML =
-            '<div class="empty-wishes">Tường lời chúc sẽ hiển thị sau khi kết nối Google Sheets.</div>';
-        return;
-    }
-
     try {
-        const result = await jsonpRequest({ action: "list" });
+        const result=await jsonpRequest({action:"list"});
 
-        if (!result || !result.ok) {
+        if(!result||!result.ok) {
             throw new Error("Không tải được lời chúc.");
         }
 
         wishList.replaceChildren();
 
-        if (!result.wishes || result.wishes.length === 0) {
-            wishList.innerHTML =
-                '<div class="empty-wishes">Chưa có lời chúc nào. Hãy là người đầu tiên nhé!</div>';
+        if(!result.wishes||result.wishes.length===0) {
+            wishList.innerHTML='<div class="empty-wishes">Chưa có lời chúc nào. Hãy là người đầu tiên nhé!</div>';
             return;
         }
 
-        result.wishes.forEach(item => {
-            wishList.appendChild(showWish(item.name, item.message, item.date));
+        result.wishes.forEach(item=>{
+            wishList.appendChild(showWish(item.name,item.message,item.date));
         });
 
-    } catch (error) {
-        wishList.innerHTML =
-            '<div class="empty-wishes">Chưa thể tải lời chúc. Mày kiểm tra lại kết nối nhé.</div>';
+    } catch(error) {
+        wishList.innerHTML='<div class="empty-wishes">Chưa thể tải lời chúc. Kiểm tra lại kết nối nhé.</div>';
     }
 }
 
-wishForm.addEventListener("submit", async function (event) {
+wishForm.addEventListener("submit",async function(event) {
     event.preventDefault();
 
-    const name = document.getElementById("guestName").value.trim();
-    const message = document.getElementById("guestMessage").value.trim();
-    const honeypot = document.getElementById("website").value;
+    const name=document.getElementById("guestName").value.trim();
+    const message=document.getElementById("guestMessage").value.trim();
+    const honeypot=document.getElementById("website").value;
 
-    if (honeypot) return;
+    if(honeypot)return;
 
-    if (!name || !message) {
-        formStatus.textContent = "Hãy nhập tên và lời nhắn trước nhé.";
+    if(!name||!message) {
+        formStatus.textContent="Hãy nhập tên và lời nhắn trước nhé.";
         return;
     }
 
-    if (name.length > 40 || message.length > 300) {
-        formStatus.textContent = "Tên tối đa 40 ký tự, lời nhắn tối đa 300 ký tự.";
+    if(name.length>40||message.length>300) {
+        formStatus.textContent="Tên tối đa 40 ký tự, lời nhắn tối đa 300 ký tự.";
         return;
     }
 
-    if (SCRIPT_URL.includes("DAN_URL_")) {
-        formStatus.textContent = "Chưa kết nối Google Sheets. Hãy cài đặt phần 2 trước.";
-        return;
-    }
-
-    sendButton.disabled = true;
-    sendButton.textContent = "ĐANG GỬI...";
-    formStatus.textContent = "Đang gửi lời chúc của bạn...";
+    sendButton.disabled=true;
+    sendButton.textContent="ĐANG GỬI...";
+    formStatus.textContent="Đang gửi lời chúc...";
 
     try {
-        const result = await jsonpRequest({
-            action: "add",
+        const result=await jsonpRequest({
+            action:"add",
             name,
             message
         });
 
-        if (!result || !result.ok) {
-            throw new Error(result && result.error ? result.error : "Gửi chưa thành công.");
+        if(!result||!result.ok) {
+            throw new Error(result?.error||"Gửi chưa thành công.");
         }
 
-        formStatus.textContent = "Lời chúc đã được gửi thành công. Cảm ơn bạn!";
+        formStatus.textContent="Lời chúc đã được gửi thành công. Cảm ơn bạn!";
         wishForm.reset();
         await loadWishes();
 
-    } catch (error) {
-        formStatus.textContent = error.message || "Có lỗi xảy ra. Thử lại sau nhé.";
+    } catch(error) {
+        formStatus.textContent=error.message||"Có lỗi xảy ra. Thử lại sau nhé.";
     } finally {
-        sendButton.disabled = false;
-        sendButton.textContent = "GỬI LỜI CHÚC ✦";
+        sendButton.disabled=false;
+        sendButton.textContent="GỬI LỜI CHÚC ✦";
     }
 });
 
