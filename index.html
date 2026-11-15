@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -413,6 +412,8 @@ section {
 
 .floating-portrait {
     position: fixed;
+    left: 0;
+    top: 0;
     z-index: 7;
     width: clamp(65px, 10vw, 105px);
     aspect-ratio: 1;
@@ -423,17 +424,67 @@ section {
     pointer-events: none;
     opacity: 0;
     transition: opacity 2s;
-    animation: portraitFloat 18s ease-in-out infinite;
+    will-change: transform;
 }
 
-#mainSite.show .floating-portrait { opacity: 1; }
+#mainSite.show .floating-portrait {
+    opacity: 1;
+    animation: portraitFloat 22s ease-in-out infinite;
+}
 
 @keyframes portraitFloat {
-    0% { left: 5%; top: 20%; transform: rotate(-10deg); }
-    25% { left: 78%; top: 15%; transform: rotate(12deg); }
-    50% { left: 82%; top: 75%; transform: rotate(-8deg); }
-    75% { left: 8%; top: 75%; transform: rotate(10deg); }
-    100% { left: 5%; top: 20%; transform: rotate(-10deg); }
+    0% {
+        transform: translate3d(4vw, 18vh, 0) rotate(-10deg);
+    }
+    16% {
+        transform: translate3d(calc(100vw - clamp(65px, 10vw, 105px) - 12px), 12vh, 0) rotate(12deg);
+    }
+    32% {
+        transform: translate3d(calc(100vw - clamp(65px, 10vw, 105px) - 12px), 52vh, 0) rotate(-8deg);
+    }
+    48% {
+        transform: translate3d(68vw, calc(100vh - clamp(65px, 10vw, 105px) - 18px), 0) rotate(10deg);
+    }
+    64% {
+        transform: translate3d(8vw, calc(100vh - clamp(65px, 10vw, 105px) - 18px), 0) rotate(-10deg);
+    }
+    80% {
+        transform: translate3d(2vw, 43vh, 0) rotate(12deg);
+    }
+    92% {
+        transform: translate3d(35vw, 5vh, 0) rotate(-8deg);
+    }
+    100% {
+        transform: translate3d(4vw, 18vh, 0) rotate(-10deg);
+    }
+}
+
+/* BỤI TIÊN BAY THEO ẢNH */
+.fairy-dust {
+    position: fixed;
+    z-index: 6;
+    pointer-events: none;
+    color: #ffe3ff;
+    font-size: 13px;
+    line-height: 1;
+    text-shadow: 0 0 7px #fff, 0 0 15px #ff8fea, 0 0 25px #b65cff;
+    animation: fairyDust 1.25s ease-out forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes fairyDust {
+    0% {
+        opacity: .95;
+        transform: translate3d(0, 0, 0) scale(.65) rotate(0deg);
+    }
+    45% {
+        opacity: 1;
+        transform: translate3d(var(--dust-x), var(--dust-y), 0) scale(1.15) rotate(90deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(calc(var(--dust-x) * 1.7), calc(var(--dust-y) * 1.7), 0) scale(0) rotate(180deg);
+    }
 }
 
 /* THÔNG TIN SỰ KIỆN */
@@ -905,7 +956,7 @@ footer .signature {
 <!-- NHẠC -->
 
 <audio id="backgroundMusic" loop preload="auto">
-    <source src="giac-mo-tinh-co.mp3" type="audio/mpeg">
+    <source src="giac-mo-tinh-co.mp3.m4a" type="audio/mpeg">
 </audio>
 
 <button class="music-button" id="musicButton" onclick="toggleMusic()" title="Bật / tắt nhạc">♫</button>
@@ -1066,520 +1117,3 @@ const TARGET_DATE = new Date("2026-12-20T09:30:00+07:00");
 const opening = document.getElementById("opening");
 const mainSite = document.getElementById("mainSite");
 const envelopeWrap = document.getElementById("envelopeWrap");
-const music = document.getElementById("backgroundMusic");
-const musicButton = document.getElementById("musicButton");
-
-let opened = false;
-
-/* ==============================
-   MỞ THƯ
-================================ */
-
-function openInvitation() {
-    if (opened) return;
-    opened = true;
-
-    envelopeWrap.classList.add("opened");
-
-    music.volume = 0.45;
-    music.play().then(() => {
-        musicButton.classList.add("playing");
-        musicButton.textContent = "♫";
-    }).catch(() => {});
-
-    setTimeout(() => {
-        opening.classList.add("revealed");
-        launchGrandOpening();
-    }, 850);
-
-    setTimeout(() => {
-        opening.classList.add("hide");
-        mainSite.classList.add("show");
-        startDecorations();
-        loadWishes();
-    }, 2600);
-}
-
-/* ==============================
-   NHẠC
-================================ */
-
-function toggleMusic() {
-    if (music.paused) {
-        music.play().then(() => {
-            musicButton.classList.add("playing");
-        }).catch(() => {
-            alert("Không thể phát nhạc. Hãy kiểm tra file giac-mo-tinh-co.mp3 nhé!");
-        });
-    } else {
-        music.pause();
-        musicButton.classList.remove("playing");
-    }
-}
-
-/* ==============================
-   ĐỒNG HỒ LA MÃ
-================================ */
-
-const clock = document.getElementById("romanClock");
-const romanNumbers = ["XII","I","II","III","IV","V","VI","VII","VIII","IX","X","XI"];
-
-romanNumbers.forEach((number, i) => {
-    const angle = i * Math.PI / 6;
-    const radius = 99;
-    const el = document.createElement("div");
-    el.className = "roman";
-    el.textContent = number;
-    el.style.left = (120 + Math.sin(angle) * radius) + "px";
-    el.style.top = (120 - Math.cos(angle) * radius) + "px";
-    clock.appendChild(el);
-});
-
-function updateClock() {
-    const now = new Date();
-    const seconds = now.getSeconds();
-    const minutes = now.getMinutes();
-    const hours = now.getHours();
-
-    document.getElementById("secondHand").style.transform =
-        `translateX(-50%) rotate(${seconds * 6}deg)`;
-
-    document.getElementById("minuteHand").style.transform =
-        `translateX(-50%) rotate(${minutes * 6 + seconds * .1}deg)`;
-
-    document.getElementById("hourHand").style.transform =
-        `translateX(-50%) rotate(${hours * 30 + minutes * .5}deg)`;
-}
-
-setInterval(updateClock, 1000);
-updateClock();
-
-/* ==============================
-   ĐẾM NGƯỢC
-================================ */
-
-function updateCountdown() {
-    const diff = TARGET_DATE.getTime() - Date.now();
-
-    if (diff <= 0) {
-        document.getElementById("days").textContent = "00";
-        document.getElementById("hours").textContent = "00";
-        document.getElementById("minutes").textContent = "00";
-        document.getElementById("seconds").textContent = "00";
-        return;
-    }
-
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor(diff / 3600000) % 24;
-    const minutes = Math.floor(diff / 60000) % 60;
-    const seconds = Math.floor(diff / 1000) % 60;
-
-    document.getElementById("days").textContent = String(days).padStart(2, "0");
-    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
-}
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-/* ==============================
-   CANVAS: PHÁO HOA, CÁ, BONG BÓNG
-================================ */
-
-const canvas = document.getElementById("magicCanvas");
-const ctx = canvas.getContext("2d");
-
-let W, H, dpr;
-let particles = [];
-let fish = [];
-let bubbles = [];
-let fireworks = [];
-let animationRunning = true;
-
-function resizeCanvas() {
-    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    W = window.innerWidth;
-    H = window.innerHeight;
-
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    canvas.style.width = W + "px";
-    canvas.style.height = H + "px";
-
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-}
-
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
-
-function random(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
-/* PHÁO HOA */
-
-function createFirework(x, y, amount = 65) {
-    const colors = ["#ffb8ee", "#d9a0ff", "#fff2c7", "#b8d8ff", "#ff8fd8"];
-
-    for (let i = 0; i < amount; i++) {
-        const angle = Math.PI * 2 * i / amount + random(-.05, .05);
-        const speed = random(1.2, 5.2);
-
-        particles.push({
-            x, y,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed,
-            life: 1,
-            decay: random(.009, .018),
-            size: random(1.2, 3.2),
-            color: colors[Math.floor(Math.random() * colors.length)]
-        });
-    }
-
-    if (particles.length > 1000) {
-        particles.splice(0, particles.length - 1000);
-    }
-}
-
-function launchGrandOpening() {
-    for (let i = 0; i < 12; i++) {
-        setTimeout(() => {
-            createFirework(random(W * .12, W * .88), random(H * .1, H * .55), 75);
-        }, i * 180);
-    }
-
-    for (let i = 0; i < 40; i++) {
-        setTimeout(createPetal, i * 65);
-    }
-}
-
-/* ĐÀN CÁ */
-
-function createFishSchool() {
-    const amount = Math.floor(random(6, 11));
-    const y = random(H * .15, H * .85);
-    const direction = Math.random() > .5 ? 1 : -1;
-    const startX = direction === 1 ? -100 : W + 100;
-
-    for (let i = 0; i < amount; i++) {
-        fish.push({
-            x: startX - direction * i * 20,
-            y: y + random(-25, 25),
-            speed: direction * random(.7, 1.7),
-            size: random(5, 11),
-            wave: random(0, 6.28),
-            alpha: random(.45, .9)
-        });
-    }
-
-    if (fish.length > 65) fish.splice(0, fish.length - 65);
-}
-
-function drawFish(f) {
-    ctx.save();
-    ctx.translate(f.x, f.y + Math.sin(f.wave) * 4);
-
-    if (f.speed < 0) ctx.scale(-1, 1);
-
-    ctx.globalAlpha = f.alpha;
-    ctx.fillStyle = "#b9e8ff";
-    ctx.shadowColor = "#83caff";
-    ctx.shadowBlur = 13;
-
-    ctx.beginPath();
-    ctx.ellipse(0, 0, f.size, f.size * .48, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.moveTo(-f.size + 2, 0);
-    ctx.lineTo(-f.size * 1.8, -f.size * .55);
-    ctx.lineTo(-f.size * 1.8, f.size * .55);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.fillStyle = "#25153c";
-    ctx.beginPath();
-    ctx.arc(f.size * .45, -1, 1.1, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.restore();
-}
-
-/* BONG BÓNG CANVAS */
-
-function createBubble() {
-    bubbles.push({
-        x: random(0, W),
-        y: H + 10,
-        radius: random(2, 7),
-        speed: random(.5, 1.5),
-        drift: random(-.5, .5),
-        alpha: random(.2, .65)
-    });
-
-    if (bubbles.length > 35) bubbles.shift();
-}
-
-/* VẼ CANVAS */
-
-function animateCanvas() {
-    if (!animationRunning) {
-        requestAnimationFrame(animateCanvas);
-        return;
-    }
-
-    ctx.clearRect(0, 0, W, H);
-
-    fireworks.forEach(f => {
-        f.x += f.vx;
-        f.y += f.vy;
-        f.vy += .035;
-        f.life -= .012;
-    });
-
-    fireworks = fireworks.filter(f => f.life > 0);
-
-    particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += .025;
-        p.vx *= .992;
-        p.vy *= .992;
-        p.life -= p.decay;
-
-        ctx.globalAlpha = Math.max(0, p.life);
-        ctx.fillStyle = p.color;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = 12;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
-    });
-
-    particles = particles.filter(p => p.life > 0);
-
-    fish.forEach(f => {
-        f.x += f.speed;
-        f.wave += .045;
-        drawFish(f);
-    });
-
-    fish = fish.filter(f => f.x > -150 && f.x < W + 150);
-
-    bubbles.forEach(b => {
-        b.y -= b.speed;
-        b.x += b.drift;
-
-        ctx.globalAlpha = b.alpha;
-        ctx.strokeStyle = "#dcbaff";
-        ctx.lineWidth = 1;
-        ctx.shadowColor = "#b88cff";
-        ctx.shadowBlur = 8;
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
-        ctx.stroke();
-    });
-
-    bubbles = bubbles.filter(b => b.y > -20);
-
-    ctx.globalAlpha = 1;
-    ctx.shadowBlur = 0;
-
-    requestAnimationFrame(animateCanvas);
-}
-
-animateCanvas();
-
-document.addEventListener("visibilitychange", () => {
-    animationRunning = !document.hidden;
-});
-
-/* ==============================
-   HIỆU ỨNG TRANG
-================================ */
-
-function createPetal() {
-    const petal = document.createElement("div");
-    petal.className = "petal";
-    petal.textContent = ["✿", "❀", "✧", "❋", "✦"][Math.floor(Math.random() * 5)];
-
-    petal.style.left = random(0, 100) + "vw";
-    petal.style.fontSize = random(12, 24) + "px";
-    petal.style.setProperty("--drift", random(-160, 160) + "px");
-    petal.style.animationDuration = random(7, 14) + "s";
-
-    document.body.appendChild(petal);
-    setTimeout(() => petal.remove(), 15000);
-}
-
-function createFloatingBubble() {
-    const bubble = document.createElement("div");
-    bubble.className = "bubble";
-
-    const size = random(8, 27);
-    bubble.style.width = size + "px";
-    bubble.style.height = size + "px";
-    bubble.style.left = random(0, 100) + "vw";
-    bubble.style.animationDuration = random(8, 15) + "s";
-
-    document.body.appendChild(bubble);
-    setTimeout(() => bubble.remove(), 16000);
-}
-
-let decorationsStarted = false;
-
-function startDecorations() {
-    if (decorationsStarted) return;
-    decorationsStarted = true;
-
-    setInterval(createPetal, 450);
-    setInterval(createFloatingBubble, 800);
-    setInterval(createBubble, 650);
-    setInterval(createFishSchool, 3500);
-
-    setInterval(() => {
-        createFirework(random(W * .1, W * .9), random(H * .1, H * .5), 55);
-    }, 900);
-}
-
-/* ==============================
-   TƯỜNG LỜI CHÚC GOOGLE SHEETS
-================================ */
-
-function jsonpRequest(params) {
-    return new Promise((resolve, reject) => {
-        const callbackName = "wishCallback_" + Date.now() + "_" + Math.floor(Math.random() * 100000);
-
-        const script = document.createElement("script");
-        const query = new URLSearchParams({
-            ...params,
-            callback: callbackName
-        });
-
-        let finished = false;
-
-        const timeout = setTimeout(() => {
-            finish();
-            reject(new Error("Kết nối quá thời gian."));
-        }, 15000);
-
-        function finish() {
-            if (finished) return;
-            finished = true;
-            clearTimeout(timeout);
-            delete window[callbackName];
-            script.remove();
-        }
-
-        window[callbackName] = data => {
-            finish();
-            resolve(data);
-        };
-
-        script.onerror = () => {
-            finish();
-            reject(new Error("Không thể kết nối máy chủ lời chúc."));
-        };
-
-        script.src = SCRIPT_URL + "?" + query.toString();
-        document.body.appendChild(script);
-    });
-}
-
-function renderWishes(wishes) {
-    const wall = document.getElementById("wishWall");
-    wall.innerHTML = "";
-
-    if (!wishes || wishes.length === 0) {
-        wall.innerHTML = `
-            <div class="wish-card">
-                <h4>Lời chúc đầu tiên</h4>
-                <p>Hãy là người đầu tiên để lại một lời nhắn thật đặc biệt nhé!</p>
-            </div>`;
-        return;
-    }
-
-    wishes.forEach(wish => {
-        const card = document.createElement("div");
-        card.className = "wish-card";
-
-        const name = document.createElement("h4");
-        name.textContent = wish.name || "Một người bạn";
-
-        const message = document.createElement("p");
-        message.textContent = wish.message || "";
-
-        const date = document.createElement("small");
-        date.textContent = wish.date || "";
-
-        card.append(name, message, date);
-        wall.appendChild(card);
-    });
-}
-
-async function loadWishes() {
-    try {
-        const result = await jsonpRequest({ action: "list" });
-
-        if (result.ok) {
-            renderWishes(result.wishes);
-        } else {
-            document.getElementById("formStatus").textContent =
-                result.error || "Không tải được lời chúc.";
-        }
-    } catch (error) {
-        document.getElementById("formStatus").textContent =
-            "Chưa thể tải lời chúc. Hãy thử tải lại trang.";
-    }
-}
-
-async function sendWish() {
-    const nameInput = document.getElementById("wishName");
-    const messageInput = document.getElementById("wishMessage");
-    const status = document.getElementById("formStatus");
-    const button = document.getElementById("sendWish");
-
-    const name = nameInput.value.trim();
-    const message = messageInput.value.trim();
-
-    if (!name || !message) {
-        status.textContent = "Mày hãy nhập cả tên và lời chúc nhé!";
-        return;
-    }
-
-    if (name.length > 40 || message.length > 300) {
-        status.textContent = "Tên tối đa 40 ký tự, lời chúc tối đa 300 ký tự.";
-        return;
-    }
-
-    button.disabled = true;
-    button.textContent = "ĐANG GỬI...";
-    status.textContent = "Đang gửi lời chúc...";
-
-    try {
-        const result = await jsonpRequest({
-            action: "add",
-            name: name,
-            message: message
-        });
-
-        if (result.ok) {
-            status.textContent = "✦ Lời chúc đã được gửi thành công!";
-            nameInput.value = "";
-            messageInput.value = "";
-            await loadWishes();
-        } else {
-            status.textContent = result.error || "Gửi lời chúc thất bại.";
-        }
-    } catch (error) {
-        status.textContent = "Không thể gửi lời chúc. Hãy kiểm tra kết nối.";
-    } finally {
-        button.disabled = false;
-        button.textContent = "GỬI LỜI CHÚC ✦";
-    }
-}
-</script>
-
-</body>
-</html>
