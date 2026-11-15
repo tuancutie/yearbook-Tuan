@@ -412,23 +412,31 @@ section {
 
 .floating-portrait {
     position: fixed;
-    z-index: 7;
+    z-index: 20;
     left: 0;
     top: 0;
     width: clamp(65px, 10vw, 105px);
     aspect-ratio: 1;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center;
     border: 3px solid #ffd5ff;
-    box-shadow: 0 0 15px #f3aaff, 0 0 40px #b45cff;
+    box-shadow:
+        0 0 15px #f3aaff,
+        0 0 25px #d58aff,
+        0 0 40px #b45cff;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 2s;
-    will-change: transform;
+    visibility: hidden;
+    transition: opacity 2s ease, visibility 2s ease;
+    will-change: left, top, transform;
 }
 
-#mainSite.show .floating-portrait {
+/* ẢNH ĐƯỢC HIỆN KHI JAVASCRIPT THÊM CLASS visible */
+
+.floating-portrait.visible {
     opacity: 1;
+    visibility: visible;
     animation: portraitFloat 22s ease-in-out infinite;
 }
 
@@ -439,28 +447,28 @@ section {
         transform: rotate(-12deg) scale(1);
     }
     15% {
-        left: 38%;
+        left: 35%;
         top: 5%;
         transform: rotate(12deg) scale(1.08);
     }
     30% {
-        left: 82%;
+        left: 76%;
         top: 18%;
         transform: rotate(-8deg) scale(1);
     }
     45% {
-        left: 85%;
-        top: 55%;
+        left: 78%;
+        top: 48%;
         transform: rotate(14deg) scale(.95);
     }
     60% {
-        left: 65%;
-        top: 82%;
+        left: 60%;
+        top: 76%;
         transform: rotate(-10deg) scale(1.08);
     }
     75% {
         left: 12%;
-        top: 78%;
+        top: 75%;
         transform: rotate(10deg) scale(1);
     }
     90% {
@@ -479,7 +487,7 @@ section {
 
 .fairy-dust {
     position: fixed;
-    z-index: 8;
+    z-index: 21;
     width: 7px;
     height: 7px;
     border-radius: 50%;
@@ -776,6 +784,11 @@ section {
     box-shadow: 0 0 25px #e4aaff99;
 }
 
+.wish-form button:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
 #formStatus {
     text-align: center;
     color: #eacaff;
@@ -919,15 +932,25 @@ footer .signature {
 
 @media(max-width: 650px) {
     section { padding: 70px 15px; }
-    .event-details { grid-template-columns: 1fr; gap: 0; }
+
+    .event-details {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
     .event-detail {
         border-right: 0;
         border-bottom: 1px solid #ffffff20;
     }
+
     .event-detail:last-child { border: 0; }
+
     .invitation-card { padding: 35px 20px; }
+
     .time-box { width: 75px; }
+
     .time-box strong { font-size: 24px; }
+
     .floating-portrait { width: 65px; }
 }
 
@@ -975,11 +998,16 @@ footer .signature {
     <source src="giac-mo-tinh-co.mp3" type="audio/mpeg">
 </audio>
 
-<button class="music-button" id="musicButton" onclick="toggleMusic()" title="Bật / tắt nhạc">♫</button>
+<button class="music-button" id="musicButton" onclick="window.toggleMusic()" title="Bật / tắt nhạc">♫</button>
 
 <!-- CHÂN DUNG DUY NHẤT -->
 
-<img src="anh-tuan.png" class="floating-portrait" id="floatingPortrait" alt="Nguyễn Anh Tuấn">
+<img
+    src="anh-tuan.png"
+    class="floating-portrait"
+    id="floatingPortrait"
+    alt="Nguyễn Anh Tuấn"
+>
 
 <!-- NỘI DUNG CHÍNH -->
 
@@ -1100,7 +1128,7 @@ footer .signature {
             <div class="wish-form">
                 <input id="wishName" type="text" maxlength="40" placeholder="Tên người gửi">
                 <textarea id="wishMessage" maxlength="300" placeholder="Viết lời chúc của bạn tại đây..."></textarea>
-                <button id="sendWish" onclick="sendWish()">GỬI LỜI CHÚC ✦</button>
+                <button id="sendWish" onclick="window.sendWish()">GỬI LỜI CHÚC ✦</button>
                 <div id="formStatus"></div>
             </div>
 
@@ -1120,6 +1148,7 @@ footer .signature {
     </footer>
 
 </main>
+
 <script>
 /* ==============================
    CẤU HÌNH
@@ -1134,15 +1163,17 @@ const mainSite = document.getElementById("mainSite");
 const envelopeWrap = document.getElementById("envelopeWrap");
 const music = document.getElementById("backgroundMusic");
 const musicButton = document.getElementById("musicButton");
+const portrait = document.getElementById("floatingPortrait");
 
 let opened = false;
 
 /* ==============================
-   MỞ THƯ - ĐÃ SỬA LỖI
+   MỞ THƯ
 ================================ */
 
 window.openInvitation = function() {
     if (opened) return;
+
     opened = true;
 
     envelopeWrap.classList.add("opened");
@@ -1165,8 +1196,13 @@ window.openInvitation = function() {
         opening.classList.add("hide");
         mainSite.classList.add("show");
 
+        /* HIỆN ẢNH CHÂN DUNG */
+        portrait.classList.add("visible");
+
+        /* BẮT ĐẦU CÁC HIỆU ỨNG */
         startDecorations();
         loadWishes();
+
     }, 2600);
 };
 
@@ -1185,6 +1221,7 @@ window.toggleMusic = function() {
     } else {
         music.pause();
         musicButton.classList.remove("playing");
+        musicButton.textContent = "♫";
     }
 };
 
@@ -1281,7 +1318,6 @@ let W, H, dpr;
 let particles = [];
 let fish = [];
 let bubbles = [];
-let fireworks = [];
 
 let animationRunning = true;
 
@@ -1448,15 +1484,6 @@ function animateCanvas() {
 
     ctx.clearRect(0, 0, W, H);
 
-    fireworks.forEach(f => {
-        f.x += f.vx;
-        f.y += f.vy;
-        f.vy += .035;
-        f.life -= .012;
-    });
-
-    fireworks = fireworks.filter(f => f.life > 0);
-
     particles.forEach(p => {
         p.x += p.vx;
         p.y += p.vy;
@@ -1567,16 +1594,13 @@ function createFloatingBubble() {
    ẢNH BAY VÀ BỤI TIÊN
 ================================ */
 
-const portrait = document.getElementById("floatingPortrait");
-
 function createFairyDust() {
     if (!mainSite.classList.contains("show")) return;
-    if (!portrait) return;
+    if (!portrait || !portrait.classList.contains("visible")) return;
 
     const rect = portrait.getBoundingClientRect();
 
     const dust = document.createElement("div");
-
     dust.className = "fairy-dust";
 
     const centerX = rect.left + rect.width / 2;
@@ -1760,7 +1784,7 @@ window.sendWish = async function() {
     const message = messageInput.value.trim();
 
     if (!name || !message) {
-        status.textContent = "Mày hãy nhập cả tên và lời chúc nhé!";
+        status.textContent = "Hãy nhập cả tên và lời chúc nhé!";
         return;
     }
 
