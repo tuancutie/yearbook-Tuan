@@ -6,962 +6,1088 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lost in the Purple | 12A4</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --purple: #a64cff;
-    --pink: #ed9bff;
-    --light: #f9eaff;
-    --dark: #090313;
-    --glass: rgba(105, 39, 164, .18);
+:root{
+ --purple:#8e27ff;
+ --violet:#4d087d;
+ --pink:#ed9aff;
+ --white:#fff2ff;
+ --bg:#08000f;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+ background:var(--bg);
+ color:white;
+ font-family:'Be Vietnam Pro',sans-serif;
+ overflow-x:hidden;
 }
 
-html {
-    scroll-behavior: smooth;
+button{font-family:inherit;cursor:pointer}
+
+#universe{
+ position:fixed;
+ inset:0;
+ z-index:-10;
+ background:
+ radial-gradient(ellipse at 15% 20%,#4b087e 0%,transparent 43%),
+ radial-gradient(ellipse at 85% 60%,#37005e 0%,transparent 42%),
+ radial-gradient(ellipse at 50% 100%,#25003e 0%,transparent 55%),
+ #07000d;
 }
 
-body {
-    background: #08020f;
-    color: #fff;
-    font-family: 'Be Vietnam Pro', sans-serif;
-    overflow-x: hidden;
+#stars{
+ position:fixed;
+ inset:0;
+ z-index:-5;
+ pointer-events:none;
 }
 
-button {
-    font-family: inherit;
-    cursor: pointer;
+.star{
+ position:absolute;
+ width:2px;
+ height:2px;
+ border-radius:50%;
+ background:white;
+ box-shadow:0 0 9px 2px #dba3ff;
+ animation:twinkle 2.5s infinite ease-in-out;
 }
 
-/* BACKGROUND VŨ TRỤ */
-
-#universe {
-    position: fixed;
-    inset: 0;
-    z-index: -5;
-    background:
-        radial-gradient(ellipse at 15% 20%, rgba(104, 0, 190, .35), transparent 45%),
-        radial-gradient(ellipse at 85% 65%, rgba(190, 37, 255, .2), transparent 40%),
-        radial-gradient(ellipse at 50% 100%, rgba(66, 12, 120, .4), transparent 55%),
-        #08020f;
+@keyframes twinkle{
+ 0%,100%{opacity:.15;transform:scale(.6)}
+ 50%{opacity:1;transform:scale(1.7)}
 }
 
-#stars {
-    position: fixed;
-    inset: 0;
-    z-index: -3;
-    pointer-events: none;
-    overflow: hidden;
+.ambient{
+ position:fixed;
+ width:55vw;
+ height:120vh;
+ top:-10vh;
+ left:-20vw;
+ z-index:-4;
+ pointer-events:none;
+ background:linear-gradient(90deg,transparent,#7e1be433,#d16bff22,transparent);
+ filter:blur(35px);
+ transform:rotate(25deg);
+ animation:ambientMove 12s ease-in-out infinite alternate;
 }
 
-.star {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    background: white;
-    box-shadow: 0 0 8px 2px rgba(224, 174, 255, .7);
-    animation: twinkle 3s infinite ease-in-out;
+.ambient.second{
+ left:auto;
+ right:-20vw;
+ animation-delay:-5s;
+ transform:rotate(-25deg);
 }
 
-@keyframes twinkle {
-    0%, 100% { opacity: .15; transform: scale(.7); }
-    50% { opacity: 1; transform: scale(1.5); }
+@keyframes ambientMove{
+ from{translate:-5vw 0}
+ to{translate:35vw 0}
 }
 
-/* ÁNH SÁNG CHUYỂN ĐỘNG */
+/* MÀN HÌNH MỞ THIỆP */
 
-.light-beam {
-    position: fixed;
-    z-index: -2;
-    width: 45vw;
-    height: 120vh;
-    top: -10vh;
-    left: -15vw;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(153, 55, 255, .09),
-        rgba(226, 125, 255, .17),
-        transparent
-    );
-    filter: blur(35px);
-    transform: rotate(25deg);
-    animation: beamMove 12s infinite alternate ease-in-out;
-    pointer-events: none;
+#openingScreen{
+ position:fixed;
+ inset:0;
+ z-index:1000;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ overflow:hidden;
+ background:
+ radial-gradient(ellipse at center,#41066c 0%,#160021 48%,#050009 100%);
+ transition:opacity 1.5s,visibility 1.5s;
 }
 
-.light-beam.two {
-    left: auto;
-    right: -20vw;
-    top: -20vh;
-    transform: rotate(-25deg);
-    animation-delay: -5s;
-    opacity: .7;
+#openingScreen.hide{
+ opacity:0;
+ visibility:hidden;
+ pointer-events:none;
 }
 
-@keyframes beamMove {
-    from { transform: translateX(-10vw) rotate(25deg); }
-    to { transform: translateX(40vw) rotate(25deg); }
+.opening-glow{
+ position:absolute;
+ width:75vw;
+ height:75vw;
+ max-width:700px;
+ max-height:700px;
+ border-radius:50%;
+ background:#a52cff;
+ filter:blur(150px);
+ opacity:.17;
+ animation:pulseGlow 4s infinite alternate;
 }
 
-/* MÀN HÌNH MỞ ĐẦU */
-
-#intro {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    overflow: hidden;
-    background:
-        radial-gradient(ellipse at center, rgba(105, 29, 164, .4), transparent 60%),
-        #08020f;
-    transition: opacity 1.8s ease, visibility 1.8s ease;
+@keyframes pulseGlow{
+ to{opacity:.38;transform:scale(1.2)}
 }
 
-#intro.hide {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+.opening-content{
+ position:relative;
+ z-index:5;
+ text-align:center;
+ width:92%;
+ max-width:650px;
 }
 
-.intro-content {
-    position: relative;
-    z-index: 5;
-    width: 90%;
-    max-width: 750px;
-    animation: introAppear 2s ease both;
+.opening-label{
+ font-size:10px;
+ letter-spacing:7px;
+ color:#d8a5ff;
+ margin-bottom:30px;
 }
 
-.intro-small {
-    font-size: 10px;
-    letter-spacing: 7px;
-    color: #d7a6ff;
-    text-transform: uppercase;
-    margin-bottom: 30px;
+.opening-title{
+ font-family:'Playfair Display',serif;
+ font-size:clamp(42px,9vw,82px);
+ line-height:1.1;
+ text-shadow:0 0 15px #c15aff,0 0 45px #8e27ff;
 }
 
-.intro-content h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(48px, 9vw, 100px);
-    line-height: 1.1;
-    color: white;
-    text-shadow:
-        0 0 10px #c16aff,
-        0 0 35px #9e36ff,
-        0 0 75px #8b1aff;
+.opening-title span{
+ display:block;
+ color:#e6b5ff;
+ font-style:italic;
 }
 
-.intro-content h1 span {
-    display: block;
-    font-style: italic;
-    color: #e8b9ff;
+/* PHONG BÌ */
+
+.envelope-wrap{
+ width:260px;
+ height:175px;
+ margin:45px auto 25px;
+ position:relative;
+ perspective:900px;
+ filter:drop-shadow(0 0 25px #a13aff99);
 }
 
-.intro-content p {
-    margin-top: 25px;
-    color: #d7c1e7;
-    font-size: 13px;
-    line-height: 2;
+.envelope{
+ position:absolute;
+ inset:0;
+ background:linear-gradient(140deg,#a64cff,#4c087c 75%);
+ border:1px solid #e7baff;
+ border-radius:5px;
+ overflow:visible;
 }
 
-.open-button {
-    margin-top: 38px;
-    padding: 17px 35px;
-    border-radius: 50px;
-    border: 1px solid rgba(239, 198, 255, .8);
-    background: rgba(147, 55, 211, .22);
-    color: white;
-    font-size: 11px;
-    letter-spacing: 3px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 30px rgba(176, 83, 255, .25);
-    transition: .4s;
+.envelope:before{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(145deg,transparent 49%,#64129b 50%);
+ clip-path:polygon(0 0,100% 0,50% 62%);
+ z-index:3;
 }
 
-.open-button:hover {
-    background: #b85aff;
-    box-shadow: 0 0 45px #a638ff;
-    transform: translateY(-5px);
+.envelope:after{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(35deg,#4b0878,#a33cff);
+ clip-path:polygon(0 100%,50% 43%,100% 100%);
+ z-index:4;
 }
 
-/* KHUNG CHÍNH */
-
-#website {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 2s ease;
+.envelope-flap{
+ position:absolute;
+ inset:0;
+ z-index:5;
+ background:linear-gradient(150deg,#e1b0ff,#8d2ad2 70%);
+ clip-path:polygon(0 0,100% 0,50% 62%);
+ transform-origin:top;
+ transition:transform 1s ease;
 }
 
-#website.show {
-    opacity: 1;
-    visibility: visible;
+.envelope.open .envelope-flap{
+ transform:rotateX(180deg);
 }
 
-/* BONG BÓNG */
-
-#bubbles {
-    position: fixed;
-    inset: 0;
-    z-index: 15;
-    pointer-events: none;
-    overflow: hidden;
+.envelope-letter{
+ position:absolute;
+ left:10%;
+ top:15%;
+ width:80%;
+ height:75%;
+ z-index:2;
+ background:#f5e6ff;
+ color:#5d1c87;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-family:'Playfair Display',serif;
+ font-style:italic;
+ font-size:20px;
+ transition:transform 1s;
 }
 
-.bubble {
-    position: absolute;
-    bottom: -100px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, .65);
-    background:
-        radial-gradient(circle at 30% 25%,
-            rgba(255,255,255,.85),
-            rgba(255,255,255,.08) 20%,
-            rgba(191,102,255,.12) 55%,
-            rgba(255,128,245,.1));
-    box-shadow:
-        inset -5px -5px 15px rgba(175, 104, 255, .16),
-        inset 5px 5px 12px rgba(255,255,255,.12),
-        0 0 18px rgba(195, 104, 255, .13);
-    animation: bubbleUp linear infinite;
+.envelope.open .envelope-letter{
+ transform:translateY(-75px);
 }
 
-@keyframes bubbleUp {
-    0% {
-        transform: translate3d(0, 0, 0) scale(.8);
-        opacity: 0;
-    }
-    10% { opacity: .7; }
-    50% { transform: translate3d(35px, -55vh, 0) scale(1); }
-    90% { opacity: .5; }
-    100% {
-        transform: translate3d(-30px, -115vh, 0) scale(1.1);
-        opacity: 0;
-    }
+.seal{
+ position:absolute;
+ z-index:8;
+ left:50%;
+ top:55%;
+ transform:translate(-50%,-50%);
+ width:48px;
+ height:48px;
+ border-radius:50%;
+ background:radial-gradient(circle at 35% 30%,#ffe3ff,#b43cff 55%,#4c087c);
+ border:2px solid #f2caff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ color:white;
+ font-size:22px;
+ box-shadow:0 0 20px #c66bff;
+ transition:opacity .4s;
 }
 
-/* BỤI TIÊN */
+.envelope.open .seal{opacity:0}
 
-.sparkle {
-    position: fixed;
-    z-index: 18;
-    pointer-events: none;
-    color: #fff;
-    text-shadow: 0 0 10px #e3a4ff, 0 0 25px #b94dff;
-    animation: sparkleFloat 3s ease-in-out infinite;
+#openBtn{
+ border:1px solid #e6baff;
+ border-radius:50px;
+ padding:16px 32px;
+ color:white;
+ background:#7b20b9;
+ letter-spacing:3px;
+ font-size:10px;
+ box-shadow:0 0 25px #a338ff88;
+ transition:.3s;
 }
 
-@keyframes sparkleFloat {
-    0%, 100% { opacity: .1; transform: scale(.5) rotate(0); }
-    50% { opacity: 1; transform: scale(1.4) rotate(90deg); }
+#openBtn:hover{
+ background:#ad48ee;
+ box-shadow:0 0 40px #c36aff;
+ transform:translateY(-4px);
 }
 
-/* ẢNH CHÂN DUNG BAY QUANH MÀN HÌNH */
-
-#portrait {
-    position: fixed;
-    z-index: 40;
-    width: clamp(75px, 12vw, 125px);
-    height: clamp(90px, 15vw, 155px);
-    object-fit: contain;
-    object-position: center;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    pointer-events: none;
-    filter:
-        drop-shadow(0 0 8px #f0baff)
-        drop-shadow(0 0 22px #a83bff)
-        drop-shadow(0 0 45px rgba(203, 99, 255, .65));
-    transition: opacity 2s ease;
+.opening-note{
+ margin-top:22px;
+ color:#c8a7df;
+ font-size:11px;
+ letter-spacing:2px;
 }
 
-#portrait.visible {
-    opacity: 1;
+/* LỚP HIỆU ỨNG */
+
+#petals,#fireworks,#bubbles,#sparkles{
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ overflow:hidden;
+}
+
+#petals{z-index:30}
+#fireworks{z-index:25}
+#bubbles{z-index:18}
+#sparkles{z-index:35}
+
+.falling-petal{
+ position:absolute;
+ top:-40px;
+ width:13px;
+ height:19px;
+ border-radius:90% 0 90% 0;
+ background:linear-gradient(135deg,#ffe0ff,#d47aff 55%,#8b2bce);
+ opacity:.85;
+ filter:drop-shadow(0 0 5px #d17aff);
+ animation:petalFall linear forwards;
+}
+
+@keyframes petalFall{
+ 0%{transform:translate3d(0,-5vh,0) rotate(0deg);opacity:0}
+ 10%{opacity:.9}
+ 50%{transform:translate3d(var(--drift),50vh,0) rotate(300deg)}
+ 100%{transform:translate3d(calc(var(--drift)*-1),110vh,0) rotate(720deg);opacity:0}
+}
+
+.bubble{
+ position:absolute;
+ bottom:-90px;
+ border:1px solid #ffffff88;
+ border-radius:50%;
+ background:
+ radial-gradient(circle at 30% 25%,#ffffffb0,transparent 28%),
+ radial-gradient(circle at 70% 75%,#d48aff33,transparent 50%);
+ box-shadow:inset 0 0 15px #ffffff22,0 0 15px #b75bff33;
+ animation:bubbleRise linear infinite;
+}
+
+@keyframes bubbleRise{
+ 0%{transform:translateY(0) translateX(0);opacity:0}
+ 12%{opacity:.7}
+ 55%{transform:translateY(-55vh) translateX(30px)}
+ 100%{transform:translateY(-115vh) translateX(-25px);opacity:0}
+}
+
+.sparkle{
+ position:absolute;
+ color:#fff;
+ text-shadow:0 0 8px #fff,0 0 22px #c45bff;
+ animation:sparkle 2.5s ease-in-out infinite;
+}
+
+@keyframes sparkle{
+ 0%,100%{opacity:.1;transform:scale(.5) rotate(0)}
+ 50%{opacity:1;transform:scale(1.5) rotate(90deg)}
+}
+
+/* PHÁO HOA */
+
+.firework-flash{
+ position:absolute;
+ width:5px;
+ height:5px;
+ border-radius:50%;
+ background:white;
+ box-shadow:0 0 20px 8px #d88bff,0 0 50px 20px #8b27ff88;
+ animation:fireworkFlash .7s ease-out forwards;
+}
+
+@keyframes fireworkFlash{
+ 0%{transform:scale(.1);opacity:1}
+ 100%{transform:scale(9);opacity:0}
+}
+
+.firework-particle{
+ position:absolute;
+ width:4px;
+ height:4px;
+ border-radius:50%;
+ background:var(--color);
+ box-shadow:0 0 9px 2px var(--color);
+ animation:particleBurst 1.5s ease-out forwards;
+}
+
+@keyframes particleBurst{
+ 0%{transform:translate(0,0) scale(1);opacity:1}
+ 75%{opacity:1}
+ 100%{transform:translate(var(--x),var(--y)) scale(.15);opacity:0}
+}
+
+/* ẢNH CHÂN DUNG BAY */
+
+#portrait{
+ position:fixed;
+ z-index:45;
+ width:clamp(75px,11vw,125px);
+ height:clamp(95px,14vw,160px);
+ object-fit:contain;
+ left:0;
+ top:0;
+ opacity:0;
+ pointer-events:none;
+ filter:
+ drop-shadow(0 0 8px #fff)
+ drop-shadow(0 0 22px #d58aff)
+ drop-shadow(0 0 48px #8b25ff);
+ transition:opacity 2s;
+}
+
+#portrait.visible{opacity:1}
+
+/* WEBSITE */
+
+#website{
+ opacity:0;
+ visibility:hidden;
+ transition:opacity 2s;
+}
+
+#website.show{
+ opacity:1;
+ visibility:visible;
 }
 
 /* HERO */
 
-.hero {
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    overflow: hidden;
-    background:
-        radial-gradient(ellipse at 50% 50%, rgba(127, 37, 190, .3), transparent 60%),
-        linear-gradient(180deg, rgba(8,2,15,.1), rgba(8,2,15,.8));
+.hero{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ position:relative;
+ overflow:hidden;
+ background:
+ radial-gradient(ellipse at center,#6d1ba744,transparent 60%),
+ linear-gradient(180deg,#09001055,#08000f);
 }
 
-.hero::before,
-.hero::after {
-    content: "";
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    filter: blur(100px);
-    pointer-events: none;
+.hero:before,.hero:after{
+ content:"";
+ position:absolute;
+ width:450px;
+ height:450px;
+ border-radius:50%;
+ filter:blur(110px);
+ pointer-events:none;
 }
 
-.hero::before {
-    background: rgba(139, 35, 255, .24);
-    top: -200px;
-    left: -150px;
+.hero:before{background:#9224ff44;top:-200px;left:-150px}
+.hero:after{background:#d13fff33;bottom:-220px;right:-130px}
+
+.ribbon{
+ position:absolute;
+ width:150%;
+ height:120px;
+ left:-25%;
+ border:2px solid #d9a2ff33;
+ border-radius:50%;
+ box-shadow:0 0 25px #a83aff22;
+ pointer-events:none;
 }
 
-.hero::after {
-    background: rgba(236, 85, 255, .15);
-    bottom: -250px;
-    right: -150px;
+.ribbon.one{top:13%;transform:rotate(-12deg)}
+.ribbon.two{bottom:10%;transform:rotate(12deg)}
+
+.hero-content{
+ position:relative;
+ z-index:3;
+ max-width:900px;
+ width:90%;
+ padding:100px 10px;
 }
 
-.hero-content {
-    position: relative;
-    z-index: 5;
-    width: 90%;
-    max-width: 900px;
-    padding: 100px 10px;
-    animation: heroIn 2s ease both;
+.eyebrow{
+ color:#d8a5ff;
+ font-size:10px;
+ letter-spacing:8px;
+ margin-bottom:30px;
 }
 
-.hero-kicker {
-    color: #d7a5ff;
-    letter-spacing: 8px;
-    font-size: 10px;
-    text-transform: uppercase;
-    margin-bottom: 30px;
+.hero h1{
+ font-family:'Playfair Display',serif;
+ font-size:clamp(58px,12vw,125px);
+ line-height:1.05;
+ text-shadow:0 0 12px #e4baff,0 0 38px #9a35ff,0 0 80px #7a14dc;
 }
 
-.hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(58px, 12vw, 125px);
-    line-height: 1.05;
-    color: #fff;
-    text-shadow:
-        0 0 10px #d69bff,
-        0 0 35px #a33cff,
-        0 0 80px #7b19d9;
+.hero h1 span{
+ display:block;
+ font-style:italic;
+ color:#e9c5ff;
+ font-size:.68em;
+ margin-top:12px;
 }
 
-.hero h1 span {
-    display: block;
-    color: #e8c3ff;
-    font-style: italic;
-    font-size: .65em;
-    margin-top: 15px;
+.hero-line{
+ width:130px;
+ height:1px;
+ margin:35px auto;
+ background:linear-gradient(90deg,transparent,#f3d8ff,transparent);
+ box-shadow:0 0 15px #e7baff;
 }
 
-.hero-line {
-    width: 100px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #e5b5ff, transparent);
-    margin: 35px auto;
-    box-shadow: 0 0 15px #d78cff;
+.hero p{
+ color:#d9c6e8;
+ font-size:13px;
+ line-height:2.2;
+ max-width:650px;
+ margin:auto;
 }
 
-.hero-description {
-    max-width: 650px;
-    margin: auto;
-    color: #d5c1e5;
-    font-size: 13px;
-    line-height: 2.2;
+.hero-tags{
+ display:flex;
+ flex-wrap:wrap;
+ justify-content:center;
+ gap:12px;
+ margin-top:35px;
 }
 
-.hero-info {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 35px;
+.hero-tags span{
+ padding:12px 20px;
+ border:1px solid #d6a2ff66;
+ background:#7c24b533;
+ backdrop-filter:blur(12px);
+ border-radius:30px;
+ color:#f1ddff;
+ font-size:10px;
+ letter-spacing:1px;
 }
 
-.hero-info span {
-    padding: 12px 20px;
-    border: 1px solid rgba(213, 158, 255, .45);
-    background: rgba(120, 45, 170, .15);
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
-    color: #f0d8ff;
-    font-size: 11px;
-    letter-spacing: 1px;
+/* SECTION CHUNG */
+
+.section{
+ position:relative;
+ padding:100px 7%;
+ overflow:hidden;
 }
 
-.scroll-note {
-    margin-top: 60px;
-    font-size: 9px;
-    color: #c89be9;
-    letter-spacing: 5px;
-    animation: float 2s infinite;
+.heading{
+ text-align:center;
+ margin-bottom:55px;
 }
 
-@keyframes float {
-    50% { transform: translateY(9px); }
+.heading small{
+ color:#d39aff;
+ letter-spacing:6px;
+ font-size:10px;
 }
 
-@keyframes heroIn {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+.heading h2{
+ font-family:'Playfair Display',serif;
+ font-size:clamp(34px,6vw,60px);
+ color:#efd5ff;
+ text-shadow:0 0 25px #9f43e966;
+ margin-top:18px;
 }
 
-/* DẢI LỤA TRANG TRÍ */
-
-.ribbon {
-    position: absolute;
-    width: 150%;
-    height: 100px;
-    left: -25%;
-    border: 1px solid rgba(205, 133, 255, .24);
-    border-radius: 50%;
-    transform: rotate(-12deg);
-    box-shadow: 0 0 25px rgba(162, 67, 255, .12);
-    pointer-events: none;
+.heading p{
+ color:#c5afd8;
+ font-size:12px;
+ line-height:2;
+ margin-top:15px;
 }
 
-.ribbon.one { top: 13%; }
-.ribbon.two { bottom: 10%; transform: rotate(12deg); }
+/* CARD KÍNH TÍM */
 
-/* SECTION */
-
-.section {
-    position: relative;
-    padding: 100px 7%;
-    overflow: hidden;
+.glass-card{
+ border:1px solid #d5a0ff55;
+ background:linear-gradient(135deg,#8124b533,#210a35aa);
+ backdrop-filter:blur(15px);
+ box-shadow:inset 0 0 40px #bb69ff0d,0 0 35px #8b2bd522;
 }
 
-.section-heading {
-    text-align: center;
-    margin-bottom: 55px;
-    position: relative;
-    z-index: 2;
+.invitation{
+ background:radial-gradient(ellipse at center,#64148b33,transparent 70%);
 }
 
-.section-heading small {
-    color: #c18aff;
-    letter-spacing: 6px;
-    font-size: 10px;
-    text-transform: uppercase;
+.invite-card{
+ max-width:950px;
+ margin:auto;
+ padding:clamp(35px,7vw,80px);
+ text-align:center;
+ position:relative;
 }
 
-.section-heading h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(34px, 6vw, 60px);
-    color: #f0d5ff;
-    margin-top: 18px;
-    text-shadow: 0 0 25px rgba(177, 87, 255, .35);
+.invite-card:before,.invite-card:after{
+ content:"✦";
+ position:absolute;
+ color:#f0caff;
+ font-size:30px;
+ text-shadow:0 0 20px #c25aff;
 }
 
-.section-heading p {
-    color: #bda8d0;
-    font-size: 12px;
-    line-height: 2;
-    margin-top: 15px;
+.invite-card:before{top:20px;left:25px}
+.invite-card:after{bottom:20px;right:25px}
+
+.ornament{
+ color:#ddaaff;
+ letter-spacing:12px;
+ font-size:24px;
 }
 
-/* LỜI MỜI */
-
-.invitation {
-    background:
-        radial-gradient(ellipse at 10% 30%, rgba(116, 33, 180, .18), transparent 45%),
-        radial-gradient(ellipse at 90% 80%, rgba(206, 66, 255, .1), transparent 40%);
+.invite-card h2{
+ font-family:'Playfair Display',serif;
+ font-size:clamp(28px,5vw,45px);
+ color:#f0d5ff;
+ margin:28px 0;
 }
 
-.invite-card {
-    position: relative;
-    max-width: 950px;
-    margin: auto;
-    padding: clamp(35px, 7vw, 80px);
-    border: 1px solid rgba(207, 153, 255, .38);
-    background: linear-gradient(135deg, rgba(101, 35, 147, .2), rgba(24, 9, 38, .8));
-    backdrop-filter: blur(12px);
-    box-shadow:
-        0 0 40px rgba(132, 48, 203, .13),
-        inset 0 0 45px rgba(172, 87, 255, .07);
-    text-align: center;
+.invite-card p{
+ color:#d7c4e5;
+ font-size:13px;
+ line-height:2.4;
 }
 
-.invite-card::before,
-.invite-card::after {
-    content: "✦";
-    position: absolute;
-    color: #e6baff;
-    font-size: 30px;
-    text-shadow: 0 0 20px #d47aff;
+.signature{
+ color:#e5b5ff!important;
+ font-family:'Playfair Display',serif;
+ font-style:italic;
+ font-size:23px!important;
+ margin:25px 0;
 }
 
-.invite-card::before { top: 20px; left: 25px; }
-.invite-card::after { bottom: 20px; right: 25px; }
+/* THÔNG TIN */
 
-.ornament {
-    font-size: 25px;
-    color: #d9a1ff;
-    letter-spacing: 12px;
+.details{
+ background:linear-gradient(180deg,#170326aa,#090010aa);
 }
 
-.invite-card h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 5vw, 45px);
-    color: #edceff;
-    margin: 28px 0;
+.detail-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:20px;
+ max-width:1150px;
+ margin:auto;
 }
 
-.invite-card p {
-    color: #d3c1e2;
-    font-size: 13px;
-    line-height: 2.4;
+.detail-card{
+ padding:40px 25px;
+ text-align:center;
+ transition:.4s;
 }
 
-.signature {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: #dfaaff !important;
-    font-size: 23px !important;
-    margin-top: 30px;
+.detail-card:hover{
+ transform:translateY(-10px);
+ border-color:#f0caff;
+ box-shadow:0 0 40px #a13bff66;
 }
 
-/* THÔNG TIN SỰ KIỆN */
-
-.details {
-    background: linear-gradient(180deg, rgba(20, 5, 35, .7), rgba(42, 10, 66, .35));
+.detail-icon{
+ font-size:35px;
+ color:#e4b5ff;
+ text-shadow:0 0 20px #b34cff;
+ margin-bottom:20px;
 }
 
-.detail-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    max-width: 1150px;
-    margin: auto;
+.detail-card h3{
+ font-family:'Playfair Display',serif;
+ font-size:25px;
+ color:#efceff;
+ margin-bottom:15px;
 }
 
-.detail-card {
-    position: relative;
-    padding: 40px 25px;
-    text-align: center;
-    border: 1px solid rgba(190, 123, 255, .32);
-    background: linear-gradient(145deg, rgba(120, 47, 173, .22), rgba(26, 8, 43, .55));
-    backdrop-filter: blur(12px);
-    transition: .4s;
-    overflow: hidden;
+.detail-card p{
+ color:#d0bddf;
+ font-size:12px;
+ line-height:2.2;
 }
 
-.detail-card:hover {
-    transform: translateY(-10px);
-    border-color: #dcadff;
-    box-shadow: 0 0 35px rgba(174, 72, 255, .23);
+/* ĐỒNG HỒ LA MÃ */
+
+.clock-section{
+ text-align:center;
+ background:radial-gradient(ellipse at center,#65178b44,transparent 65%);
 }
 
-.detail-icon {
-    font-size: 31px;
-    color: #e0aaff;
-    text-shadow: 0 0 20px #bd68ff;
-    margin-bottom: 22px;
+.clock-wrap{
+ width:300px;
+ height:300px;
+ margin:45px auto 0;
+ position:relative;
+ display:grid;
+ place-items:center;
 }
 
-.detail-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    color: #edcaff;
-    margin-bottom: 15px;
+.clock-glow{
+ position:absolute;
+ inset:0;
+ border-radius:50%;
+ background:#a52cff;
+ filter:blur(60px);
+ opacity:.22;
+ animation:pulseGlow 3s infinite alternate;
 }
 
-.detail-card p {
-    font-size: 12px;
-    color: #cbb9d9;
-    line-height: 2.1;
+.clock-face{
+ position:absolute;
+ inset:12px;
+ border-radius:50%;
+ border:2px solid #e4b5ff;
+ background:radial-gradient(circle,#35104e 0%,#12051f 70%);
+ box-shadow:0 0 20px #b85bff, inset 0 0 35px #8d28cf55;
+}
+
+.clock-face:before{
+ content:"";
+ position:absolute;
+ inset:7px;
+ border:1px solid #c98cff88;
+ border-radius:50%;
+}
+
+.clock-ring{
+ position:absolute;
+ inset:-2px;
+ border-radius:50%;
+ border:1px dashed #f1caffaa;
+ animation:clockSpin 35s linear infinite;
+}
+
+.clock-ring:after{
+ content:"✦";
+ position:absolute;
+ top:0;
+ left:50%;
+ color:#fff;
+ text-shadow:0 0 15px #fff,0 0 25px #b84cff;
+}
+
+@keyframes clockSpin{to{transform:rotate(360deg)}}
+
+.roman{
+ position:absolute;
+ inset:0;
+ z-index:3;
+}
+
+.roman span{
+ position:absolute;
+ left:50%;
+ top:50%;
+ font-family:'Playfair Display',serif;
+ color:#f2d7ff;
+ font-size:20px;
+ text-shadow:0 0 10px #c879ff;
+ transform:
+ translate(-50%,-50%)
+ rotate(var(--angle))
+ translateY(-112px)
+ rotate(calc(var(--angle)*-1));
+}
+
+.clock-center{
+ position:absolute;
+ z-index:6;
+ width:12px;
+ height:12px;
+ background:#fff;
+ border-radius:50%;
+ box-shadow:0 0 15px #fff,0 0 25px #c45cff;
+}
+
+.clock-hand{
+ position:absolute;
+ z-index:5;
+ left:50%;
+ bottom:50%;
+ transform-origin:bottom;
+ border-radius:10px;
+}
+
+.hour-hand{
+ width:5px;
+ height:65px;
+ background:#f2d7ff;
+ box-shadow:0 0 10px #d28bff;
+}
+
+.minute-hand{
+ width:3px;
+ height:90px;
+ background:#d88cff;
+ box-shadow:0 0 12px #bd50ff;
+}
+
+.second-hand{
+ width:2px;
+ height:100px;
+ background:#fff;
+ box-shadow:0 0 10px #fff;
+}
+
+.clock-caption{
+ margin-top:30px;
+ color:#cba5e9;
+ font-size:10px;
+ letter-spacing:5px;
 }
 
 /* COUNTDOWN */
 
-.countdown {
-    text-align: center;
-    background:
-        radial-gradient(ellipse at center, rgba(119, 36, 178, .3), transparent 65%);
+.countdown{
+ text-align:center;
+ background:radial-gradient(ellipse at center,#7b20a833,transparent 65%);
 }
 
-.timer {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 40px;
+.timer{
+ display:flex;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:15px;
+ margin-top:40px;
 }
 
-.time-box {
-    min-width: 110px;
-    padding: 25px 15px;
-    border: 1px solid rgba(217, 160, 255, .55);
-    background: rgba(107, 38, 157, .18);
-    box-shadow: inset 0 0 25px rgba(188, 91, 255, .08), 0 0 20px rgba(172, 77, 255, .1);
-    backdrop-filter: blur(10px);
+.time-box{
+ min-width:105px;
+ padding:25px 15px;
 }
 
-.time-box strong {
-    display: block;
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    font-weight: 500;
-    color: #f4dcff;
-    text-shadow: 0 0 20px #c16cff;
+.time-box strong{
+ display:block;
+ font-family:'Playfair Display',serif;
+ font-size:42px;
+ font-weight:500;
+ color:#f4ddff;
+ text-shadow:0 0 20px #c16cff;
 }
 
-.time-box span {
-    display: block;
-    color: #cda5e9;
-    font-size: 9px;
-    letter-spacing: 3px;
-    margin-top: 10px;
+.time-box span{
+ display:block;
+ margin-top:10px;
+ color:#d4a9ef;
+ font-size:9px;
+ letter-spacing:3px;
 }
 
 /* LỊCH TRÌNH */
 
-.journey {
-    background: rgba(27, 8, 43, .5);
+.journey{
+ background:#17042666;
 }
 
-.journey-list {
-    max-width: 800px;
-    margin: auto;
-    position: relative;
+.journey-list{
+ max-width:800px;
+ margin:auto;
+ position:relative;
 }
 
-.journey-list::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: linear-gradient(transparent, #c87bff, transparent);
+.journey-list:before{
+ content:"";
+ position:absolute;
+ left:50%;
+ top:0;
+ bottom:0;
+ width:1px;
+ background:linear-gradient(transparent,#d58aff,transparent);
 }
 
-.journey-item {
-    width: 50%;
-    padding: 0 45px 55px;
-    position: relative;
+.journey-item{
+ width:50%;
+ padding:0 45px 55px;
+ position:relative;
 }
 
-.journey-item:nth-child(even) {
-    margin-left: 50%;
+.journey-item:nth-child(even){margin-left:50%}
+
+.journey-item:after{
+ content:"✦";
+ position:absolute;
+ top:0;
+ right:-9px;
+ color:#f1d1ff;
+ text-shadow:0 0 15px #d37aff;
 }
 
-.journey-item::after {
-    content: "✦";
-    position: absolute;
-    top: 0;
-    right: -9px;
-    color: #f0caff;
-    text-shadow: 0 0 15px #ce80ff;
-    font-size: 18px;
+.journey-item:nth-child(even):after{
+ right:auto;
+ left:-9px;
 }
 
-.journey-item:nth-child(even)::after {
-    right: auto;
-    left: -9px;
+.journey-item h3{
+ font-family:'Playfair Display',serif;
+ color:#ebc5ff;
+ font-size:25px;
+ margin-bottom:12px;
 }
 
-.journey-item h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 25px;
-    color: #e7c0ff;
-    margin-bottom: 12px;
-}
-
-.journey-item p {
-    font-size: 12px;
-    color: #bca9cf;
-    line-height: 2;
+.journey-item p{
+ color:#c8b5d9;
+ font-size:12px;
+ line-height:2;
 }
 
 /* DRESS CODE */
 
-.dresscode {
-    background:
-        radial-gradient(ellipse at 80% 30%, rgba(136, 45, 197, .22), transparent 50%),
-        rgba(20, 5, 34, .65);
+.dress-panel{
+ max-width:1000px;
+ margin:auto;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:35px;
+ align-items:center;
 }
 
-.dress-panel {
-    max-width: 1000px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
+.dress-text h3{
+ font-family:'Playfair Display',serif;
+ font-size:35px;
+ color:#efcfff;
+ margin-bottom:20px;
 }
 
-.dress-text h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    color: #eac5ff;
-    margin-bottom: 20px;
+.dress-text p{
+ color:#d0bddf;
+ font-size:13px;
+ line-height:2.2;
 }
 
-.dress-text p {
-    color: #c6b1d8;
-    font-size: 13px;
-    line-height: 2.2;
+.palette{
+ display:flex;
+ gap:13px;
+ margin-top:25px;
 }
 
-.palette {
-    display: flex;
-    gap: 13px;
-    flex-wrap: wrap;
-    margin-top: 28px;
+.swatch{
+ width:45px;
+ height:45px;
+ border-radius:50%;
+ border:2px solid #ffffffaa;
+ box-shadow:0 0 15px #c66aff55;
 }
 
-.swatch {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,.7);
-    box-shadow: 0 0 20px rgba(203, 128, 255, .2);
+.dress-visual{
+ min-height:300px;
+ display:grid;
+ place-items:center;
+ position:relative;
+ overflow:hidden;
+ background:
+ radial-gradient(circle at 50% 30%,#dc9cff55,transparent 35%),
+ linear-gradient(135deg,#41105e,#10051c 55%,#7922a3);
 }
 
-.dress-visual {
-    min-height: 330px;
-    border: 1px solid rgba(207, 157, 255, .45);
-    background:
-        radial-gradient(circle at 50% 30%, rgba(219, 161, 255, .25), transparent 35%),
-        linear-gradient(135deg, #341052, #10051b 55%, #6b278d);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+.dress-visual:before{
+ content:"PURPLE";
+ font-family:'Playfair Display',serif;
+ font-size:clamp(35px,6vw,65px);
+ letter-spacing:8px;
+ color:#f0d5ff99;
+ text-shadow:0 0 30px #c66aff;
 }
 
-.dress-visual::before {
-    content: "PURPLE";
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(35px, 6vw, 65px);
-    letter-spacing: 8px;
-    color: rgba(239, 211, 255, .65);
-    text-shadow: 0 0 30px #b65bff;
+/* KỶ NIỆM */
+
+.memory-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:18px;
+ max-width:1100px;
+ margin:auto;
 }
 
-/* KHOẢNH KHẮC */
-
-.memories {
-    background: rgba(12, 3, 22, .65);
+.memory-box{
+ min-height:210px;
+ padding:27px;
+ display:flex;
+ flex-direction:column;
+ justify-content:flex-end;
+ transition:.4s;
+ background:
+ radial-gradient(circle at 80% 20%,#d68aff55,transparent 30%),
+ linear-gradient(145deg,#40115e,#10051c);
 }
 
-.memory-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    max-width: 1100px;
-    margin: auto;
+.memory-box:hover{
+ transform:translateY(-8px);
+ box-shadow:0 0 35px #a53cff55;
 }
 
-.memory-box {
-    min-height: 210px;
-    padding: 27px;
-    border: 1px solid rgba(201, 139, 255, .3);
-    background:
-        radial-gradient(circle at 80% 20%, rgba(222, 152, 255, .3), transparent 30%),
-        linear-gradient(145deg, #30104c, #10051b);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    transition: .4s;
+.memory-box h3{
+ font-family:'Playfair Display',serif;
+ font-size:25px;
+ color:#f0d5ff;
 }
 
-.memory-box:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 0 35px rgba(183, 80, 255, .25);
+.memory-box p{
+ margin-top:10px;
+ color:#cdb8df;
+ font-size:11px;
+ line-height:1.8;
 }
 
-.memory-box h3 {
-    font-family: 'Playfair Display', serif;
-    color: #f0d4ff;
-    font-size: 25px;
+/* THÔNG ĐIỆP */
+
+.message-section{
+ text-align:center;
+ background:radial-gradient(ellipse at center,#7520a744,transparent 70%);
 }
 
-.memory-box p {
-    color: #c6aedb;
-    font-size: 11px;
-    margin-top: 10px;
-    line-height: 1.8;
+.message-card{
+ max-width:850px;
+ margin:auto;
+ padding:55px 30px;
 }
 
-/* LỜI NHẮN */
-
-.message-section {
-    text-align: center;
-    background:
-        radial-gradient(ellipse at center, rgba(123, 42, 181, .28), transparent 70%);
+.message-card .quote{
+ font-family:'Playfair Display',serif;
+ font-style:italic;
+ font-size:clamp(24px,4vw,40px);
+ line-height:1.6;
+ color:#f0d6ff;
+ text-shadow:0 0 20px #c879ff66;
 }
 
-.message-card {
-    max-width: 850px;
-    margin: auto;
-    padding: 55px 30px;
-    border: 1px solid rgba(211, 155, 255, .4);
-    background: rgba(68, 22, 105, .2);
-    box-shadow: 0 0 45px rgba(159, 68, 255, .12);
-}
-
-.message-card .quote {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: clamp(24px, 4vw, 40px);
-    line-height: 1.6;
-    color: #eed5ff;
-    text-shadow: 0 0 20px rgba(203, 120, 255, .3);
-}
-
-.message-card p {
-    margin-top: 25px;
-    color: #c8b0da;
-    font-size: 12px;
-    line-height: 2.2;
+.message-card p{
+ margin-top:25px;
+ color:#d0b9e1;
+ font-size:12px;
+ line-height:2.2;
 }
 
 /* FOOTER */
 
-footer {
-    text-align: center;
-    padding: 80px 20px;
-    background: linear-gradient(180deg, #1b0730, #08020f);
-    border-top: 1px solid rgba(202, 139, 255, .2);
+footer{
+ text-align:center;
+ padding:80px 20px;
+ background:linear-gradient(180deg,#210636,#07000d);
+ border-top:1px solid #d19bff33;
 }
 
-footer h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(36px, 7vw, 65px);
-    color: #eacaff;
-    text-shadow: 0 0 30px #9d38ed;
+footer h2{
+ font-family:'Playfair Display',serif;
+ font-size:clamp(36px,7vw,65px);
+ color:#edcaff;
+ text-shadow:0 0 30px #a13bff;
 }
 
-footer p {
-    margin-top: 20px;
-    font-size: 12px;
-    line-height: 2.2;
-    color: #bda5d1;
+footer p{
+ margin-top:20px;
+ color:#c9b2dc;
+ font-size:12px;
+ line-height:2.2;
 }
 
-.footer-small {
-    margin-top: 35px;
-    font-size: 9px;
-    letter-spacing: 5px;
-    color: #a77ac6;
+.footer-small{
+ margin-top:35px;
+ color:#b68ad2;
+ font-size:9px;
+ letter-spacing:5px;
 }
 
-/* REVEAL */
+/* HIỆU ỨNG HIỆN NỘI DUNG */
 
-.reveal {
-    opacity: 0;
-    transform: translateY(35px);
-    transition: opacity 1s ease, transform 1s ease;
+.reveal{
+ opacity:0;
+ transform:translateY(35px);
+ transition:opacity 1s,transform 1s;
 }
 
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+.reveal.visible{
+ opacity:1;
+ transform:translateY(0);
 }
 
-/* NHẠC VÀ NÚT LÊN ĐẦU */
+/* NÚT ĐIỀU KHIỂN */
 
-.music-button,
-.top-button {
-    position: fixed;
-    z-index: 100;
-    right: 20px;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.5);
-    background: rgba(99, 37, 145, .85);
-    color: white;
-    box-shadow: 0 0 22px rgba(177, 80, 255, .3);
-    display: none;
+.control{
+ position:fixed;
+ right:20px;
+ z-index:100;
+ width:48px;
+ height:48px;
+ border-radius:50%;
+ border:1px solid #e2b5ff88;
+ background:#5d168ccc;
+ color:white;
+ font-size:20px;
+ box-shadow:0 0 20px #a23cff66;
+ display:none;
 }
 
-.music-button {
-    bottom: 20px;
-    font-size: 20px;
+#musicButton{bottom:20px}
+#topButton{bottom:78px}
+
+@media(max-width:750px){
+ .detail-grid,.memory-grid{grid-template-columns:1fr 1fr}
+ .dress-panel{grid-template-columns:1fr}
 }
 
-.top-button {
-    bottom: 78px;
-    font-size: 20px;
-}
-
-/* MOBILE */
-
-@media(max-width: 800px) {
-    .detail-grid,
-    .memory-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .dress-panel {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media(max-width: 550px) {
-    .section {
-        padding: 75px 6%;
-    }
-
-    .detail-grid,
-    .memory-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .journey-list::before {
-        left: 8px;
-    }
-
-    .journey-item,
-    .journey-item:nth-child(even) {
-        width: 100%;
-        margin-left: 0;
-        padding: 0 0 45px 35px;
-    }
-
-    .journey-item::after,
-    .journey-item:nth-child(even)::after {
-        left: 1px;
-        right: auto;
-    }
-
-    .time-box {
-        min-width: 70px;
-        padding: 18px 8px;
-    }
-
-    .time-box strong {
-        font-size: 30px;
-    }
-
-    .time-box span {
-        font-size: 8px;
-        letter-spacing: 1px;
-    }
-
-    .dress-visual {
-        min-height: 220px;
-    }
-
-    #portrait {
-        width: 78px;
-        height: 100px;
-    }
+@media(max-width:550px){
+ .section{padding:75px 6%}
+ .detail-grid,.memory-grid{grid-template-columns:1fr}
+ .journey-list:before{left:8px}
+ .journey-item,.journey-item:nth-child(even){
+  width:100%;
+  margin-left:0;
+  padding:0 0 45px 35px;
+ }
+ .journey-item:after,.journey-item:nth-child(even):after{
+  left:1px;
+  right:auto;
+ }
+ .time-box{min-width:70px;padding:18px 8px}
+ .time-box strong{font-size:30px}
+ .clock-wrap{transform:scale(.85);margin-top:15px;margin-bottom:-15px}
 }
 </style>
 </head>
@@ -970,44 +1096,44 @@ footer p {
 
 <div id="universe"></div>
 <div id="stars"></div>
-<div class="light-beam"></div>
-<div class="light-beam two"></div>
+<div class="ambient"></div>
+<div class="ambient second"></div>
 
-<!-- MÀN HÌNH MỞ ĐẦU -->
+<!-- MÀN HÌNH PHONG BÌ -->
 
-<div id="intro">
+<div id="openingScreen">
+ <div class="opening-glow"></div>
 
-    <div class="intro-content">
-        <div class="intro-small">A magical invitation · Class 12A4</div>
+ <div class="opening-content">
+  <div class="opening-label">A MAGICAL INVITATION · CLASS 12A4</div>
 
-        <h1>
-            Lost in
-            <span>the Purple</span>
-        </h1>
+  <h1 class="opening-title">
+   Lost in
+   <span>the Purple</span>
+  </h1>
 
-        <p>
-            Một thế giới nhỏ được tạo nên từ ánh sáng,
-            những giấc mơ và ký ức thanh xuân.
-            <br>
-            Chạm vào cánh cửa để bước vào.
-        </p>
+  <div class="envelope-wrap">
+   <div class="envelope" id="envelope">
+    <div class="envelope-letter">For You ✦</div>
+    <div class="envelope-flap"></div>
+    <div class="seal">✦</div>
+   </div>
+  </div>
 
-        <button class="open-button" onclick="openSite()">
-            ✦ ENTER THE PURPLE WORLD ✦
-        </button>
-    </div>
+  <button id="openBtn">✦ MỞ THIỆP MỜI ✦</button>
 
+  <p class="opening-note">A LITTLE UNIVERSE OF MEMORIES</p>
+ </div>
 </div>
 
 <audio id="music" loop>
-    <source src="giac-mo-tinh-co.mp3" type="audio/mpeg">
+ <source src="giac-mo-tinh-co.mp3" type="audio/mpeg">
 </audio>
 
-<!-- HIỆU ỨNG TRANG TRÍ -->
-
+<div id="petals"></div>
+<div id="fireworks"></div>
 <div id="bubbles"></div>
-
-<!-- ẢNH DUY NHẤT CỦA MÀY -->
+<div id="sparkles"></div>
 
 <img src="anh-tuan.png" id="portrait" alt="Chân dung">
 
@@ -1015,577 +1141,518 @@ footer p {
 
 <div id="website">
 
-    <!-- HERO -->
-
-    <header class="hero">
-
-        <div class="ribbon one"></div>
-        <div class="ribbon two"></div>
-
-        <div class="hero-content">
-
-            <div class="hero-kicker">
-                Welcome to our universe
-            </div>
-
-            <h1>
-                Lost in
-                <span>the Purple</span>
-            </h1>
-
-            <div class="hero-line"></div>
-
-            <p class="hero-description">
-                Giữa hàng triệu vì sao, chúng ta đã gặp nhau
-                trong những năm tháng đẹp nhất.
-                Có những khoảnh khắc sẽ qua đi,
-                nhưng ánh sáng của thanh xuân sẽ luôn còn ở lại.
-            </p>
-
-            <div class="hero-info">
-                <span>20 DECEMBER 2026</span>
-                <span>09:30 AM</span>
-                <span>CLASS 12A4</span>
-            </div>
-
-            <div class="scroll-note">
-                SCROLL TO DISCOVER ↓
-            </div>
-
-        </div>
-    </header>
-
-
-    <!-- LỜI MỜI -->
-
-    <section class="section invitation">
-
-        <div class="section-heading reveal">
-            <small>A letter from our universe</small>
-            <h2>Một Lời Hẹn Đặc Biệt</h2>
-            <p>Gửi đến những người đã cùng nhau tạo nên thanh xuân.</p>
-        </div>
-
-        <div class="invite-card reveal">
-
-            <div class="ornament">✦ ✧ ✦</div>
-
-            <h2>Thân gửi những người bạn của 12A4</h2>
-
-            <p>
-                Có những ngày tưởng chừng bình thường
-                nhưng sau này lại trở thành điều ta muốn quay về nhất.
-                <br><br>
-                Là những buổi sáng cùng đến lớp,
-                những giờ ra chơi đầy tiếng cười,
-                những câu chuyện chẳng có hồi kết
-                và cả những khoảnh khắc chúng ta đã cùng nhau trưởng thành.
-                <br><br>
-                Trân trọng mời bạn đến với buổi gặp gỡ kỷ yếu
-                <b>Lost in the Purple</b> – một không gian của ánh sáng,
-                những giấc mơ và những ký ức không thể thay thế.
-                <br><br>
-                Hãy cùng nhau lưu giữ một ngày thật đẹp,
-                trước khi mỗi người bước đến một chân trời mới.
-            </p>
-
-            <p class="signature">With love, 12A4</p>
-
-            <div class="ornament">✦ ✧ ✦</div>
-
-        </div>
-    </section>
-
-
-    <!-- THÔNG TIN -->
-
-    <section class="section details">
-
-        <div class="section-heading reveal">
-            <small>Save the date</small>
-            <h2>Thông Tin Sự Kiện</h2>
-            <p>Đừng bỏ lỡ cuộc hẹn của chúng ta.</p>
-        </div>
-
-        <div class="detail-grid">
-
-            <div class="detail-card reveal">
-                <div class="detail-icon">✧</div>
-                <h3>Thời Gian</h3>
-                <p>
-                    Chủ nhật<br>
-                    <b>20 tháng 12 năm 2026</b><br>
-                    09:30 sáng
-                </p>
-            </div>
-
-            <div class="detail-card reveal">
-                <div class="detail-icon">⌖</div>
-                <h3>Địa Điểm</h3>
-                <p>
-                    <b>THPT Chương Mỹ A</b><br>
-                    Chương Mỹ, Hà Nội<br>
-                    Việt Nam
-                </p>
-            </div>
-
-            <div class="detail-card reveal">
-                <div class="detail-icon">✦</div>
-                <h3>Chủ Đề</h3>
-                <p>
-                    <b>Lost in the Purple</b><br>
-                    Một thế giới của ánh sáng<br>
-                    và thanh xuân.
-                </p>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- COUNTDOWN -->
-
-    <section class="section countdown">
-
-        <div class="section-heading reveal">
-            <small>Time is moving</small>
-            <h2>Đếm Ngược Ngày Hẹn</h2>
-            <p>Từng giây trôi qua, ngày gặp gỡ đang đến gần hơn.</p>
-        </div>
-
-        <div class="timer reveal">
-
-            <div class="time-box">
-                <strong id="days">00</strong>
-                <span>NGÀY</span>
-            </div>
-
-            <div class="time-box">
-                <strong id="hours">00</strong>
-                <span>GIỜ</span>
-            </div>
-
-            <div class="time-box">
-                <strong id="minutes">00</strong>
-                <span>PHÚT</span>
-            </div>
-
-            <div class="time-box">
-                <strong id="seconds">00</strong>
-                <span>GIÂY</span>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- HÀNH TRÌNH -->
-
-    <section class="section journey">
-
-        <div class="section-heading reveal">
-            <small>Our special day</small>
-            <h2>Hành Trình Thanh Xuân</h2>
-            <p>Một ngày để gặp gỡ, kết nối và lưu giữ.</p>
-        </div>
-
-        <div class="journey-list">
-
-            <div class="journey-item reveal">
-                <h3>01. The Beginning</h3>
-                <p>
-                    Gặp lại những gương mặt thân quen,
-                    cùng nhau trở về nơi lưu giữ những năm tháng học trò.
-                </p>
-            </div>
-
-            <div class="journey-item reveal">
-                <h3>02. The Memories</h3>
-                <p>
-                    Lưu lại những bức ảnh tập thể,
-                    những khoảnh khắc tự nhiên và đáng nhớ.
-                </p>
-            </div>
-
-            <div class="journey-item reveal">
-                <h3>03. The Connection</h3>
-                <p>
-                    Cùng trò chuyện, chia sẻ câu chuyện
-                    và tạo thêm những kỷ niệm mới.
-                </p>
-            </div>
-
-            <div class="journey-item reveal">
-                <h3>04. The Forever</h3>
-                <p>
-                    Khép lại một ngày thật đẹp,
-                    mang theo những ký ức sẽ còn ở lại thật lâu.
-                </p>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- DRESS CODE -->
-
-    <section class="section dresscode">
-
-        <div class="section-heading reveal">
-            <small>Style inspiration</small>
-            <h2>Dress Code</h2>
-            <p>Hãy xuất hiện theo cách khiến bạn tự tin nhất.</p>
-        </div>
-
-        <div class="dress-panel reveal">
-
-            <div class="dress-text">
-
-                <h3>Into the Purple</h3>
-
-                <p>
-                    Gợi ý phong cách thanh lịch, trẻ trung
-                    và có một chút huyền bí.
-                    <br><br>
-                    Những gam màu tím, đen, trắng, bạc
-                    hoặc ánh kim sẽ tạo nên tổng thể hài hòa
-                    với concept của buổi kỷ yếu.
-                    <br><br>
-                    Không cần quá cầu kỳ,
-                    điều quan trọng nhất là bạn cảm thấy thoải mái.
-                </p>
-
-                <div class="palette">
-                    <div class="swatch" style="background:#30104e"></div>
-                    <div class="swatch" style="background:#8142ae"></div>
-                    <div class="swatch" style="background:#c68cff"></div>
-                    <div class="swatch" style="background:#f1d9ff"></div>
-                    <div class="swatch" style="background:#d9d9e8"></div>
-                </div>
-
-            </div>
-
-            <div class="dress-visual"></div>
-
-        </div>
-    </section>
-
-
-    <!-- KHOẢNH KHẮC -->
-
-    <section class="section memories">
-
-        <div class="section-heading reveal">
-            <small>Fragments of youth</small>
-            <h2>Những Mảnh Ghép</h2>
-            <p>Mỗi người là một vì sao trong vũ trụ 12A4.</p>
-        </div>
-
-        <div class="memory-grid">
-
-            <div class="memory-box reveal">
-                <h3>Friendship</h3>
-                <p>Những người bạn khiến ngày đến trường trở nên đặc biệt.</p>
-            </div>
-
-            <div class="memory-box reveal">
-                <h3>Memories</h3>
-                <p>Những câu chuyện nhỏ nhưng chẳng thể nào quên.</p>
-            </div>
-
-            <div class="memory-box reveal">
-                <h3>Youth</h3>
-                <p>Một khoảng thời gian chỉ đến một lần trong đời.</p>
-            </div>
-
-            <div class="memory-box reveal">
-                <h3>Dreams</h3>
-                <p>Những ước mơ đang chờ chúng ta ở phía trước.</p>
-            </div>
-
-            <div class="memory-box reveal">
-                <h3>Together</h3>
-                <p>Cùng nhau viết nên một chương thanh xuân.</p>
-            </div>
-
-            <div class="memory-box reveal">
-                <h3>Forever</h3>
-                <p>Một ký ức đẹp sẽ luôn có chỗ trong trái tim.</p>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- THÔNG ĐIỆP -->
-
-    <section class="section message-section">
-
-        <div class="section-heading reveal">
-            <small>A message to remember</small>
-            <h2>Gửi Lại Thanh Xuân</h2>
-        </div>
-
-        <div class="message-card reveal">
-
-            <div class="quote">
-                "Có thể chúng ta sẽ không mãi đi chung một con đường,
-                nhưng sẽ luôn có một bầu trời ký ức mang tên 12A4."
-            </div>
-
-            <p>
-                Cảm ơn vì đã xuất hiện trong những năm tháng học trò.
-                <br>
-                Cảm ơn vì đã cùng nhau tạo nên một vũ trụ thật đặc biệt.
-            </p>
-
-        </div>
-    </section>
-
-
-    <!-- KẾT -->
-
-    <footer>
-
-        <h2>Lost in the Purple</h2>
-
-        <p>
-            20.12.2026 · 09:30 AM<br>
-            THPT CHƯƠNG MỸ A<br>
-            CLASS 12A4
-        </p>
-
-        <div class="footer-small">
-            OUR YOUTH · OUR UNIVERSE · OUR MEMORIES
-        </div>
-
-    </footer>
+<header class="hero">
+ <div class="ribbon one"></div>
+ <div class="ribbon two"></div>
+
+ <div class="hero-content">
+  <div class="eyebrow">WELCOME TO OUR UNIVERSE</div>
+
+  <h1>
+   Lost in
+   <span>the Purple</span>
+  </h1>
+
+  <div class="hero-line"></div>
+
+  <p>
+   Giữa hàng triệu vì sao, chúng ta đã gặp nhau trong
+   những năm tháng đẹp nhất. Có những khoảnh khắc sẽ qua đi,
+   nhưng ánh sáng của thanh xuân sẽ luôn còn ở lại.
+  </p>
+
+  <div class="hero-tags">
+   <span>20 DECEMBER 2026</span>
+   <span>09:30 AM</span>
+   <span>CLASS 12A4</span>
+  </div>
+ </div>
+</header>
+
+<section class="section invitation">
+ <div class="heading reveal">
+  <small>A LETTER FROM OUR UNIVERSE</small>
+  <h2>Một Lời Hẹn Đặc Biệt</h2>
+  <p>Gửi đến những người đã cùng nhau tạo nên thanh xuân.</p>
+ </div>
+
+ <div class="invite-card glass-card reveal">
+  <div class="ornament">✦ ✧ ✦</div>
+  <h2>Thân gửi những người bạn của 12A4</h2>
+  <p>
+   Có những ngày tưởng chừng bình thường nhưng sau này
+   lại trở thành điều ta muốn quay về nhất.<br><br>
+   Là những buổi sáng cùng đến lớp, những giờ ra chơi đầy tiếng cười,
+   những câu chuyện chẳng có hồi kết và cả những khoảnh khắc
+   chúng ta đã cùng nhau trưởng thành.<br><br>
+   Trân trọng mời bạn đến với buổi gặp gỡ kỷ yếu
+   <b>Lost in the Purple</b> – một không gian của ánh sáng,
+   những giấc mơ và những ký ức không thể thay thế.<br><br>
+   Hãy cùng nhau lưu giữ một ngày thật đẹp,
+   trước khi mỗi người bước đến một chân trời mới.
+  </p>
+  <p class="signature">With love, 12A4</p>
+  <div class="ornament">✦ ✧ ✦</div>
+ </div>
+</section>
+
+<section class="section details">
+ <div class="heading reveal">
+  <small>SAVE THE DATE</small>
+  <h2>Thông Tin Sự Kiện</h2>
+  <p>Đừng bỏ lỡ cuộc hẹn của chúng ta.</p>
+ </div>
+
+ <div class="detail-grid">
+  <div class="detail-card glass-card reveal">
+   <div class="detail-icon">✧</div>
+   <h3>Thời Gian</h3>
+   <p>Chủ nhật<br><b>20 tháng 12 năm 2026</b><br>09:30 sáng</p>
+  </div>
+
+  <div class="detail-card glass-card reveal">
+   <div class="detail-icon">⌖</div>
+   <h3>Địa Điểm</h3>
+   <p><b>THPT Chương Mỹ A</b><br>Chương Mỹ, Hà Nội<br>Việt Nam</p>
+  </div>
+
+  <div class="detail-card glass-card reveal">
+   <div class="detail-icon">✦</div>
+   <h3>Chủ Đề</h3>
+   <p><b>Lost in the Purple</b><br>Một thế giới của ánh sáng<br>và thanh xuân.</p>
+  </div>
+ </div>
+</section>
+
+<!-- ĐỒNG HỒ LA MÃ -->
+
+<section class="section clock-section">
+ <div class="heading reveal">
+  <small>TIMELESS MEMORIES</small>
+  <h2>Vòng Quay Thời Gian</h2>
+  <p>Mỗi vòng quay là một khoảnh khắc, mỗi con số là một kỷ niệm.</p>
+ </div>
+
+ <div class="clock-wrap reveal">
+  <div class="clock-glow"></div>
+  <div class="clock-face">
+   <div class="clock-ring"></div>
+
+   <div class="roman">
+    <span style="--angle:0deg">XII</span>
+    <span style="--angle:30deg">I</span>
+    <span style="--angle:60deg">II</span>
+    <span style="--angle:90deg">III</span>
+    <span style="--angle:120deg">IV</span>
+    <span style="--angle:150deg">V</span>
+    <span style="--angle:180deg">VI</span>
+    <span style="--angle:210deg">VII</span>
+    <span style="--angle:240deg">VIII</span>
+    <span style="--angle:270deg">IX</span>
+    <span style="--angle:300deg">X</span>
+    <span style="--angle:330deg">XI</span>
+   </div>
+
+   <div class="clock-hand hour-hand" id="hourHand"></div>
+   <div class="clock-hand minute-hand" id="minuteHand"></div>
+   <div class="clock-hand second-hand" id="secondHand"></div>
+   <div class="clock-center"></div>
+  </div>
+ </div>
+
+ <div class="clock-caption">EVERY MOMENT BECOMES A MEMORY</div>
+</section>
+
+<section class="section countdown">
+ <div class="heading reveal">
+  <small>TIME IS MOVING</small>
+  <h2>Đếm Ngược Ngày Hẹn</h2>
+  <p>Từng giây trôi qua, ngày gặp gỡ đang đến gần hơn.</p>
+ </div>
+
+ <div class="timer reveal">
+  <div class="time-box glass-card"><strong id="days">00</strong><span>NGÀY</span></div>
+  <div class="time-box glass-card"><strong id="hours">00</strong><span>GIỜ</span></div>
+  <div class="time-box glass-card"><strong id="minutes">00</strong><span>PHÚT</span></div>
+  <div class="time-box glass-card"><strong id="seconds">00</strong><span>GIÂY</span></div>
+ </div>
+</section>
+
+<section class="section journey">
+ <div class="heading reveal">
+  <small>OUR SPECIAL DAY</small>
+  <h2>Hành Trình Thanh Xuân</h2>
+  <p>Một ngày để gặp gỡ, kết nối và lưu giữ.</p>
+ </div>
+
+ <div class="journey-list">
+  <div class="journey-item reveal">
+   <h3>01. The Beginning</h3>
+   <p>Gặp lại những gương mặt thân quen, cùng nhau trở về nơi lưu giữ những năm tháng học trò.</p>
+  </div>
+  <div class="journey-item reveal">
+   <h3>02. The Memories</h3>
+   <p>Lưu lại những bức ảnh tập thể, những khoảnh khắc tự nhiên và đáng nhớ.</p>
+  </div>
+  <div class="journey-item reveal">
+   <h3>03. The Connection</h3>
+   <p>Cùng trò chuyện, chia sẻ câu chuyện và tạo thêm những kỷ niệm mới.</p>
+  </div>
+  <div class="journey-item reveal">
+   <h3>04. The Forever</h3>
+   <p>Khép lại một ngày thật đẹp, mang theo những ký ức sẽ còn ở lại thật lâu.</p>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="heading reveal">
+  <small>STYLE INSPIRATION</small>
+  <h2>Dress Code</h2>
+  <p>Hãy xuất hiện theo cách khiến bạn tự tin nhất.</p>
+ </div>
+
+ <div class="dress-panel reveal">
+  <div class="dress-text">
+   <h3>Into the Purple</h3>
+   <p>
+    Gợi ý phong cách thanh lịch, trẻ trung và có một chút huyền bí.<br><br>
+    Những gam màu tím, đen, trắng, bạc hoặc ánh kim
+    sẽ tạo nên tổng thể hài hòa với concept của buổi kỷ yếu.<br><br>
+    Không cần quá cầu kỳ, điều quan trọng nhất là bạn cảm thấy thoải mái.
+   </p>
+   <div class="palette">
+    <div class="swatch" style="background:#25003e"></div>
+    <div class="swatch" style="background:#64118e"></div>
+    <div class="swatch" style="background:#9b42dc"></div>
+    <div class="swatch" style="background:#d8a1ff"></div>
+    <div class="swatch" style="background:#f0e7fa"></div>
+   </div>
+  </div>
+  <div class="dress-visual glass-card"></div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="heading reveal">
+  <small>FRAGMENTS OF YOUTH</small>
+  <h2>Những Mảnh Ghép</h2>
+  <p>Mỗi người là một vì sao trong vũ trụ 12A4.</p>
+ </div>
+
+ <div class="memory-grid">
+  <div class="memory-box glass-card reveal"><h3>Friendship</h3><p>Những người bạn khiến ngày đến trường trở nên đặc biệt.</p></div>
+  <div class="memory-box glass-card reveal"><h3>Memories</h3><p>Những câu chuyện nhỏ nhưng chẳng thể nào quên.</p></div>
+  <div class="memory-box glass-card reveal"><h3>Youth</h3><p>Một khoảng thời gian chỉ đến một lần trong đời.</p></div>
+  <div class="memory-box glass-card reveal"><h3>Dreams</h3><p>Những ước mơ đang chờ chúng ta ở phía trước.</p></div>
+  <div class="memory-box glass-card reveal"><h3>Together</h3><p>Cùng nhau viết nên một chương thanh xuân.</p></div>
+  <div class="memory-box glass-card reveal"><h3>Forever</h3><p>Một ký ức đẹp sẽ luôn có chỗ trong trái tim.</p></div>
+ </div>
+</section>
+
+<section class="section message-section">
+ <div class="heading reveal">
+  <small>A MESSAGE TO REMEMBER</small>
+  <h2>Gửi Lại Thanh Xuân</h2>
+ </div>
+
+ <div class="message-card glass-card reveal">
+  <div class="quote">
+   "Có thể chúng ta sẽ không mãi đi chung một con đường,
+   nhưng sẽ luôn có một bầu trời ký ức mang tên 12A4."
+  </div>
+  <p>
+   Cảm ơn vì đã xuất hiện trong những năm tháng học trò.<br>
+   Cảm ơn vì đã cùng nhau tạo nên một vũ trụ thật đặc biệt.
+  </p>
+ </div>
+</section>
+
+<footer>
+ <h2>Lost in the Purple</h2>
+ <p>
+  20.12.2026 · 09:30 AM<br>
+  THPT CHƯƠNG MỸ A<br>
+  CLASS 12A4
+ </p>
+ <div class="footer-small">OUR YOUTH · OUR UNIVERSE · OUR MEMORIES</div>
+</footer>
 
 </div>
 
-
-<button class="music-button" id="musicButton" onclick="toggleMusic()">♫</button>
-<button class="top-button" id="topButton" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
+<button class="control" id="musicButton" onclick="toggleMusic()">♫</button>
+<button class="control" id="topButton" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
 
-/* TẠO SAO */
+/* SAO */
 
-const stars = document.getElementById("stars");
+const stars=document.getElementById("stars");
 
-for (let i = 0; i < 150; i++) {
-
-    const star = document.createElement("span");
-    star.className = "star";
-
-    star.style.left = Math.random() * 100 + "%";
-    star.style.top = Math.random() * 100 + "%";
-    star.style.animationDelay = Math.random() * 4 + "s";
-    star.style.animationDuration = (2 + Math.random() * 4) + "s";
-
-    const size = 1 + Math.random() * 2;
-    star.style.width = size + "px";
-    star.style.height = size + "px";
-
-    stars.appendChild(star);
+for(let i=0;i<170;i++){
+ const s=document.createElement("span");
+ s.className="star";
+ s.style.left=Math.random()*100+"%";
+ s.style.top=Math.random()*100+"%";
+ s.style.animationDelay=Math.random()*5+"s";
+ s.style.animationDuration=2+Math.random()*4+"s";
+ stars.appendChild(s);
 }
 
+/* HOA RƠI LIÊN TỤC */
 
-/* TẠO BONG BÓNG */
+function createPetals(){
+ const container=document.getElementById("petals");
 
-function createBubbles() {
+ function makePetal(){
+  const p=document.createElement("span");
+  p.className="falling-petal";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=7+Math.random()*8+"s";
+  p.style.setProperty("--drift",(Math.random()*180-90)+"px");
+  p.style.opacity=.4+Math.random()*.6;
+  p.style.transform="scale("+(0.5+Math.random()*.9)+")";
+  container.appendChild(p);
+  setTimeout(()=>p.remove(),16000);
+ }
 
-    const container = document.getElementById("bubbles");
-
-    for (let i = 0; i < 28; i++) {
-
-        const bubble = document.createElement("span");
-        bubble.className = "bubble";
-
-        const size = 12 + Math.random() * 42;
-
-        bubble.style.width = size + "px";
-        bubble.style.height = size + "px";
-        bubble.style.left = Math.random() * 100 + "%";
-        bubble.style.animationDuration = (10 + Math.random() * 15) + "s";
-        bubble.style.animationDelay = (Math.random() * 15) + "s";
-
-        container.appendChild(bubble);
-    }
+ for(let i=0;i<35;i++){
+  setTimeout(makePetal,i*180);
+ }
+ setInterval(makePetal,420);
 }
 
+/* BONG BÓNG */
 
-/* BỤI TIÊN LẤP LÁNH */
+function createBubbles(){
+ const box=document.getElementById("bubbles");
 
-function createSparkles() {
-
-    for (let i = 0; i < 25; i++) {
-
-        const sparkle = document.createElement("span");
-        sparkle.className = "sparkle";
-        sparkle.textContent = Math.random() > .5 ? "✦" : "·";
-
-        sparkle.style.left = Math.random() * 100 + "%";
-        sparkle.style.top = Math.random() * 100 + "%";
-        sparkle.style.fontSize = (9 + Math.random() * 15) + "px";
-        sparkle.style.animationDelay = Math.random() * 5 + "s";
-        sparkle.style.animationDuration = (2 + Math.random() * 4) + "s";
-
-        document.body.appendChild(sparkle);
-    }
+ for(let i=0;i<25;i++){
+  const b=document.createElement("span");
+  b.className="bubble";
+  const size=12+Math.random()*42;
+  b.style.width=size+"px";
+  b.style.height=size+"px";
+  b.style.left=Math.random()*100+"%";
+  b.style.animationDuration=10+Math.random()*15+"s";
+  b.style.animationDelay=Math.random()*15+"s";
+  box.appendChild(b);
+ }
 }
 
+/* BỤI SAO */
 
-/* MỞ WEBSITE */
+function createSparkles(){
+ const box=document.getElementById("sparkles");
 
-let opened = false;
-
-function openSite() {
-
-    if (opened) return;
-    opened = true;
-
-    const intro = document.getElementById("intro");
-    const website = document.getElementById("website");
-    const portrait = document.getElementById("portrait");
-    const music = document.getElementById("music");
-
-    intro.classList.add("hide");
-
-    setTimeout(() => {
-        website.classList.add("show");
-        portrait.classList.add("visible");
-
-        createBubbles();
-        createSparkles();
-        movePortrait();
-
-    }, 600);
-
-    music.volume = 0.35;
-
-    music.play().then(() => {
-        document.getElementById("musicButton").style.display = "block";
-    }).catch(() => {
-        document.getElementById("musicButton").style.display = "block";
-    });
-
+ for(let i=0;i<40;i++){
+  const s=document.createElement("span");
+  s.className="sparkle";
+  s.textContent=Math.random()>.5?"✦":"✧";
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*100+"%";
+  s.style.fontSize=8+Math.random()*17+"px";
+  s.style.animationDelay=Math.random()*5+"s";
+  s.style.animationDuration=2+Math.random()*4+"s";
+  box.appendChild(s);
+ }
 }
 
+/* PHÁO HOA */
 
-/* ẢNH CHÂN DUNG BAY QUANH MÀN HÌNH */
+function launchFirework(){
+ const box=document.getElementById("fireworks");
+ const x=Math.random()*window.innerWidth;
+ const y=window.innerHeight*(.12+Math.random()*.48);
 
-function movePortrait() {
+ const flash=document.createElement("span");
+ flash.className="firework-flash";
+ flash.style.left=x+"px";
+ flash.style.top=y+"px";
+ box.appendChild(flash);
+ setTimeout(()=>flash.remove(),800);
 
-    const portrait = document.getElementById("portrait");
+ const colors=["#ffffff","#f5c7ff","#d88aff","#a34cff","#ff9df4","#b9a0ff","#ffe4ff"];
+ const amount=55+Math.floor(Math.random()*55);
 
-    let angle = 0;
-    let lastTime = 0;
+ for(let i=0;i<amount;i++){
+  const p=document.createElement("span");
+  p.className="firework-particle";
 
-    function animate(time) {
+  const angle=Math.PI*2*i/amount;
+  const distance=65+Math.random()*155;
 
-        if (!lastTime) lastTime = time;
+  p.style.left=x+"px";
+  p.style.top=y+"px";
+  p.style.setProperty("--x",Math.cos(angle)*distance+"px");
+  p.style.setProperty("--y",Math.sin(angle)*distance+"px");
+  p.style.setProperty("--color",colors[Math.floor(Math.random()*colors.length)]);
 
-        const delta = Math.min((time - lastTime) / 1000, .05);
-        lastTime = time;
-
-        angle += delta * .24;
-
-        const w = window.innerWidth;
-        const h = window.innerHeight;
-
-        const radiusX = w * .39;
-        const radiusY = h * .34;
-
-        const x = w / 2 + Math.cos(angle) * radiusX;
-        const y = h / 2 + Math.sin(angle * 1.35) * radiusY;
-
-        const maxX = w - portrait.offsetWidth;
-        const maxY = h - portrait.offsetHeight;
-
-        portrait.style.left = Math.max(0, Math.min(maxX, x - portrait.offsetWidth / 2)) + "px";
-        portrait.style.top = Math.max(0, Math.min(maxY, y - portrait.offsetHeight / 2)) + "px";
-
-        requestAnimationFrame(animate);
-    }
-
-    requestAnimationFrame(animate);
+  box.appendChild(p);
+  setTimeout(()=>p.remove(),1600);
+ }
 }
 
+function createFireworks(){
+ // Bắn nhiều cụm ngay khi mở thiệp
+ for(let i=0;i<9;i++){
+  setTimeout(launchFirework,i*260);
+ }
 
-/* NHẠC */
-
-function toggleMusic() {
-
-    const music = document.getElementById("music");
-    const button = document.getElementById("musicButton");
-
-    if (music.paused) {
-        music.play().then(() => {
-            button.textContent = "♫";
-        }).catch(() => {});
-    } else {
-        music.pause();
-        button.textContent = "Ⅱ";
-    }
+ // Sau đó tiếp tục bắn pháo hoa
+ setInterval(()=>{
+  launchFirework();
+  if(Math.random()>.35){
+   setTimeout(launchFirework,250);
+  }
+  if(Math.random()>.65){
+   setTimeout(launchFirework,500);
+  }
+ },950);
 }
 
+/* MỞ PHONG BÌ */
+
+let opened=false;
+
+document.getElementById("openBtn").addEventListener("click",()=>{
+ if(opened)return;
+ opened=true;
+
+ const envelope=document.getElementById("envelope");
+ const screen=document.getElementById("openingScreen");
+ const website=document.getElementById("website");
+ const music=document.getElementById("music");
+
+ envelope.classList.add("open");
+
+ // Pháo hoa bắt đầu ngay khi mở phong bì
+ createFireworks();
+
+ setTimeout(()=>{
+  screen.classList.add("hide");
+  website.classList.add("show");
+
+  createPetals();
+  createBubbles();
+  createSparkles();
+
+  document.getElementById("portrait").classList.add("visible");
+  movePortrait();
+
+  document.getElementById("musicButton").style.display="block";
+  document.getElementById("topButton").style.display="block";
+
+  music.volume=.35;
+  music.play().catch(()=>{});
+ },1100);
+});
+
+/* ẢNH BAY VÒNG QUANH */
+
+function movePortrait(){
+ const img=document.getElementById("portrait");
+ let angle=0;
+ let last=0;
+
+ function animate(time){
+  if(!last)last=time;
+  const delta=Math.min((time-last)/1000,.05);
+  last=time;
+
+  angle+=delta*.22;
+
+  const w=window.innerWidth;
+  const h=window.innerHeight;
+  const rx=w*.39;
+  const ry=h*.34;
+
+  const x=w/2+Math.cos(angle)*rx;
+  const y=h/2+Math.sin(angle*1.35)*ry;
+
+  img.style.left=Math.max(0,Math.min(w-img.offsetWidth,x-img.offsetWidth/2))+"px";
+  img.style.top=Math.max(0,Math.min(h-img.offsetHeight,y-img.offsetHeight/2))+"px";
+
+  requestAnimationFrame(animate);
+ }
+
+ requestAnimationFrame(animate);
+}
+
+/* ĐỒNG HỒ CHẠY THEO GIỜ THẬT */
+
+function updateClock(){
+ const now=new Date();
+ const sec=now.getSeconds();
+ const min=now.getMinutes();
+ const hour=now.getHours()%12;
+
+ document.getElementById("secondHand").style.transform=
+  `translateX(-50%) rotate(${sec*6}deg)`;
+
+ document.getElementById("minuteHand").style.transform=
+  `translateX(-50%) rotate(${min*6+sec*.1}deg)`;
+
+ document.getElementById("hourHand").style.transform=
+  `translateX(-50%) rotate(${hour*30+min*.5}deg)`;
+}
+
+updateClock();
+setInterval(updateClock,1000);
 
 /* ĐẾM NGƯỢC */
 
-const eventDate = new Date("2026-12-20T09:30:00+07:00").getTime();
+const eventDate=new Date("2026-12-20T09:30:00+07:00").getTime();
 
-function updateCountdown() {
+function updateCountdown(){
+ let d=eventDate-Date.now();
+ if(d<0)d=0;
 
-    let distance = eventDate - Date.now();
+ const days=Math.floor(d/86400000);
+ const hours=Math.floor(d%86400000/3600000);
+ const mins=Math.floor(d%3600000/60000);
+ const secs=Math.floor(d%60000/1000);
 
-    if (distance < 0) distance = 0;
-
-    const days = Math.floor(distance / 86400000);
-    const hours = Math.floor((distance % 86400000) / 3600000);
-    const minutes = Math.floor((distance % 3600000) / 60000);
-    const seconds = Math.floor((distance % 60000) / 1000);
-
-    document.getElementById("days").textContent = String(days).padStart(2, "0");
-    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+ document.getElementById("days").textContent=String(days).padStart(2,"0");
+ document.getElementById("hours").textContent=String(hours).padStart(2,"0");
+ document.getElementById("minutes").textContent=String(mins).padStart(2,"0");
+ document.getElementById("seconds").textContent=String(secs).padStart(2,"0");
 }
 
 updateCountdown();
-setInterval(updateCountdown, 1000);
+setInterval(updateCountdown,1000);
 
+/* HIỆN DẦN KHI CUỘN */
 
-/* HIỆN NỘI DUNG KHI CUỘN */
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting){
+   entry.target.classList.add("visible");
+  }
+ });
+},{threshold:.12});
 
-const observer = new IntersectionObserver((entries) => {
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
-    entries.forEach(entry => {
+/* NHẠC */
 
-        if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-        }
+function toggleMusic(){
+ const music=document.getElementById("music");
+ const btn=document.getElementById("musicButton");
 
-    });
+ if(music.paused){
+  music.play().then(()=>btn.textContent="♫").catch(()=>{});
+ }else{
+  music.pause();
+  btn.textContent="Ⅱ";
+ }
+}
 
-}, {
-    threshold: .12
-});
+/* NÚT LÊN ĐẦU */
 
-document.querySelectorAll(".reveal").forEach(element => {
-    observer.observe(element);
-});
-
-
-/* NÚT TRỞ LÊN */
-
-window.addEventListener("scroll", () => {
-
-    const button = document.getElementById("topButton");
-
-    button.style.display = window.scrollY > 500 ? "block" : "none";
-
+window.addEventListener("scroll",()=>{
+ document.getElementById("topButton").style.display=
+  window.scrollY>400?"block":"none";
 });
 
 </script>
